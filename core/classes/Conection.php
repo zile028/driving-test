@@ -3,15 +3,28 @@
 class Connection
 {
 
-    public static function connect($database)
+    public $db;
+    public function __construct($database)
     {
-        try {
-            return new PDO("mysql:host={$database['host']};dbname={$database['dbname']}", $database["user"], $database["password"]);
 
+        try {
+            $this->db = new PDO("mysql:host={$database['host']};dbname={$database['dbname']}", $database["user"], $database["password"]);
         } catch (PDOException $err) {
             //throw $th;
             die("Doslo je do greske. Nije moguce konektovati se sa bazom - " . $err->getMessage());
         }
+
+
+    }
+
+    public static function connect($database)
+    {
+        // try {
+        //     return new PDO("mysql:host={$database['host']};dbname={$database['dbname']}", $database["user"], $database["password"]);
+        // } catch (PDOException $err) {
+        //     //throw $th;
+        //     die("Doslo je do greske. Nije moguce konektovati se sa bazom - " . $err->getMessage());
+        // }
 
         // mysqli_report(MYSQLI_REPORT_STRICT);
 

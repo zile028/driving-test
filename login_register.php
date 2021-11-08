@@ -1,41 +1,43 @@
 <?php
 require "core/init.php";
 
+if ($User->isLoged()) {header("location: index.php");}
+
 $error = [];
+$arg   = [];
+
 if (isset($_POST["reg_btn"])) {
 
-    $arg = [];
-
     if ($data = testInput($_POST["first_name"])) {
-        $first_name = $data;
+        $arg["first_name"] = $data;
     } else {
         $first_name_err = "Ime je obavezno!";
         array_push($error, $first_name_err);
     }
 
     if ($data = testInput($_POST["last_name"])) {
-        $last_name = $data;
+        $arg["last_name"] = $data;
     } else {
         $last_name_err = "Prezime je obavezno!";
         array_push($error, $last_name_err);
     }
 
     if ($data = testInput($_POST["date_birth"])) {
-        $date_birth = $data;
+        $arg["date_birth"] = $data;
     } else {
         $date_birth_err = "Datum rodjenja je obavezan!";
         array_push($error, $date_birth_err);
     }
 
     if ($data = testInput($_POST["email"])) {
-        $email = $data;
+        $arg["email"] = $data;
     } else {
         $email_err = "Email je obavezan!";
         array_push($error, $email_err);
     }
 
     if ($data = testInput($_POST["password"])) {
-        $password = $data;
+        $arg["password"] = password_hash($data, PASSWORD_DEFAULT);
     } else {
         $password_err = "Lozinka je obavezna!";
         array_push($error, $password_err);
@@ -55,19 +57,18 @@ if (isset($_POST["reg_btn"])) {
             break;
     }
 
-
-    if (count($error)==0) {
-        $status=$User->register([
-            ":first_name" => $first_name,
-            ":last_name"  => $last_name,
-            ":date_birth" => $date_birth,
-            ":email"      => $email,
-            ":password"   => password_hash($password, PASSWORD_DEFAULT),
-        ]
-        );
-        dd("radi");
+    if (count($error) == 0) {
+        $status = $User->register($arg);
+        if ($User->register_status) {
+            unset($arg);
+            unset($error);
+        }
     }
 
+} elseif (isset($_POST["log_btn"])) {
+    if ($User->login($_POST["email"], $_POST["password"])) {
+        header("location: user.php");
+    }
 }
 
 require ROOT . "/view/login_register.view.php";
