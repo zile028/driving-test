@@ -1,0 +1,29 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.navbar-brand img {
+  height: 50px;
+}
+
+.profil {
+}
+.profil .profil-img {
+  height: 100px;
+  width: 100px;
+
+  outline: none;
+  overflow: hidden;
+}
+.profil .profil-img img {
+  height: 100%;
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 1px solid #000;
+}
+.profil #file-img {
+  display: none;
+}
