@@ -41,24 +41,31 @@ if (isset($_POST["reg_btn"])) {
         array_push($error, $password_err);
     }
 
-    if (testInput($_POST["repeat_password"]) != testInput($_POST["password"])) {
-        $repeat_password_err = "Lozinke se ne poklapaju!";
-        array_push($error, $repeat_password_err);
-    } elseif (testInput($_POST["repeat_password"])) {
-        $repeat_password_err = "Potrebno je ponovo uneti lozinku!";
-        array_push($error, $repeat_password_err);
+    switch (false) {
+        case testInput($_POST["repeat_password"]):
+            $repeat_password_err = "Ponovljena lozinka je obavezna!";
+            array_push($error, $repeat_password_err);
+            break;
+        case testInput($_POST["repeat_password"]) == testInput($_POST["password"]):
+            $repeat_password_err = "Lozinke se ne poklapaju!";
+            array_push($error, $repeat_password_err);
+            break;
+        default:
+            # code...
+            break;
     }
 
-    if (count($error)) {
-// register
-        $User->register([
-             $first_name,
-             $last_name,
-             $date_birth,
-             $email,
-             password_hash($password,PASSWORD_DEFAULT),
+
+    if (count($error)==0) {
+        $status=$User->register([
+            ":first_name" => $first_name,
+            ":last_name"  => $last_name,
+            ":date_birth" => $date_birth,
+            ":email"      => $email,
+            ":password"   => password_hash($password, PASSWORD_DEFAULT),
         ]
         );
+        dd("radi");
     }
 
 }

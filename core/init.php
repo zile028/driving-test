@@ -3,7 +3,8 @@ require_once "config.php";
 require_once "function.php";
 require_once "classes/Conection.php";
 
-$db = Connection::connect($database);
+// $connetion = new Connection($database);
+$db=Connection::connect($database);
 
 require_once "classes/Conection.php";
 require_once "classes/QueryBuilder.php";

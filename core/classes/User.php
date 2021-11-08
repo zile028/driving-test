@@ -1,12 +1,8 @@
 <?php
-class User extends Connection
+class User extends QueryBuilder
 {
-    public $db;
 
-    public function __construct($db)
-    {
-        $this->db = $db;
-    }
+
 
     public function validateData($user_data){
 
@@ -19,12 +15,12 @@ class User extends Connection
 
     public function register($user_data)
     {
-        $sql = "INSERT INTO users (first_name, last_name, date_birth, email, password) VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO users (first_name, last_name, date_birth, email, password) VALUES (:first_name, :last_name, :date_birth, :email, :password)";
 
         $query = $this->db->prepare($sql);
-        $query->bind_param("sssss",...$user_data);
-        $query->execute();
-
+        
+        $query->execute($user_data);
+        dd($this->db);
 
     }
 }

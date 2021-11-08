@@ -1,9 +1,11 @@
 <?php
 class QueryBuilder extends Connection
 {
-    public $db;
+
+    protected $_db;
     public function __construct($db)
     {
         $this->db = $db;
     }
+
 }
