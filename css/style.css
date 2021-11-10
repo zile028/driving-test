@@ -7,8 +7,6 @@
   height: 50px;
 }
 
-.profil {
-}
 .profil .profil-img {
   height: 100px;
   width: 100px;
@@ -26,4 +24,13 @@
 }
 .profil #file-img {
   display: none;
+}
+
+ul li span {
+  font-weight: 600;
+  margin-right: 10px;
+}
+ul li span + * {
+  margin: 0;
+  float: right;
 }

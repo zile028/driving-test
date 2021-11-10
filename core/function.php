@@ -24,3 +24,11 @@ function errMesg($arg){
         echo "<p>" . $arg . "</p>";
     }
 }
+
+function displayDate($arg){
+    return date("d.m.Y",strtotime($arg));
+}
+
+function displayDateTime($arg){
+    return date("d.m.Y H:i",strtotime($arg));
+}

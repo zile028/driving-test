@@ -13,11 +13,17 @@
                 <a class="nav-link" href="#">Features</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Pricing</a>
+                <a class="nav-link" href="user.php">Moj nalog</a>
             </li>
+            <?php if($User->isLoged()): ?>
+            <li class="nav-item">
+                <a class="nav-link" href="logout.php">Logout</a>
+            </li>
+            <?php else: ?>
             <li class="nav-item">
                 <a class="nav-link" href="login_register.php">Login / Register</a>
             </li>
+            <?php endif; ?>
         </ul>
     </div>
 </nav>

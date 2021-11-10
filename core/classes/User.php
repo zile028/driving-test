@@ -5,13 +5,6 @@ class User extends QueryBuilder
     public $register_msg    = null;
     public $login_msg       = null;
 
-    public function validateData($user_data)
-    {
-        foreach ($user_data as $key => $value) {
-            echo $key . " - - " . $value . " | " . empty($value) . "<br>";
-        }
-    }
-
     public function register($user_data)
     {
         $check_exist = $this->selectSingle("users", ["email" => $user_data["email"]]);
@@ -41,6 +34,9 @@ class User extends QueryBuilder
             if (password_verify($password, $user_password)) {
                 $_SESSION["id"]  = $get_user['id'];
                 $this->login_msg = "Uspesno ste se logovali!";
+                $sql = "UPDATE users SET last_login = NOW() WHERE id = :id";
+                $query = $this->db->prepare($sql);
+                $query->execute(["id"=>$get_user['id']]);
                 return true;
             } else {
                 $this->login_msg = "Email i password se ne podudaraju!";
