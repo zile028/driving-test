@@ -3,8 +3,8 @@ function dd($arg)
 {
     echo "<pre>";
     var_dump($arg);
-    die();
     echo "</pre>";
+    die();
 }
 
 function testInput($data)

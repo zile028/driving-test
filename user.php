@@ -7,4 +7,14 @@ $user_info = $User->selectSingleJoin(
     ["id" => $_SESSION["id"]]
 );
 
+
+if(isset($_POST["save_img"])){
+$Upload->files=$_FILES["profil_image"];
+
+$test = $Upload->fileInfo();
+
+dd($test);
+}
+
+
 require_once ROOT . "/view/user.view.php";

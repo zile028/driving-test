@@ -10,12 +10,20 @@ require ROOT . "/include/main_nav.php";
 <section class="container">
     <article class="row">
         <div class="col-md-3 offset-md-1">
+
             <?php if($user_info->profil_img): ?>
-            <img src="upload/<?php echo $user_info->profil_img; ?>" class="img-thumbnail rounded-circle" alt="">
+            <img id="profil" src="upload/<?php echo $user_info->profil_img; ?>" class="img-thumbnail rounded-circle"
+                alt="">
             <?php else: ?>
-            <img src="asset/logo.png" class="img-thumbnail" alt="">
+            <img id="profil" src="asset/logo.png" class="img-thumbnail" alt="">
             <?php endif; ?>
 
+            <form class="border text-center rounded-lg" action="user.php" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="id" value="<?php echo $user_info->id;?>">
+                <label class="btn btn-info my-2" for="file-img">Одабери слику</label>
+                <input id="file-img" type="file" name="profil_image[]" multiple>
+                <button class="btn btn-success my-2" name="save_img">Сачувај</button>
+            </form>
         </div>
         <div class="col-md-6">
             <ul class="list-group list-group-flush">

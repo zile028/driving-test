@@ -34,3 +34,11 @@ ul li span + * {
   margin: 0;
   float: right;
 }
+
+input[type="file"] {
+  display: none;
+}
+.img-thumbnail {
+  height: 250px;
+  width: 250px;
+}

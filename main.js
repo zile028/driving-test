@@ -6,6 +6,7 @@ class PreviewImg {
       this.fileImg.addEventListener("change", this.showPicture);
     }
   }
+
   showPicture() {
     let file = this.files[0];
     let reader = new FileReader();
