@@ -14,7 +14,7 @@ require_once "classes/Upload.php";
 $Conn         = new Connection($database);
 $QueryBuilder = new QueryBuilder($database);
 $User         = new User($database);
-$Upload       = new Upload();
+// $Upload       = new Upload();
 
 if (session_status() == PHP_SESSION_NONE) {
     session_start();

@@ -1,7 +1,7 @@
 <?php
 require "core/init.php";
 
-if ($User->isLoged()) {header("location: index.php");}
+if (!$User->isLoged()) {header("location: index.php");}
 
 $error = [];
 $arg   = [];

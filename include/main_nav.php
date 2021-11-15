@@ -10,18 +10,19 @@
                 <a class="nav-link" href="<?php echo ROOT_DIR; ?>">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Features</a>
+                <a class="nav-link" href="<?php echo ROOT_DIR; ?>/testovi.php">Testovi</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="user.php">Moj nalog</a>
-            </li>
+
             <?php if($User->isLoged()): ?>
             <li class="nav-item">
-                <a class="nav-link" href="logout.php">Logout</a>
+                <a class="nav-link" href="login_register.php">Login / Register</a>
             </li>
             <?php else: ?>
             <li class="nav-item">
-                <a class="nav-link" href="login_register.php">Login / Register</a>
+                <a class="nav-link" href="user.php">Moj nalog</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="logout.php">Logout</a>
             </li>
             <?php endif; ?>
         </ul>

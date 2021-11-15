@@ -32,3 +32,11 @@ function displayDate($arg){
 function displayDateTime($arg){
     return date("d.m.Y H:i",strtotime($arg));
 }
+
+function redirect ($location, $query_string=null){
+    if(is_null($query_string)){
+        header("location: " . $location);
+    }else{
+        header("location: " . $location . "?" . $query_string);
+    }
+}

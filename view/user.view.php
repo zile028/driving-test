@@ -15,14 +15,14 @@ require ROOT . "/include/main_nav.php";
             <img id="profil" src="upload/<?php echo $user_info->profil_img; ?>" class="img-thumbnail rounded-circle"
                 alt="">
             <?php else: ?>
-            <img id="profil" src="asset/logo.png" class="img-thumbnail" alt="">
+            <img id="profil" src="asset/logo.png" class="img-thumbnail rounded-circle" alt="">
             <?php endif; ?>
 
             <form class="border text-center rounded-lg" action="user.php" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="id" value="<?php echo $user_info->id;?>">
                 <label class="btn btn-info my-2" for="file-img">Одабери слику</label>
-                <input id="file-img" type="file" name="profil_image[]" multiple>
-                <button class="btn btn-success my-2" name="save_img">Сачувај</button>
+                <input id="file-img" type="file" name="profil_image">
+                <button type="submit" class="btn btn-success my-2" name="save_img">Сачувај</button>
             </form>
         </div>
         <div class="col-md-6">

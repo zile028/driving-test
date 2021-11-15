@@ -9,7 +9,7 @@ class User extends QueryBuilder
     {
         $check_exist = $this->selectSingle("users", ["email" => $user_data["email"]]);
 
-        if (count($check_exist) == 0) {
+        if ($check_exist==false) {
             $sql   = "INSERT INTO users (first_name, last_name, date_birth, email, password) VALUES (:first_name, :last_name, :date_birth, :email, :password)";
             $query = $this->db->prepare($sql);
             $query->execute($user_data);
@@ -48,8 +48,19 @@ class User extends QueryBuilder
     public function isLoged()
     {
         if (isset($_SESSION["id"])) {
-            return true;
+            return false;
         } else {
+            return true;
+        }
+    }
+
+    function addProfilImage($store_name, $user_id){
+        $sql = "UPDATE users SET profil_img = :store_name WHERE id = :user_id ";
+        $qry= $this->db->prepare($sql);
+        $qry->execute(["store_name"=>$store_name, "user_id" => $user_id]);
+        if ($qry){
+            return true;
+        }else{
             return false;
         }
     }

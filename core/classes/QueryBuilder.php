@@ -31,12 +31,11 @@ class QueryBuilder extends Connection
     public function selectSingleJoin(array $table, String $join_on, $criteria)
     {
         $key = key($criteria);
-        $sql = "SELECT {$table[0]}.*, {$table[1]}.* FROM {$table[0]} JOIN {$table[1]} ON {$table[0]}.{$join_on} = {$table[1]}.id WHERE {$table[0]}.{$key} = :{$key}";
-
+        $sql = "SELECT {$table[0]}.*, {$table[0]}.id {$table[0]}_id, {$table[1]}.* FROM {$table[0]} JOIN {$table[1]} ON {$table[0]}.{$join_on} = {$table[1]}.id WHERE {$table[0]}.{$key} = :{$key}";
         $qry = $this->db->prepare($sql);
         $qry->execute($criteria);
         $result = $qry->fetch(PDO::FETCH_OBJ);
-        // dd($result);
+        
         return $result;
     }
 

@@ -25,12 +25,6 @@ require ROOT . "/include/main_nav.php";
         <div class="col-md-6">
             <form action="login_register.php" method="POST">
 
-                <div class="profil col-12 row align-items-center justify-content-strat text-center mb-2">
-                    <label class="profil-img mr-3" for="file-img"><img id="profil" src="" alt=""></label>
-                    <label class="btn btn-primary" for="file-img">Choose image</label>
-                    <input id="file-img" type="file" name="profil_img">
-                </div>
-
                 <?php if(isset($first_name_error)): ?>
                 <p class="text-danger"><?php echo $first_name_error ?></p>
                 <?php endif; ?>
