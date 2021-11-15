@@ -24,7 +24,13 @@ require ROOT . "/include/main_nav.php";
     <?php endif; ?>
 
     <article class="row mt-4">
-
+        <?php foreach($questions as $q): ?>
+        <div class="card">
+            <div class="card-header">
+                <?php echo $q["question"]; ?>
+            </div>
+        </div>
+        <?php endforeach; ?>
     </article>
 </section>
 <?php

@@ -1,13 +1,22 @@
 <?php
 class QueryBuilder extends Connection
 {
-    public function selectAll(string $table)
+    public function selectAll(string $table, array $criteria = null)
     {
         $sql = "SELECT * FROM {$table}";
+        if(count($criteria)>0){
+            $key = key($criteria);
+            $sql .= " WHERE {$key} = :{$key}";
+        }
         $qry = $this->db->prepare($sql);
-        $qry->execute();
+        if(count($criteria)>0){
+            $qry->execute($criteria);
+        }else{
+            $qry->execute();
+        }
         $result = $qry->fetchAll(PDO::FETCH_ASSOC);
         return $result;
+
     }
 
     public function selectSingle(string $table, $criteria)
@@ -22,7 +31,11 @@ class QueryBuilder extends Connection
 
     public function selectAllJoin(array $table, String $join_on, String $order = null)
     {
-        $sql = "SELECT {$table[0]}.*,{$table[0]}.id {$table[0]}_id, {$table[1]}.* FROM {$table[0]} JOIN {$table[1]} ON {$table[0]}.{$join_on} = {$table[1]}.id";
+        $sql = "SELECT
+                {$table[0]}.*,{$table[0]}.id {$table[0]}_id, {$table[1]}.*
+                FROM {$table[0]}
+                JOIN {$table[1]}
+                ON {$table[0]}.{$join_on} = {$table[1]}.id";
         if (isset($order)) {
             $sql .= " ORDER BY {$order}";
         }

@@ -8,9 +8,14 @@ $user_info = $User->selectSingleJoin(
     ["id" => $_SESSION["id"]]
 );
 
+
+
 if (isset($_GET["id"])) {
+    $questions = $Tests->selectAll("question",["test_id" => $_GET["id"]]);
     $tests = $Tests->selectSingleJoin(["tests", "test_category"], "category_id", ["id" => $_GET["id"]]);
 }
+
+
 
 if (isset($_POST["add_question"])) {
     $Upload                  = new Upload();
