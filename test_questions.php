@@ -12,10 +12,15 @@ if (isset($_GET["id"])){
 
 }
 
-if(isset($_POST["add_test"])){
+if(isset($_POST["add_question"])){
+
+
+
+    
     $data = [
-        "test_name" => $_POST["test_name"],
-        "category_id" => $_POST["category"]
+        "question" => $_POST["question"],
+        "atach" => "",//dodati naziv priloga
+        "test_id" => $_POST["id"]
     ];
 
     $Tests->insertInto("tests",$data);
