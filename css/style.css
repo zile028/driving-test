@@ -3,10 +3,19 @@
   padding: 0;
   box-sizing: border-box;
 }
+.testovi h6 {
+  text-transform: uppercase;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+}
+.testovi i {
+  font-size: 2rem;
+  margin-bottom: 5px;
+}
 .navbar-brand img {
   height: 50px;
 }
-
 .profil .profil-img {
   height: 100px;
   width: 100px;
@@ -38,6 +47,13 @@ ul li span + * {
 input[type="file"] {
   display: none;
 }
+
+textarea {
+  resize: none;
+  overflow-y: auto;
+  height: 200px !important;
+}
+
 .img-thumbnail {
   height: 250px;
   width: 250px;

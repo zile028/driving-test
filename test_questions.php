@@ -7,11 +7,10 @@ $user_info = $User->selectSingleJoin(
     "role_id",
     ["id" => $_SESSION["id"]]
 );
+if (isset($_GET["id"])){
+    $tests = $Tests->selectSingleJoin(["tests", "test_category"],"category_id",["id" => $_GET["id"]]);
 
-$tests = $Tests->selectAllJoin(["tests", "test_category"],"category_id", "category_id ASC, test_name ASC");
-
-$category = $QueryBuilder->selectAll("test_category");
-
+}
 
 if(isset($_POST["add_test"])){
     $data = [
@@ -23,4 +22,4 @@ if(isset($_POST["add_test"])){
     redirect("testovi.php");
 }
 
-require_once ROOT . "/view/testovi.view.php";
+require_once ROOT . "/view/test_questions.view.php";

@@ -20,9 +20,12 @@ class QueryBuilder extends Connection
         return $result;
     }
 
-    public function selectAllJoin(array $table, String $join_on)
+    public function selectAllJoin(array $table, String $join_on, String $order = null)
     {
-        $sql = "SELECT {$table[0]}.*, {$table[1]}.* FROM {$table[0]} JOIN {$table[1]} ON {$table[0]}.{$join_on} = {$table[1]}.id";
+        $sql = "SELECT {$table[0]}.*,{$table[0]}.id {$table[0]}_id, {$table[1]}.* FROM {$table[0]} JOIN {$table[1]} ON {$table[0]}.{$join_on} = {$table[1]}.id";
+        if (isset($order)) {
+            $sql .= " ORDER BY {$order}";
+        }
         $qry = $this->db->prepare($sql);
         $qry->execute();
         return $qry->fetchAll(PDO::FETCH_OBJ);
@@ -31,12 +34,33 @@ class QueryBuilder extends Connection
     public function selectSingleJoin(array $table, String $join_on, $criteria)
     {
         $key = key($criteria);
-        $sql = "SELECT {$table[0]}.*, {$table[0]}.id {$table[0]}_id, {$table[1]}.* FROM {$table[0]} JOIN {$table[1]} ON {$table[0]}.{$join_on} = {$table[1]}.id WHERE {$table[0]}.{$key} = :{$key}";
+        $sql = "SELECT
+                {$table[0]}.*, {$table[0]}.id {$table[0]}_id, {$table[1]}.*
+                FROM {$table[0]}
+                JOIN {$table[1]}
+                ON {$table[0]}.{$join_on} = {$table[1]}.id
+                WHERE {$table[0]}.{$key} = :{$key}";
+
         $qry = $this->db->prepare($sql);
         $qry->execute($criteria);
         $result = $qry->fetch(PDO::FETCH_OBJ);
-        
+
         return $result;
+    }
+
+    public function insertInto($table, $data)
+    {
+        $column = [];
+        $value  = [];
+        foreach ($data as $key => $val) {
+            array_push($column, $key);
+            array_push($value, ":" . $key);
+        };
+        $col_name          = implode(", ", $column);
+        $value_placeholder = implode(", ", $value);
+        $sql               = "INSERT INTO {$table} ({$col_name}) VALUES ({$value_placeholder})";
+        $qry               = $this->db->prepare($sql);
+        $qry->execute($data);
     }
 
 }
