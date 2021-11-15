@@ -12,8 +12,8 @@ require ROOT . "/include/main_nav.php";
     <?php if($user_info->role="admin"): ?>
     <!-- form for add test  -->
     <article class="row">
-        <form class="col-md-6 offset-md-3 row justify-content-between border rounded-lg p-2"
-            action="test_questions.php.php" method="post" enctype="multipart/form-data">
+        <form class="col-md-6 offset-md-3 row justify-content-between border rounded-lg p-2" action="test_questions.php"
+            method="post" enctype="multipart/form-data">
             <input type="hidden" name="id" value="<?php echo $_GET["id"]; ?>">
             <textarea class="form-control col-12 mb-2" type="text" name="question" placeholder="Pitanje?"></textarea>
             <label class="btn btn-info mb-0" for="atach">Dodja sliku</label>

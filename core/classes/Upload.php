@@ -8,20 +8,21 @@ class Upload
 
     protected $_file_info = [];
 
-    protected function unitSign($unit){
+    protected function _unitSign($unit)
+    {
         switch ($unit) {
             case self::KB:
                 return "KB";
-            break;
+                break;
             case self::MB:
                 return "MB";
-            break;
+                break;
             case self::GB:
                 return "GB";
-            break;
+                break;
             case self::TB:
                 return "TB";
-            break;
+                break;
         }
     }
 
@@ -43,7 +44,7 @@ class Upload
             }
         } else {
             // for single input
-            array_push($this->_file_info, [
+            $this->_file_info = [
                 "name"       => $files['name'],
                 "temp_name"  => $files['tmp_name'],
                 "size"       => $files['size'],
@@ -51,7 +52,7 @@ class Upload
                 "doc_ext"    => pathinfo(strtolower($files['name']), PATHINFO_EXTENSION),
                 // "input_name" => isset($_POST['file_name']) ? $_POST['file_name'] : "",
                  "store_name" => rand(100, 999) . time() . "." . pathinfo(strtolower($files['name']), PATHINFO_EXTENSION),
-            ]);
+            ];
         }
 
         return $this->_file_info;
@@ -79,7 +80,7 @@ class Upload
         $file_err = [];
 
         if ($this->valid_size * $this->unit < $file['size']) {
-            $file_err["err_size"] = "File to large, alowed size is: " . $this->valid_size . $this->unitSign($this->unit);
+            $file_err["err_size"] = "File to large, alowed size is: " . $this->valid_size . $this->_unitSign($this->unit);
         }
         if (!in_array($file['doc_ext'], $this->valid_extension)) {
             $file_err["err_ext"] = "Your file format not alowed, alow format is: " . implode(",", $this->valid_extension);
@@ -101,14 +102,14 @@ class Upload
      * Function for checking file
      * @param $files is file data
      * @param string $destination path where to store file
-     * @return mixed if success return string of stored file name or false 
+     * @return mixed if success return string of stored file name or false
      */
 
     public function uploads($file, $destination)
     {
-        if(move_uploaded_file($file["temp_name"],$destination . "/" . $file["store_name"])){
+        if (move_uploaded_file($file["temp_name"], $destination . "/" . $file["store_name"])) {
             return $file["store_name"];
-        }else{
+        } else {
             return false;
         };
     }
