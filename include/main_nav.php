@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="<?php echo ROOT_DIR; ?>"><img class="img-fluid" src="asset/logo-sm.png" alt=""></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -17,7 +17,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="login_register.php">Login / Register</a>
             </li>
+
             <?php else: ?>
+
             <li class="nav-item">
                 <a class="nav-link" href="user.php">Moj nalog</a>
             </li>
@@ -26,5 +28,11 @@
             </li>
             <?php endif; ?>
         </ul>
+
+        <?php if(!$User->isLoged()): ?>
+        <div class="loged-profil">
+            <img src="<?php echo ROOT_DIR . TARGET_DIR . ($user_info->profil_img ?:"../asset/logo-sm.png"); ?>" alt="">
+        </div>
+        <?php endif; ?>
     </div>
 </nav>

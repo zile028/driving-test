@@ -31,8 +31,11 @@ require ROOT . "/include/main_nav.php";
     <article class="row no-gutters mt-4">
         <ul class="col-md-8 offset-md-2 list-group">
             <?php foreach($solution as $sol): ?>
-            <li class="list-group-item <?php echo ($sol["corect"]) ? "text-success" : "" ?>">
-                <?php echo $sol["solution"]; ?></li>
+            <li class="list-group-item <?php echo ($sol["corect"]) ? "text-success" : "" ?> d-flex align-items-center">
+                <p class="flex-grow-1 m-0"><?php echo $sol["solution"]; ?></p>
+                <a class="btn-sm btn-danger bg-danger" href="delete_solution.php?id=<?php echo $sol["id"]; ?>"><i
+                        class="fas fa-trash"></i></a>
+            </li>
             <?php endforeach; ?>
         </ul>
         <div class="col-md-8 offset-md-2 mt-3 text-center">

@@ -12,25 +12,26 @@ class Tests extends QueryBuilder
         dd($data);
     }
 
-    public function getQuestions()
+    public function getQuestions($data)
     {
 
         $sql = "SELECT
-                q.id,
-                q.question,
-                q.atach,
-                q.test_id
-                FROM question q";
+                id,
+                question,
+                atach,
+                test_id
+                FROM question
+                WHERE test_id = :id";
         $qry = $this->db->prepare($sql);
-        $qry->execute();
+        $qry->execute($data);
 
         $question = $qry->fetchAll(PDO::FETCH_ASSOC);
 
         $sql = "SELECT
-                s.question_id,
-                s.id,
-                s.solution,
-                s.corect
+                question_id,
+                id,
+                solution,
+                corect
                 FROM solution s
                 ";
         $qry = $this->db->prepare($sql);
