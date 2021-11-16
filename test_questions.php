@@ -11,9 +11,11 @@ $user_info = $User->selectSingleJoin(
 
 
 if (isset($_GET["id"])) {
-    $questions = $Tests->selectAll("question",["test_id" => $_GET["id"]]);
+    $questions = $Tests->getQuestions();
     $tests = $Tests->selectSingleJoin(["tests", "test_category"], "category_id", ["id" => $_GET["id"]]);
 }
+
+// dd($questions);
 
 
 

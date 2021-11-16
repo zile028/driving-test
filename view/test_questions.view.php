@@ -24,13 +24,24 @@ require ROOT . "/include/main_nav.php";
     <?php endif; ?>
 
     <article class="row no-gutters mt-4">
-        <?php foreach($questions as $q): ?>
+        <?php foreach($questions as $val): ?>
+        <?php $q=$val["question"]; ?>
+        <?php $s=$val["solution"]; ?>
+
         <div class="card col-12  mb-3">
             <div class="card-header">
                 <h4><?php echo $q["question"]; ?></h4>
             </div>
             <div class="card-body row no-gutters">
-                <div class="option col-md-8"></div>
+                <div class="option col-md-8">
+                    <?php if(count($s)>0): ?>
+                    <ul class="list-group mr-md-4">
+                        <?php foreach($s as $sol): ?>
+                        <li class="list-group-item"><?php echo $sol["solution"]; ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                    <?php endif; ?>
+                </div>
                 <div class="atach-img col-md-4">
                     <img src="<?php echo ROOT_DIR . "/upload/" . $q["atach"] ; ?>" alt="">
                 </div>

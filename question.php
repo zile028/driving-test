@@ -13,7 +13,6 @@ if ("admin" != $user_info->role) {redirect("testovi.php");}
 if (isset($_GET["id"])) {
     $question = $Tests->selectSingle("question", ["id" => $_GET["id"]]);
     $solution = $Tests->selectAll("solution", ["question_id" => $_GET["id"]]);
-    // $tests = $Tests->selectSingleJoin(["tests", "test_category"], "category_id", ["id" => $_GET["id"]]);
 }
 
 if (isset($_POST["add_option"])) {

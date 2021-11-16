@@ -2,8 +2,8 @@
 -- version 4.9.5
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:8888
--- Generation Time: Nov 16, 2021 at 06:34 AM
+-- Host: localhost:3306
+-- Generation Time: Nov 16, 2021 at 01:26 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.4.1
 
@@ -47,7 +47,9 @@ INSERT INTO `question` (`id`, `question`, `atach`, `test_id`) VALUES
 (5, 'Policijski službenik propisan znak kojim se naređuje ubrzanje kretanja:', NULL, 5),
 (6, 'Znak koji daje policijski službenik prikazan na slici, kada se nalazi na kolovozu, označava:', '7581636998566.jpg', 5),
 (9, 'Svetlosni saobraćajni znak prikazan na slici ima značenje:', '1221636999337.jpg', 5),
-(11, 'Razdelna udvojena kombinovana linija, prikazana na slici,daje mogućnost prelaska preko linije:', '4561636999634.jpg', 5);
+(11, 'Razdelna udvojena kombinovana linija, prikazana na slici,daje mogućnost prelaska preko linije:', '4561636999634.jpg', 5),
+(12, 'Boja linije za odvajanje saobraćajnih traka za kretanje vozila javnog prevoza putnika je:', NULL, 5),
+(13, 'Dopunske table koje sadrže poruke u obliku simbola, kao u situaciji na slici:', '3591637069052.jpg', 5);
 
 -- --------------------------------------------------------
 
@@ -92,7 +94,33 @@ INSERT INTO `solution` (`id`, `question_id`, `solution`, `corect`) VALUES
 (5, 11, 'bilo kojom putanjom', 0),
 (6, 9, 'zabranjen prolaz', 0),
 (7, 9, 'dozvoljen prolaz', 1),
-(8, 9, 'obavezu za sve učesnike u saobraćaju da se kreću uz povećanu opreznost', 0);
+(8, 9, 'obavezu za sve učesnike u saobraćaju da se kreću uz povećanu opreznost', 0),
+(9, 1, 'zona usporenog saobraćaja', 0),
+(10, 1, 'naselјeno mesto', 0),
+(11, 1, 'naselјe', 1),
+(12, 1, 'turističko odredište', 0),
+(13, 2, '4', 0),
+(14, 2, '1', 1),
+(15, 2, '2', 0),
+(16, 2, '3', 0),
+(17, 3, 'da ste dužni da usporite kretanјe, odnosno da se krećete brzinom kojom se kreće policijsko vozilo dok daje taj znak', 1),
+(18, 3, 'da ste dužni da usporite kretanјe samo u slučaju ako ste prekoračili dozvolјenu brzinu', 0),
+(19, 3, 'preporuku za bezbedno kretanјe', 0),
+(20, 4, 'obaveza za sve učesnike u saobraćaju da se kreću uz povećanu opreznost', 1),
+(21, 4, 'zabranjen prolaz, osim u slučaju kada se vozilo ne može bezbedno zaustaviti ispred navedenog znaka,', 0),
+(22, 4, 'zabranjen prolaz.', 0),
+(23, 5, 'može davati samo iz vozila sa prvenstvom prolaza', 0),
+(24, 5, 'može davati i iz vozila, odnosno sa motocikla, kada policijski službenik, odnosno vozilo, ima vidno obeležje policije', 1),
+(25, 5, 'ne može davati iz vozila, odnosno sa motocikla', 0),
+(26, 6, 'obavezno zaustavljanje za sve vozače prema kojima je okrenut dlan i prsa policijskog službenika', 1),
+(27, 6, 'zabranu prolaza za sve vozače, osim za one vozače čija se vozila, u času kada policijski službenik podigne ruku, ne mogu na bezbedan način zaustaviti', 0),
+(28, 6, 'da vozači koji vozilima dolaze is pravca u kome su okrenuta leđa, odnosno prsa policijskog službenika moraju zaustaviti svoja vozila, a da vozači koji vozilima dolaze sa nejgovih bočinih strana imaju pravo prolaza', 0),
+(29, 12, 'bela', 0),
+(30, 12, 'žuta', 1),
+(31, 12, 'plava', 0),
+(32, 13, 'simbolom bliže određuju značenje znakova uz koje se ističu', 1),
+(33, 13, 'simbolom daju obaveštenja koja nisu u vezi sa značenjem saobraćajnih znakova', 0),
+(34, 13, 'simbolom stavljaju do znanja zabrane, ograničenja i obaveze kojih se učesnici u saobraćaju moraju pridržavati', 0);
 
 -- --------------------------------------------------------
 
@@ -163,7 +191,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `date_birth`, `email`, `password`, `created_at`, `last_login`, `profil_img`, `role_id`) VALUES
-(1, 'Dejan', 'Živković', '2021-11-08', 'zile028@gmail.com', '$2y$10$SEc5S8nAkfT/vOLOm8zoWOdzhyhPPycY7LJRpXe5BTpfLwxKV90EK', '2021-11-08 00:38:49', '2021-11-15 17:09:49', '8871635536081.jpg', 1),
+(1, 'Dejan', 'Živković', '2021-11-08', 'zile028@gmail.com', '$2y$10$SEc5S8nAkfT/vOLOm8zoWOdzhyhPPycY7LJRpXe5BTpfLwxKV90EK', '2021-11-08 00:38:49', '2021-11-16 11:46:22', '8871635536081.jpg', 1),
 (7, 'Ненад', 'Станојевић', '2021-11-16', 'zile128@gmail.com', '$2y$10$xgdorIODs8Wtr/5j3NFqO.FgD1slqeGzGT9FEoUFXDPlU2Ywx5gli', '2021-11-08 21:33:55', '2021-11-08 21:33:55', NULL, 2),
 (9, 'Небојша', 'Васић', '1975-10-11', 'vasic@gmail.com', '$2y$10$5VfPZRhQIq5D9qrs0uOQaOGtevmA2sNx.seQYyX75ikXH9rldIV3.', '2021-11-12 21:04:07', '2021-11-12 21:04:28', '7781636814932.jpg', 2);
 
@@ -220,7 +248,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `question`
 --
 ALTER TABLE `question`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -232,7 +260,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `solution`
 --
 ALTER TABLE `solution`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `tests`

@@ -6,7 +6,7 @@ require ROOT . "/include/main_nav.php";
 <header class="jumbotron text-center">
     <h1><?php echo $question["question"]; ?></h1>
 </header>
-<section class="container">
+<section class="container pb-5">
     <?php if($question["atach"]): ?>
     <article class="row mb-3">
         <div class="col-6 offset-3 text-center">
@@ -29,11 +29,16 @@ require ROOT . "/include/main_nav.php";
     </article>
 
     <article class="row no-gutters mt-4">
-        <ul class="col-md-8 offset-md-2">
+        <ul class="col-md-8 offset-md-2 list-group">
             <?php foreach($solution as $sol): ?>
-            <li><?php echo $sol["solution"]; ?></li>
+            <li class="list-group-item <?php echo ($sol["corect"]) ? "text-success" : "" ?>">
+                <?php echo $sol["solution"]; ?></li>
             <?php endforeach; ?>
         </ul>
+        <div class="col-md-8 offset-md-2 mt-3 text-center">
+            <a class="btn btn-warning"
+                href="<?php echo ROOT_DIR . "/test_questions.php?id={$question["test_id"]}"; ?>">Nazad</a>
+        </div>
     </article>
 </section>
 <?php
