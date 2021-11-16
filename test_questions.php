@@ -18,27 +18,38 @@ if (isset($_GET["id"])) {
 
 
 if (isset($_POST["add_question"])) {
-    $Upload                  = new Upload();
-    $files                   = $Upload->fileInfo($_FILES["atach"]);
-    $Upload->valid_extension = ["png", "gif", "jpg", "jpeg"];
-    $Upload->valid_size      = 2;
-    $Upload->unit            = $Upload::MB;
+    if($_FILES["atach"]["name"]!=null){
+        $Upload                  = new Upload();
+        $files                   = $Upload->fileInfo($_FILES["atach"]);
+        $Upload->valid_extension = ["png", "gif", "jpg", "jpeg"];
+        $Upload->valid_size      = 2;
+        $Upload->unit            = $Upload::MB;
 
-    $check_status = $Upload->checkFile($files);
+        $check_status = $Upload->checkFile($files);
 
-    if (count($check_status["errors"]) == 0) {
-        if ($store_name = $Upload->uploads($files, ROOT . "/upload")) {
-            $data = [
-                "question" => $_POST["question"],
-                "atach"    => $store_name, //dodati naziv priloga
-                 "test_id"  => $_POST["id"],
-            ];
-
-            $Tests->insertInto("question", $data);
-            redirect("test_questions.php", "id=" . $_POST["id"]);
+        if (count($check_status[0]["errors"]) == 0) {
+            if ($store_name = $Upload->uploads($files, ROOT . "/upload")) {
+                $data = [
+                    "question" => $_POST["question"],
+                    "atach"    => $store_name, //dodati naziv priloga
+                     "test_id"  => $_POST["id"],
+                ];
+            }
+            ;
         }
-        ;
+    }else{
+        $data = [
+            "question" => $_POST["question"],
+             "test_id"  => $_POST["id"]
+        ];
+
     }
+    
+    $last_id=$Tests->insertInto("question", $data);
+    
+    redirect("question.php", "id=" . $last_id);
+
+
 }
 
 require_once ROOT . "/view/test_questions.view.php";

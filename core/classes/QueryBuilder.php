@@ -1,17 +1,17 @@
 <?php
 class QueryBuilder extends Connection
 {
-    public function selectAll(string $table, array $criteria = null)
+    public function selectAll(string $table, array $criteria = [])
     {
         $sql = "SELECT * FROM {$table}";
-        if(count($criteria)>0){
+        if (count($criteria) > 0) {
             $key = key($criteria);
             $sql .= " WHERE {$key} = :{$key}";
         }
         $qry = $this->db->prepare($sql);
-        if(count($criteria)>0){
+        if (count($criteria) > 0) {
             $qry->execute($criteria);
-        }else{
+        } else {
             $qry->execute();
         }
         $result = $qry->fetchAll(PDO::FETCH_ASSOC);
@@ -63,6 +63,7 @@ class QueryBuilder extends Connection
 
     public function insertInto($table, $data)
     {
+
         $column = [];
         $value  = [];
         foreach ($data as $key => $val) {
@@ -72,8 +73,10 @@ class QueryBuilder extends Connection
         $col_name          = implode(", ", $column);
         $value_placeholder = implode(", ", $value);
         $sql               = "INSERT INTO {$table} ({$col_name}) VALUES ({$value_placeholder})";
-        $qry               = $this->db->prepare($sql);
+
+        $qry = $this->db->prepare($sql);
         $qry->execute($data);
+        return $this->db->lastInsertId();
     }
 
 }

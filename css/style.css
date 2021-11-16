@@ -58,3 +58,14 @@ textarea {
   height: 250px;
   width: 250px;
 }
+
+.atach-img {
+  /* height: 200px; */
+  /* width: auto; */
+}
+.atach-img img {
+  height: auto;
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}

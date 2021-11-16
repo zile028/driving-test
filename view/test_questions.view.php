@@ -23,11 +23,20 @@ require ROOT . "/include/main_nav.php";
     </article>
     <?php endif; ?>
 
-    <article class="row mt-4">
+    <article class="row no-gutters mt-4">
         <?php foreach($questions as $q): ?>
-        <div class="card">
+        <div class="card col-12  mb-3">
             <div class="card-header">
-                <?php echo $q["question"]; ?>
+                <h4><?php echo $q["question"]; ?></h4>
+            </div>
+            <div class="card-body row no-gutters">
+                <div class="option col-md-8"></div>
+                <div class="atach-img col-md-4">
+                    <img src="<?php echo ROOT_DIR . "/upload/" . $q["atach"] ; ?>" alt="">
+                </div>
+            </div>
+            <div class="card-footer">
+                <a class="btn btn-primary" href="question.php?id=<?php echo $q["id"]; ?>">Dodja solucije</a>
             </div>
         </div>
         <?php endforeach; ?>
