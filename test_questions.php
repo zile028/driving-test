@@ -8,19 +8,15 @@ $user_info = $User->selectSingleJoin(
     ["id" => $_SESSION["id"]]
 );
 
-
 if (isset($_GET["id"])) {
-    $questions = $Tests->getQuestions(["id"=>$_GET["id"]]);
-    $tests = $Tests->selectSingleJoin(["tests", "test_category"], "category_id", ["id" => $_GET["id"]]);
+    $questions = $Tests->getQuestions(["id" => $_GET["id"]]);
+    $tests     = $Tests->selectSingleJoin(["tests", "test_category"], "category_id", ["id" => $_GET["id"]]);
 }
-
 
 // dd($questions);
 
-
-
 if (isset($_POST["add_question"])) {
-    if($_FILES["atach"]["name"]!=null){
+    if (null != $_FILES["atach"]["name"]) {
         $Upload                  = new Upload();
         $files                   = $Upload->fileInfo($_FILES["atach"]);
         $Upload->valid_extension = ["png", "gif", "jpg", "jpeg"];
@@ -35,22 +31,24 @@ if (isset($_POST["add_question"])) {
                     "question" => $_POST["question"],
                     "atach"    => $store_name, //dodati naziv priloga
                      "test_id"  => $_POST["id"],
+                    "points"   => $_POST["points"],
                 ];
             }
             ;
         }
-    }else{
+    } else {
         $data = [
             "question" => $_POST["question"],
-             "test_id"  => $_POST["id"]
+            "test_id"  => $_POST["id"],
+            "test_id"  => $_POST["id"],
+            "points"   => $_POST["points"],
         ];
 
     }
-    
-    $last_id=$Tests->insertInto("question", $data);
-    
-    redirect("question.php", "id=" . $last_id);
 
+    $last_id = $Tests->insertInto("question", $data);
+
+    redirect("question.php", "id=" . $last_id);
 
 }
 

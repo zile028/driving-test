@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 16, 2021 at 01:26 PM
+-- Generation Time: Nov 17, 2021 at 12:53 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.4.1
 
@@ -32,24 +32,27 @@ CREATE TABLE `question` (
   `id` int(11) NOT NULL,
   `question` text NOT NULL,
   `atach` varchar(50) DEFAULT NULL,
-  `test_id` int(11) NOT NULL
+  `test_id` int(11) NOT NULL,
+  `answers` int(10) NOT NULL DEFAULT '1',
+  `points` int(10) DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `question`
 --
 
-INSERT INTO `question` (`id`, `question`, `atach`, `test_id`) VALUES
-(1, 'Od saobraćajnog znaka prikazanog na slici se završava:', '8661636996390.jpg', 1),
-(2, 'Kolovozna traka je na slici označena brojem:', '8401636996417.jpg', 1),
-(3, 'Svetlosni znak na vozilu policije, prikazan na slici, označava:', '8381636996445.jpg', 1),
-(4, 'Svetlosni saobraćajni znak - treptuće žuto svetlo koji daje semafor ima značenje:', NULL, 5),
-(5, 'Policijski službenik propisan znak kojim se naređuje ubrzanje kretanja:', NULL, 5),
-(6, 'Znak koji daje policijski službenik prikazan na slici, kada se nalazi na kolovozu, označava:', '7581636998566.jpg', 5),
-(9, 'Svetlosni saobraćajni znak prikazan na slici ima značenje:', '1221636999337.jpg', 5),
-(11, 'Razdelna udvojena kombinovana linija, prikazana na slici,daje mogućnost prelaska preko linije:', '4561636999634.jpg', 5),
-(12, 'Boja linije za odvajanje saobraćajnih traka za kretanje vozila javnog prevoza putnika je:', NULL, 5),
-(13, 'Dopunske table koje sadrže poruke u obliku simbola, kao u situaciji na slici:', '3591637069052.jpg', 5);
+INSERT INTO `question` (`id`, `question`, `atach`, `test_id`, `answers`, `points`) VALUES
+(1, 'Od saobraćajnog znaka prikazanog na slici se završava:', '8661636996390.jpg', 1, 1, 1),
+(2, 'Kolovozna traka je na slici označena brojem:', '8401636996417.jpg', 1, 1, 1),
+(3, 'Svetlosni znak na vozilu policije, prikazan na slici, označava:', '8381636996445.jpg', 1, 1, 1),
+(4, 'Svetlosni saobraćajni znak - treptuće žuto svetlo koji daje semafor ima značenje:', NULL, 5, 1, 1),
+(5, 'Policijski službenik propisan znak kojim se naređuje ubrzanje kretanja:', NULL, 5, 1, 1),
+(6, 'Znak koji daje policijski službenik prikazan na slici, kada se nalazi na kolovozu, označava:', '7581636998566.jpg', 5, 1, 1),
+(9, 'Svetlosni saobraćajni znak prikazan na slici ima značenje:', '1221636999337.jpg', 5, 1, 1),
+(11, 'Razdelna udvojena kombinovana linija, prikazana na slici,daje mogućnost prelaska preko linije:', '4561636999634.jpg', 5, 1, 1),
+(12, 'Boja linije za odvajanje saobraćajnih traka za kretanje vozila javnog prevoza putnika je:', NULL, 5, 1, 1),
+(13, 'Dopunske table koje sadrže poruke u obliku simbola, kao u situaciji na slici:', '3591637069052.jpg', 5, 1, 1),
+(14, 'Saobracajni znak prikazan na slici označava:', '5191637153531.jpg', 5, 1, 3);
 
 -- --------------------------------------------------------
 
@@ -108,7 +111,6 @@ INSERT INTO `solution` (`id`, `question_id`, `solution`, `corect`) VALUES
 (19, 3, 'preporuku za bezbedno kretanјe', 0),
 (20, 4, 'obaveza za sve učesnike u saobraćaju da se kreću uz povećanu opreznost', 1),
 (21, 4, 'zabranjen prolaz, osim u slučaju kada se vozilo ne može bezbedno zaustaviti ispred navedenog znaka,', 0),
-(22, 4, 'zabranjen prolaz.', 0),
 (23, 5, 'može davati samo iz vozila sa prvenstvom prolaza', 0),
 (24, 5, 'može davati i iz vozila, odnosno sa motocikla, kada policijski službenik, odnosno vozilo, ima vidno obeležje policije', 1),
 (25, 5, 'ne može davati iz vozila, odnosno sa motocikla', 0),
@@ -120,7 +122,11 @@ INSERT INTO `solution` (`id`, `question_id`, `solution`, `corect`) VALUES
 (31, 12, 'plava', 0),
 (32, 13, 'simbolom bliže određuju značenje znakova uz koje se ističu', 1),
 (33, 13, 'simbolom daju obaveštenja koja nisu u vezi sa značenjem saobraćajnih znakova', 0),
-(34, 13, 'simbolom stavljaju do znanja zabrane, ograničenja i obaveze kojih se učesnici u saobraćaju moraju pridržavati', 0);
+(34, 13, 'simbolom stavljaju do znanja zabrane, ograničenja i obaveze kojih se učesnici u saobraćaju moraju pridržavati', 0),
+(79, 4, 'zabranjen prolaz.', 0),
+(82, 14, 'prethodno obaveštenje vozaču radi prestrojavanja na raskrsnici na putevima sa više saobraćajnih traka', 0),
+(83, 14, 'blizina i položaj puta na koji nema izlaz (slepi put)', 1),
+(84, 14, 'blizina mesta ili mesto na kome se nalazi stanica za prvu pomoć', 0);
 
 -- --------------------------------------------------------
 
@@ -191,7 +197,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `date_birth`, `email`, `password`, `created_at`, `last_login`, `profil_img`, `role_id`) VALUES
-(1, 'Dejan', 'Živković', '2021-11-08', 'zile028@gmail.com', '$2y$10$SEc5S8nAkfT/vOLOm8zoWOdzhyhPPycY7LJRpXe5BTpfLwxKV90EK', '2021-11-08 00:38:49', '2021-11-16 11:46:22', '8871635536081.jpg', 1),
+(1, 'Dejan', 'Živković', '2021-11-08', 'zile028@gmail.com', '$2y$10$SEc5S8nAkfT/vOLOm8zoWOdzhyhPPycY7LJRpXe5BTpfLwxKV90EK', '2021-11-08 00:38:49', '2021-11-17 09:39:14', '8871635536081.jpg', 1),
 (7, 'Ненад', 'Станојевић', '2021-11-16', 'zile128@gmail.com', '$2y$10$xgdorIODs8Wtr/5j3NFqO.FgD1slqeGzGT9FEoUFXDPlU2Ywx5gli', '2021-11-08 21:33:55', '2021-11-08 21:33:55', NULL, 2),
 (9, 'Небојша', 'Васић', '1975-10-11', 'vasic@gmail.com', '$2y$10$5VfPZRhQIq5D9qrs0uOQaOGtevmA2sNx.seQYyX75ikXH9rldIV3.', '2021-11-12 21:04:07', '2021-11-12 21:04:28', '7781636814932.jpg', 2);
 
@@ -248,7 +254,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `question`
 --
 ALTER TABLE `question`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -260,7 +266,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `solution`
 --
 ALTER TABLE `solution`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
 
 --
 -- AUTO_INCREMENT for table `tests`

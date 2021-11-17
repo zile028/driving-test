@@ -19,7 +19,9 @@ class Tests extends QueryBuilder
                 id,
                 question,
                 atach,
-                test_id
+                test_id,
+                answers,
+                points
                 FROM question
                 WHERE test_id = :id";
         $qry = $this->db->prepare($sql);
@@ -45,7 +47,13 @@ class Tests extends QueryBuilder
         }
 
         return $qs;
+    }
 
+    function getNumberCorrect($data){
+        $sql = "SELECT * FROM solution WHERE question_id = :id AND corect = 1";
+        $qry = $this->db->prepare($sql);
+        $qry->execute($data);
+        return $qry->rowCount();
     }
 
 }

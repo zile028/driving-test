@@ -98,6 +98,11 @@ textarea {
 .option input {
   cursor: pointer;
 }
-.option input[type="checkbox"] {
+.option input[type="checkbox"],
+.option input[type="radio"] {
   height: 20px;
+}
+
+.badge {
+  font-size: 18px;
 }

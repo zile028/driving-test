@@ -16,17 +16,25 @@ if (isset($_GET["id"])) {
 }
 
 if (isset($_POST["add_option"])) {
+    $question = $Tests->selectAll("solution", ["question_id" => $_POST["id"]]);
+
     $data = [
         "question_id" => intval($_POST["id"]),
-        "solution"      => $_POST["option"],
+        "solution"    => $_POST["option"],
         "corect"      => (isset($_POST["corect"]) ? 1 : 0),
     ];
 
     $Tests->insertInto("solution", $data);
-    // $Tests->addOption("option", $data);
+
+    $num_answers = $Tests->getNumberCorrect(["id" => $_POST["id"]]);
+
+    $criteria = ["id" => $_POST["id"]];
+    $field    = ["answers" => $num_answers];
+
+    $Tests->updateTable("question", $field, $criteria);
+
     redirect("question.php", "id=" . $_POST["id"]);
 
 }
-// dd($question);
 
 require_once ROOT . "/view/question.view.php";

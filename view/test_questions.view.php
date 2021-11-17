@@ -4,7 +4,6 @@ require ROOT . "/include/main_nav.php";
 ?>
 
 <header class="jumbotron text-center">
-    <!-- <h1><?php echo "{$user_info->first_name} {$user_info->last_name}"; ?></h1> -->
     <h1><?php echo $tests->test_name?></h1>
     <h5><?php echo $tests->category_name; ?></h5>
 </header>
@@ -21,6 +20,8 @@ require ROOT . "/include/main_nav.php";
             <div class="col-12 d-flex mb-2">
                 <label class="input-group-text" for="">Broj tačnih odgovora:</label>
                 <input class="form-control col-1" type="number" name="number_answer" value="1" min="1">
+                <label class="input-group-text ml-md-2" for="">Broj poena:</label>
+                <input class="form-control col-1" type="number" name="points" value="1" min="1">
             </div>
             <label class="btn btn-info mb-0" for="atach">Dodja sliku</label>
             <input type="file" name="atach" id="atach">
@@ -35,8 +36,12 @@ require ROOT . "/include/main_nav.php";
         <?php $s=$val["solution"]; ?>
 
         <div class="card col-12 mb-3">
-            <div class="card-header">
-                <h4 class="font-weight-bold"><?php echo $q["question"]; ?></h4>
+            <div class="card-header d-flex justify-content-between align-items-start">
+                <div>
+                    <h4 class="font-weight-bold"><?php echo $q["question"]; ?></h4>
+                    <p class="blockquote-footer">Broj tačnih odgovora: <?php echo $q["answers"]; ?></p>
+                </div>
+                <div><span class="badge badge-info"><?php echo $q["points"]; ?></span></div>
             </div>
             <div class="card-body row no-gutters">
 
@@ -45,10 +50,11 @@ require ROOT . "/include/main_nav.php";
                     <ul class="list-group mr-md-4">
                         <?php foreach($s as $sol): ?>
                         <li class="list-group-item d-flex align-items-center">
-                            <input class="form-control col-1" type="checkbox" name="<?php echo "answer{$q["id"]}"; ?>"
-                                id="<?php echo "radio{$sol["id"]}"; ?>">
+                            <input class="form-control col-1"
+                                type="<?php echo ($q["answers"]==1) ? "radio" : "checkbox"; ?>"
+                                name="<?php echo "answer{$q["id"]}"; ?>" id="<?php echo "radio{$sol["id"]}"; ?>">
 
-                            <label class="flex-grow-1"
+                            <label class="flex-grow-1 mb-0"
                                 for="<?php echo "radio{$sol["id"]}"; ?>"><?php echo $sol["solution"]; ?></label>
                         </li>
                         <?php endforeach; ?>
@@ -65,8 +71,9 @@ require ROOT . "/include/main_nav.php";
             </div>
             <div class="card-footer">
                 <?php if($user_info->role=="admin"): ?>
-                <a class="btn btn-primary" href="question.php?id=<?php echo $q["id"]; ?>">Dodja solucije</a>
-                <a class="btn btn-danger" href="question_delete.php?id=<?php echo $q["id"]; ?>">Obrisi pitanje</a>
+                <a class="btn btn-primary" href="question.php?id=<?php echo $q["id"]; ?>">Solucije</a>
+                <a class="btn btn-warning" href="question.php?id=<?php echo $q["id"]; ?>">Uredi pitanje</a>
+                <a class="btn btn-danger" href="question_delete.php?id=<?php echo $q["id"]; ?>">Obriši pitanje</a>
                 <?php endif; ?>
                 <a class="btn btn-success float-right" href="question.php?id=<?php echo $q["id"]; ?>">Odgovori</a>
             </div>
