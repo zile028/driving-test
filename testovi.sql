@@ -2,8 +2,8 @@
 -- version 4.9.5
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Nov 17, 2021 at 12:53 PM
+-- Host: localhost:8888
+-- Generation Time: Nov 17, 2021 at 10:34 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.4.1
 
@@ -42,15 +42,15 @@ CREATE TABLE `question` (
 --
 
 INSERT INTO `question` (`id`, `question`, `atach`, `test_id`, `answers`, `points`) VALUES
-(1, 'Od saobraćajnog znaka prikazanog na slici se završava:', '8661636996390.jpg', 1, 1, 1),
+(1, 'Od saobraćajnog znaka prikazanog na slici se završava:', '8661636996390.jpg', 1, 1, 3),
 (2, 'Kolovozna traka je na slici označena brojem:', '8401636996417.jpg', 1, 1, 1),
 (3, 'Svetlosni znak na vozilu policije, prikazan na slici, označava:', '8381636996445.jpg', 1, 1, 1),
-(4, 'Svetlosni saobraćajni znak - treptuće žuto svetlo koji daje semafor ima značenje:', NULL, 5, 1, 1),
-(5, 'Policijski službenik propisan znak kojim se naređuje ubrzanje kretanja:', NULL, 5, 1, 1),
+(4, 'Svetlosni saobraćajni znak - treptuće žuto svetlo koji daje semafor ima značenje:', NULL, 5, 1, 3),
+(5, 'Svetlosni saobraćajni znak - treptuće žuto svetlo koji daje semafor ima značenje:', NULL, 5, 1, 3),
 (6, 'Znak koji daje policijski službenik prikazan na slici, kada se nalazi na kolovozu, označava:', '7581636998566.jpg', 5, 1, 1),
 (9, 'Svetlosni saobraćajni znak prikazan na slici ima značenje:', '1221636999337.jpg', 5, 1, 1),
 (11, 'Razdelna udvojena kombinovana linija, prikazana na slici,daje mogućnost prelaska preko linije:', '4561636999634.jpg', 5, 1, 1),
-(12, 'Boja linije za odvajanje saobraćajnih traka za kretanje vozila javnog prevoza putnika je:', NULL, 5, 1, 1),
+(12, 'Boja linije za odvajanje saobraćajnih traka za kretanje vozila javnog prevoza putnika je:', NULL, 5, 1, 3),
 (13, 'Dopunske table koje sadrže poruke u obliku simbola, kao u situaciji na slici:', '3591637069052.jpg', 5, 1, 1),
 (14, 'Saobracajni znak prikazan na slici označava:', '5191637153531.jpg', 5, 1, 3);
 

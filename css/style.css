@@ -106,3 +106,16 @@ textarea {
 .badge {
   font-size: 18px;
 }
+.thumbnail {
+  padding: 10px;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  min-height: 250px;
+}
+
+.thumbnail img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  display: block;
+}

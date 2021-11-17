@@ -1,7 +1,7 @@
 <?php
 // database connect config
 $database = [
-    "host"     => "localhost",
+    "host"     => "localhost:8888",
     "user"     => "root",
     "password" => "root",
     "dbname"   => "testovi",

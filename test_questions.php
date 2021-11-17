@@ -8,12 +8,15 @@ $user_info = $User->selectSingleJoin(
     ["id" => $_SESSION["id"]]
 );
 
-if (isset($_GET["id"])) {
+if (isset($_GET["id"]) && !isset($_GET["action"])) {
     $questions = $Tests->getQuestions(["id" => $_GET["id"]]);
     $tests     = $Tests->selectSingleJoin(["tests", "test_category"], "category_id", ["id" => $_GET["id"]]);
+} elseif (isset($_GET["action"])) {
+    $tests    = $Tests->selectSingleJoin(["tests", "test_category"], "category_id", ["id" => $_GET["action"]]);
+    $question = $Tests->selectSingle("question", ["id" => $_GET["id"]]);
 }
 
-// dd($questions);
+// dd($tests);
 
 if (isset($_POST["add_question"])) {
     if (null != $_FILES["atach"]["name"]) {
@@ -29,27 +32,58 @@ if (isset($_POST["add_question"])) {
             if ($store_name = $Upload->uploads($files, ROOT . "/upload")) {
                 $data = [
                     "question" => $_POST["question"],
-                    "atach"    => $store_name, //dodati naziv priloga
-                     "test_id"  => $_POST["id"],
+                    "atach"    => $store_name,
+                    "test_id"  => $_POST["id"],
                     "points"   => $_POST["points"],
                 ];
             }
-            ;
         }
     } else {
         $data = [
             "question" => $_POST["question"],
             "test_id"  => $_POST["id"],
-            "test_id"  => $_POST["id"],
             "points"   => $_POST["points"],
         ];
 
     }
-
     $last_id = $Tests->insertInto("question", $data);
 
     redirect("question.php", "id=" . $last_id);
 
 }
 
-require_once ROOT . "/view/test_questions.view.php";
+if (isset($_POST["save_change"])) {
+    if (null != $_FILES["new_atach"]["name"]) {
+        $Upload                  = new Upload();
+        $files                   = $Upload->fileInfo($_FILES["new_atach"]);
+        $Upload->valid_extension = ["png", "gif", "jpg", "jpeg"];
+        $Upload->valid_size      = 2;
+        $Upload->unit            = $Upload::MB;
+
+        $check_status = $Upload->checkFile($files);
+
+        if (count($check_status[0]["errors"]) == 0) {
+            unlink(ROOT . "/upload/" . $_POST["old_atach"]);
+            if ($store_name = $Upload->uploads($files, ROOT . "/upload")) {
+                $data = [
+                    "question" => $_POST["question"],
+                    "atach"    => $store_name,
+                    "points"   => $_POST["points"],
+                ];
+            }
+        }
+    } else {
+        $data = [
+            "question" => $_POST["question"],
+            "points"   => $_POST["points"],
+        ];
+    }
+
+    $Tests->updateTable("question",$data,["id" => $_POST["id"]]);
+    redirect("test_questions.php", "id=" . $_POST["test_id"]);
+}
+if (isset($_GET["action"])) {
+    require_once ROOT . "/view/test_questions_edit_view.php";
+} else {
+    require_once ROOT . "/view/test_questions.view.php";
+}

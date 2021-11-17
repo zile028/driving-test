@@ -18,8 +18,6 @@ require ROOT . "/include/main_nav.php";
             <textarea class="form-control col-12 mb-2 p-2" type="text" name="question"
                 placeholder="Pitanje?"></textarea>
             <div class="col-12 d-flex mb-2">
-                <label class="input-group-text" for="">Broj tačnih odgovora:</label>
-                <input class="form-control col-1" type="number" name="number_answer" value="1" min="1">
                 <label class="input-group-text ml-md-2" for="">Broj poena:</label>
                 <input class="form-control col-1" type="number" name="points" value="1" min="1">
             </div>
@@ -72,8 +70,10 @@ require ROOT . "/include/main_nav.php";
             <div class="card-footer">
                 <?php if($user_info->role=="admin"): ?>
                 <a class="btn btn-primary" href="question.php?id=<?php echo $q["id"]; ?>">Solucije</a>
-                <a class="btn btn-warning" href="question.php?id=<?php echo $q["id"]; ?>">Uredi pitanje</a>
-                <a class="btn btn-danger" href="question_delete.php?id=<?php echo $q["id"]; ?>">Obriši pitanje</a>
+                <a class="btn btn-warning"
+                    href="test_questions.php?action=<?php echo $_GET["id"]; ?>&id=<?php echo $q["id"]; ?>">Uredi
+                    pitanje</a>
+                <a class="btn btn-danger" href="delete.php?action=qdel&id=<?php echo $q["id"]; ?>">Obriši pitanje</a>
                 <?php endif; ?>
                 <a class="btn btn-success float-right" href="question.php?id=<?php echo $q["id"]; ?>">Odgovori</a>
             </div>
