@@ -2,8 +2,8 @@
 -- version 4.9.5
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Nov 18, 2021 at 12:48 PM
+-- Host: localhost:8888
+-- Generation Time: Nov 18, 2021 at 11:10 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.4.1
 
@@ -42,7 +42,7 @@ CREATE TABLE `question` (
 --
 
 INSERT INTO `question` (`id`, `question`, `atach`, `test_id`, `answers`, `points`) VALUES
-(1, 'Od saobraćajnog znaka prikazanog na slici se završava:', '8661636996390.jpg', 1, 1, 3),
+(1, 'Od saobraćajnog znaka prikazanog na slici se završava:', '8661636996390.jpg', 1, 2, 3),
 (2, 'Kolovozna traka je na slici označena brojem:', '8401636996417.jpg', 1, 1, 1),
 (3, 'Svetlosni znak na vozilu policije, prikazan na slici, označava:', '8381636996445.jpg', 1, 1, 1),
 (4, 'Svetlosni saobraćajni znak - treptuće žuto svetlo koji daje semafor ima značenje:', NULL, 5, 1, 3),
@@ -101,7 +101,6 @@ INSERT INTO `solution` (`id`, `question_id`, `solution`, `corect`) VALUES
 (9, 1, 'zona usporenog saobraćaja', 0),
 (10, 1, 'naselјeno mesto', 0),
 (11, 1, 'naselјe', 1),
-(12, 1, 'turističko odredište', 0),
 (13, 2, '4', 0),
 (14, 2, '1', 1),
 (15, 2, '2', 0),
@@ -126,7 +125,8 @@ INSERT INTO `solution` (`id`, `question_id`, `solution`, `corect`) VALUES
 (79, 4, 'zabranjen prolaz.', 0),
 (82, 14, 'prethodno obaveštenje vozaču radi prestrojavanja na raskrsnici na putevima sa više saobraćajnih traka', 0),
 (83, 14, 'blizina i položaj puta na koji nema izlaz (slepi put)', 1),
-(84, 14, 'blizina mesta ili mesto na kome se nalazi stanica za prvu pomoć', 0);
+(84, 14, 'blizina mesta ili mesto na kome se nalazi stanica za prvu pomoć', 0),
+(94, 1, 'turističko odredište', 1);
 
 -- --------------------------------------------------------
 
@@ -203,6 +203,43 @@ INSERT INTO `users` (`id`, `first_name`, `last_name`, `date_birth`, `email`, `pa
 (7, 'Ненад', 'Станојевић', '2021-11-16', 'zile128@gmail.com', '$2y$10$xgdorIODs8Wtr/5j3NFqO.FgD1slqeGzGT9FEoUFXDPlU2Ywx5gli', '2021-11-08 21:33:55', '2021-11-08 21:33:55', NULL, 2),
 (9, 'Небојша', 'Васић', '1975-10-11', 'vasic@gmail.com', '$2y$10$5VfPZRhQIq5D9qrs0uOQaOGtevmA2sNx.seQYyX75ikXH9rldIV3.', '2021-11-12 21:04:07', '2021-11-18 12:41:15', '7781636814932.jpg', 2);
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_answer`
+--
+
+CREATE TABLE `user_answer` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `solution_id` int(11) NOT NULL,
+  `test_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `user_answer`
+--
+
+INSERT INTO `user_answer` (`id`, `user_id`, `solution_id`, `test_id`) VALUES
+(1, 1, 9, 1),
+(2, 1, 10, 1),
+(3, 1, 15, 1),
+(4, 1, 18, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_test`
+--
+
+CREATE TABLE `user_test` (
+  `id` int(11) NOT NULL,
+  `test_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `points` int(11) NOT NULL,
+  `number_correct` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 --
 -- Indexes for dumped tables
 --
@@ -249,6 +286,20 @@ ALTER TABLE `users`
   ADD KEY `role_id_2` (`role_id`);
 
 --
+-- Indexes for table `user_answer`
+--
+ALTER TABLE `user_answer`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `user_test`
+--
+ALTER TABLE `user_test`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `test_id` (`test_id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -268,7 +319,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `solution`
 --
 ALTER TABLE `solution`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
 
 --
 -- AUTO_INCREMENT for table `tests`
@@ -287,6 +338,18 @@ ALTER TABLE `test_category`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `user_answer`
+--
+ALTER TABLE `user_answer`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `user_test`
+--
+ALTER TABLE `user_test`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables

@@ -30,58 +30,65 @@ require ROOT . "/include/main_nav.php";
 
 
     <article class="row no-gutters mt-4">
-        <?php foreach($questions as $val): ?>
-        <?php $q=$val["question"]; ?>
-        <?php $s=$val["solution"]; ?>
+        <form class="col-12" method="POST" action="test_questions.php?id=<?php echo $_GET["id"]; ?>">
+            <input type="hidden" name="test_id" value="<?php echo $_GET["id"]; ?>">
+            <?php foreach($questions as $val): ?>
+            <?php $q=$val["question"]; ?>
+            <?php $s=$val["solution"]; ?>
 
-        <div class="card col-12 mb-3">
-            <div class="card-header d-flex justify-content-between align-items-start">
-                <div>
-                    <h4 class="font-weight-bold"><?php echo $q["question"]; ?></h4>
-                    <p class="blockquote-footer">Broj tačnih odgovora: <?php echo $q["answers"]; ?></p>
+            <div class="card mb-3">
+                <div class="card-header d-flex justify-content-between align-items-start">
+                    <div>
+                        <h4 class="font-weight-bold"><?php echo $q["question"]; ?></h4>
+                        <p class="blockquote-footer">Broj tačnih odgovora: <?php echo $q["answers"]; ?></p>
+                    </div>
+                    <div><span class="badge badge-info"><?php echo $q["points"]; ?></span></div>
                 </div>
-                <div><span class="badge badge-info"><?php echo $q["points"]; ?></span></div>
-            </div>
-            <div class="card-body row no-gutters">
+                <div class="card-body row no-gutters">
 
-                <div class="option col-md-8">
-                    <?php if(isset($s) && count($s)>0): ?>
-                    <ul class="list-group mr-md-4">
-                        <?php foreach($s as $sol): ?>
-                        <li class="list-group-item d-flex align-items-center">
-                            <input class="form-control col-1"
-                                type="<?php echo ($q["answers"]==1) ? "radio" : "checkbox"; ?>"
-                                name="<?php echo "answer{$q["id"]}"; ?>" id="<?php echo "radio{$sol["id"]}"; ?>">
+                    <div class="option col-md-8">
+                        <?php if(isset($s) && count($s)>0): ?>
+                        <ul class="list-group mr-md-4">
+                            <?php foreach($s as $sol): ?>
+                            <li class="list-group-item d-flex align-items-center">
 
-                            <label class="flex-grow-1 mb-0"
-                                for="<?php echo "radio{$sol["id"]}"; ?>"><?php echo $sol["solution"]; ?></label>
-                        </li>
-                        <?php endforeach; ?>
-                    </ul>
+                                <input class="form-control col-1"
+                                    type="<?php echo ($q["answers"]==1) ? "radio" : "checkbox"; ?>"
+                                    name="<?php echo ($q["answers"]==1) ? "answer[{$q["id"]}]" : "answer[{$sol["id"]}]" ; ?>"
+                                    id="<?php echo "radio{$sol["id"]}"; ?>" value="<?php echo $sol["id"]; ?>">
+
+                                <label class="flex-grow-1 mb-0"
+                                    for="<?php echo "radio{$sol["id"]}"; ?>"><?php echo $sol["solution"]; ?></label>
+                            </li>
+                            <?php endforeach; ?>
+                        </ul>
+                        <?php endif; ?>
+                    </div>
+
+                    <?php if($q["atach"]): ?>
+                    <div class="atach-img col-md-4">
+                        <img class="p-1 border rounded" src="<?php echo ROOT_DIR . "/upload/" . $q["atach"] ; ?>"
+                            alt="">
+                    </div>
                     <?php endif; ?>
-                </div>
 
-                <?php if($q["atach"]): ?>
-                <div class="atach-img col-md-4">
-                    <img class="p-1 border rounded" src="<?php echo ROOT_DIR . "/upload/" . $q["atach"] ; ?>" alt="">
                 </div>
-                <?php endif; ?>
-
+                <div class="card-footer">
+                    <?php if($user_info->role=="admin"): ?>
+                    <a class="btn btn-primary" href="question.php?id=<?php echo $q["id"]; ?>">Solucije</a>
+                    <a class="btn btn-warning"
+                        href="test_questions.php?action=<?php echo $_GET["id"]; ?>&id=<?php echo $q["id"]; ?>">Uredi
+                        pitanje</a>
+                    <a class="btn btn-danger"
+                        href="delete.php?action=qdel&id=<?php echo $q["id"]; ?>&testid=<?php echo $_GET["id"]; ?>">Obriši
+                        pitanje</a>
+                    <?php endif; ?>
+                    <a class="btn btn-info float-right" href="question.php?id=<?php echo $q["id"]; ?>">Odgovori</a>
+                </div>
             </div>
-            <div class="card-footer">
-                <?php if($user_info->role=="admin"): ?>
-                <a class="btn btn-primary" href="question.php?id=<?php echo $q["id"]; ?>">Solucije</a>
-                <a class="btn btn-warning"
-                    href="test_questions.php?action=<?php echo $_GET["id"]; ?>&id=<?php echo $q["id"]; ?>">Uredi
-                    pitanje</a>
-                <a class="btn btn-danger"
-                    href="delete.php?action=qdel&id=<?php echo $q["id"]; ?>&testid=<?php echo $_GET["id"]; ?>">Obriši
-                    pitanje</a>
-                <?php endif; ?>
-                <a class="btn btn-success float-right" href="question.php?id=<?php echo $q["id"]; ?>">Odgovori</a>
-            </div>
-        </div>
-        <?php endforeach; ?>
+            <?php endforeach; ?>
+            <button class="btn btn-success" type="submit" name="finish_test">Predaj test</button>
+        </form>
     </article>
 </section>
 <?php

@@ -82,6 +82,29 @@ if (isset($_POST["save_change"])) {
     $Tests->updateTable("question",$data,["id" => $_POST["id"]]);
     redirect("test_questions.php", "id=" . $_POST["test_id"]);
 }
+
+if (isset($_POST["finish_test"])){
+$data=[];
+    foreach($_POST["answer"] as $sol_id){
+        array_push($data,[
+
+            "solution_id"  =>$sol_id,
+
+        ]);
+    }
+
+$json_data=json_encode($data,JSON_PRETTY_PRINT);
+
+    dd(json_decode($json_data));
+    $Tests->insertInto("user_answer", [
+        "user_id" => $_SESSION["id"],
+        "solution_id"  =>$sol_id,
+        "test_id"   => $_POST["test_id"],
+    ]);
+    $Tests->insertInto("question", $data);
+
+}
+
 if (isset($_GET["action"])) {
     require_once ROOT . "/view/test_questions_edit_view.php";
 } else {
