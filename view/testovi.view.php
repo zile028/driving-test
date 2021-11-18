@@ -11,6 +11,14 @@ require ROOT . "/include/main_nav.php";
     <?php if($user_info->role=="admin"): ?>
     <!-- form for add test  -->
     <article class="row">
+
+        <form class="col-md-6 offset-md-3 row justify-content-between border rounded-lg p-2 mb-2" action="testovi.php"
+            method="post">
+            <input class="form-control col-md-4" type="text" name="category_name" placeholder="Kategorija">
+            <input class="form-control col-md-4" type="text" name="category_icon" placeholder="Simbol">
+            <button class="btn btn-primary" name="add_category" type="submit">Dodaj kategoriju</button>
+        </form>
+
         <form class="col-md-6 offset-md-3 row justify-content-between border rounded-lg p-2" action="testovi.php"
             method="post">
             <input class="form-control col-md-6" type="text" name="test_name" placeholder="Naziv testa">
@@ -24,7 +32,7 @@ require ROOT . "/include/main_nav.php";
     </article>
     <?php endif; ?>
 
-    <article class="row mt-4">
+    <article class="row mt-4 justify-content-center">
         <?php foreach($tests as $test): ?>
         <div class="card testovi">
             <a class="btn btn-warning" href="test_questions.php?id=<?php echo $test->tests_id; ?>">

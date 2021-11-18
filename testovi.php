@@ -9,9 +9,7 @@ $user_info = $User->selectSingleJoin(
 );
 
 $tests = $Tests->selectAllJoin(["tests", "test_category"],"category_id", "category_id ASC, test_name ASC");
-
 $category = $QueryBuilder->selectAll("test_category");
-
 
 if(isset($_POST["add_test"])){
     $data = [
@@ -20,6 +18,16 @@ if(isset($_POST["add_test"])){
     ];
 
     $Tests->insertInto("tests",$data);
+    redirect("testovi.php");
+}
+
+if(isset($_POST["add_category"])){
+    $data = [
+        "category_name" => $_POST["category_name"],
+        "icon" => $_POST["category_icon"]
+    ];
+
+    $Tests->insertInto("test_category",$data);
     redirect("testovi.php");
 }
 

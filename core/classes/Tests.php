@@ -41,11 +41,15 @@ class Tests extends QueryBuilder
         $qs=[];
         $solution = $qry->fetchAll(PDO::FETCH_GROUP | PDO::FETCH_ASSOC);
 
+
         foreach ($question as $q) {
-            array_push($qs, ["question"=>$q,"solution" => $solution[$q["id"]]]);
+            if(isset($solution[$q["id"]])){
+                array_push($qs, ["question"=>$q,"solution" => $solution[$q["id"]]]);
+            }else{
+                array_push($qs, ["question"=>$q,"solution" => null]);
+            }
 
         }
-
         return $qs;
     }
 

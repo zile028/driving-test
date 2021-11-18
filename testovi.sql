@@ -2,8 +2,8 @@
 -- version 4.9.5
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:8888
--- Generation Time: Nov 17, 2021 at 10:34 PM
+-- Host: localhost:3306
+-- Generation Time: Nov 18, 2021 at 12:48 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.4.1
 
@@ -33,7 +33,7 @@ CREATE TABLE `question` (
   `question` text NOT NULL,
   `atach` varchar(50) DEFAULT NULL,
   `test_id` int(11) NOT NULL,
-  `answers` int(10) NOT NULL DEFAULT '1',
+  `answers` int(10) DEFAULT '1',
   `points` int(10) DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -151,7 +151,8 @@ INSERT INTO `tests` (`id`, `test_name`, `category_id`) VALUES
 (4, 'Test 4', 1),
 (5, 'Test 2', 1),
 (6, 'Test 3', 1),
-(7, 'Test 1', 2);
+(7, 'Test 1', 2),
+(8, 'Test 1', 3);
 
 -- --------------------------------------------------------
 
@@ -171,7 +172,8 @@ CREATE TABLE `test_category` (
 
 INSERT INTO `test_category` (`id`, `category_name`, `icon`) VALUES
 (1, 'B ketegorija', '<i class=\"fas fa-car\"></i>'),
-(2, 'C kategorija', '<i class=\"fas fa-truck\"></i>');
+(2, 'C kategorija', '<i class=\"fas fa-truck\"></i>'),
+(3, 'A kategorija', '<i class=\"fas fa-motorcycle\"></i>');
 
 -- --------------------------------------------------------
 
@@ -197,9 +199,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `date_birth`, `email`, `password`, `created_at`, `last_login`, `profil_img`, `role_id`) VALUES
-(1, 'Dejan', 'Živković', '2021-11-08', 'zile028@gmail.com', '$2y$10$SEc5S8nAkfT/vOLOm8zoWOdzhyhPPycY7LJRpXe5BTpfLwxKV90EK', '2021-11-08 00:38:49', '2021-11-17 09:39:14', '8871635536081.jpg', 1),
+(1, 'Dejan', 'Živković', '2021-11-08', 'zile028@gmail.com', '$2y$10$SEc5S8nAkfT/vOLOm8zoWOdzhyhPPycY7LJRpXe5BTpfLwxKV90EK', '2021-11-08 00:38:49', '2021-11-18 12:32:05', '8871635536081.jpg', 1),
 (7, 'Ненад', 'Станојевић', '2021-11-16', 'zile128@gmail.com', '$2y$10$xgdorIODs8Wtr/5j3NFqO.FgD1slqeGzGT9FEoUFXDPlU2Ywx5gli', '2021-11-08 21:33:55', '2021-11-08 21:33:55', NULL, 2),
-(9, 'Небојша', 'Васић', '1975-10-11', 'vasic@gmail.com', '$2y$10$5VfPZRhQIq5D9qrs0uOQaOGtevmA2sNx.seQYyX75ikXH9rldIV3.', '2021-11-12 21:04:07', '2021-11-12 21:04:28', '7781636814932.jpg', 2);
+(9, 'Небојша', 'Васић', '1975-10-11', 'vasic@gmail.com', '$2y$10$5VfPZRhQIq5D9qrs0uOQaOGtevmA2sNx.seQYyX75ikXH9rldIV3.', '2021-11-12 21:04:07', '2021-11-18 12:41:15', '7781636814932.jpg', 2);
 
 --
 -- Indexes for dumped tables
@@ -254,7 +256,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `question`
 --
 ALTER TABLE `question`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -266,19 +268,19 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `solution`
 --
 ALTER TABLE `solution`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
 
 --
 -- AUTO_INCREMENT for table `tests`
 --
 ALTER TABLE `tests`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `test_category`
 --
 ALTER TABLE `test_category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -289,6 +291,12 @@ ALTER TABLE `users`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `solution`
+--
+ALTER TABLE `solution`
+  ADD CONSTRAINT `solution_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `question` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `users`

@@ -15,12 +15,25 @@ body {
   background: linear-gradient(to bottom, rgba(52, 58, 64, 1), rgba(0, 0, 0, 0));
   color: #ddd;
 }
-
+h1 {
+  text-transform: uppercase;
+  font-size: 4rem;
+}
 h1,
 h1 + * {
   text-shadow: 0 0 2px #000;
 }
 
+h2 {
+  color: #ff6347;
+  font-size: 2.5rem;
+  margin: 30px auto;
+  text-shadow: 0 0 2px #000;
+}
+h3 {
+  color: #fff;
+  text-shadow: 0 0 2px #000;
+}
 .testovi h6 {
   text-transform: uppercase;
   margin: 0;

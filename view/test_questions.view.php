@@ -10,7 +10,7 @@ require ROOT . "/include/main_nav.php";
 <section class="container">
 
     <?php if($user_info->role=="admin"): ?>
-    <!-- form for add test  -->
+    <!-- form to add test only allow for admin  -->
     <article class="row no-gutters">
         <form class="col-12 no-gutters row justify-content-between border rounded-lg p-2" action="test_questions.php"
             method="post" enctype="multipart/form-data">
@@ -28,6 +28,7 @@ require ROOT . "/include/main_nav.php";
     </article>
     <?php endif; ?>
 
+
     <article class="row no-gutters mt-4">
         <?php foreach($questions as $val): ?>
         <?php $q=$val["question"]; ?>
@@ -44,7 +45,7 @@ require ROOT . "/include/main_nav.php";
             <div class="card-body row no-gutters">
 
                 <div class="option col-md-8">
-                    <?php if(count($s)>0): ?>
+                    <?php if(isset($s) && count($s)>0): ?>
                     <ul class="list-group mr-md-4">
                         <?php foreach($s as $sol): ?>
                         <li class="list-group-item d-flex align-items-center">
@@ -73,7 +74,9 @@ require ROOT . "/include/main_nav.php";
                 <a class="btn btn-warning"
                     href="test_questions.php?action=<?php echo $_GET["id"]; ?>&id=<?php echo $q["id"]; ?>">Uredi
                     pitanje</a>
-                <a class="btn btn-danger" href="delete.php?action=qdel&id=<?php echo $q["id"]; ?>">Obriši pitanje</a>
+                <a class="btn btn-danger"
+                    href="delete.php?action=qdel&id=<?php echo $q["id"]; ?>&testid=<?php echo $_GET["id"]; ?>">Obriši
+                    pitanje</a>
                 <?php endif; ?>
                 <a class="btn btn-success float-right" href="question.php?id=<?php echo $q["id"]; ?>">Odgovori</a>
             </div>
