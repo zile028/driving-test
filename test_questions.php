@@ -89,19 +89,46 @@ if (isset($_POST["finish_test"])) {
     $all_question     = $_POST["question_id"];
     $correct_answers  = $_POST["correct_answer"];
     $question_answers = [];
-vd($correct_answers);
-    foreach ($_POST["question_id"] as $item) {
-        $question_answers[$item] = [];
+// vd($correct_answers);
+vd($_POST["answer"]);
+foreach ($_POST["question_id"] as $item => $val) {
+    // vd();
+    if(array_key_exists($val,$question_answers)){
+    }else{
+        $question_answers[$val] = [];
     }
+    array_push($question_answers[$val],$_POST["question_id"][4]);
+}
+
+vd($question_answers);
+
+$odgovor=$_POST["answer"][$question_answers[0]];
+$resenje=$Tests->getSolutions($question_answers)[$question_answers[0]];
+
+echo "<br> odgovor";
+vd($odgovor);
+echo "<br> resenje";
+vd($resenje);
+die();
+if(is_array($odgovor)){
+    foreach($odgovor as $item){
+        vd($item);
+    }
+}
+foreach($resenje as $item){
+    vd($item);
+    }
+die();
 vd($question_answers);
 
     foreach ($_POST["answer"] as $key => $value) {
         vd($key);
-        if (1 == $correct_answers[$key]) {
-            $question_answers[$key][$key] = $value;
-        } else {
-            $question_answers[$value][$key] = $key;
-        }
+
+        // if (1 == $correct_answers[$key]) {
+        //     $question_answers[$key][$key] = $value;
+        // } else {
+        //     $question_answers[$value][$key] = $key;
+        // }
     }
 // vd($question_answers);
     $wrong = [];

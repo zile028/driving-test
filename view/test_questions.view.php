@@ -60,8 +60,8 @@ require ROOT . "/include/main_nav.php";
                                 <input class="form-control col-1"
                                     type="<?php echo ($q["answers"]==1) ? "radio" : "checkbox"; ?>"
                                     id="<?php echo "radio{$sol["id"]}"; ?>"
-                                    name="<?php echo ($q["answers"]==1) ? "answer[{$q["id"]}]" : "answer[{$sol["id"]}]" ; ?>"
-                                    value="<?php echo ($q["answers"]==1) ? $sol["id"] : $q["id"]; ; ?>">
+                                    name="<?php echo ($q["answers"]==1) ? "answer[{$q["id"]}]" : "answer[{$q["id"]}][{$sol["id"]}]" ; ?>"
+                                    value="<?php echo ($q["answers"]==1) ? $sol["id"] : $sol["id"]; ; ?>">
 
                                 <label class="flex-grow-1 mb-0"
                                     for="<?php echo "radio{$sol["id"]}"; ?>"><?php echo $sol["solution"]; ?></label>

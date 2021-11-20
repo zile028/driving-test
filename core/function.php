@@ -9,9 +9,11 @@ function dd($arg)
 
 function vd($arg)
 {
+    echo "-----------------------------------------";
     echo "<pre>";
     var_dump($arg);
     echo "</pre>";
+    echo "-----------------------------------------";
 }
 
 

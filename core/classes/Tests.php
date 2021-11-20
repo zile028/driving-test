@@ -63,10 +63,11 @@ class Tests extends QueryBuilder
     function getSolutions($questions_id){
         $in_array=implode(",",$questions_id);
         $sql = "SELECT
-                id,
-                corect
+                question_id,
+                id
+                -- corect
                 FROM solution
-                WHERE question_id IN ({$in_array})";
+                WHERE (corect = 1 AND question_id IN ({$in_array}))";
 
         $qry = $this->db->prepare($sql);
         $qry->execute();
