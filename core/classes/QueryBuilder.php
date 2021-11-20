@@ -83,7 +83,7 @@ class QueryBuilder extends Connection
         $col_name          = implode(", ", $column);
         $value_placeholder = implode(", ", $value);
         $sql               = "INSERT INTO {$table} ({$col_name}) VALUES ({$value_placeholder})";
-        $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        // $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         $qry = $this->db->prepare($sql);
         $qry->execute($data);

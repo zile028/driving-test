@@ -31,10 +31,14 @@ require ROOT . "/include/main_nav.php";
 
     <article class="row no-gutters mt-4">
         <form class="col-12" method="POST" action="test_questions.php?id=<?php echo $_GET["id"]; ?>">
-            <input type="hidden" name="test_id" value="<?php echo $_GET["id"]; ?>">
+
             <?php foreach($questions as $val): ?>
             <?php $q=$val["question"]; ?>
             <?php $s=$val["solution"]; ?>
+
+            <input type="hidden" name="<?php echo "question_id[{$q["id"]}]" ?>" value="<?php echo $q["id"]; ?>">
+            <input type="hidden" name="<?php echo "correct_answer[{$q["id"]}]" ?>" value="<?php echo $q["answers"]; ?>">
+
 
             <div class="card mb-3">
                 <div class="card-header d-flex justify-content-between align-items-start">
@@ -50,12 +54,14 @@ require ROOT . "/include/main_nav.php";
                         <?php if(isset($s) && count($s)>0): ?>
                         <ul class="list-group mr-md-4">
                             <?php foreach($s as $sol): ?>
+
                             <li class="list-group-item d-flex align-items-center">
 
                                 <input class="form-control col-1"
                                     type="<?php echo ($q["answers"]==1) ? "radio" : "checkbox"; ?>"
+                                    id="<?php echo "radio{$sol["id"]}"; ?>"
                                     name="<?php echo ($q["answers"]==1) ? "answer[{$q["id"]}]" : "answer[{$sol["id"]}]" ; ?>"
-                                    id="<?php echo "radio{$sol["id"]}"; ?>" value="<?php echo $sol["id"]; ?>">
+                                    value="<?php echo ($q["answers"]==1) ? $sol["id"] : $q["id"]; ; ?>">
 
                                 <label class="flex-grow-1 mb-0"
                                     for="<?php echo "radio{$sol["id"]}"; ?>"><?php echo $sol["solution"]; ?></label>

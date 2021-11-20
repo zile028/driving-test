@@ -7,6 +7,15 @@ function dd($arg)
     die();
 }
 
+function vd($arg)
+{
+    echo "<pre>";
+    var_dump($arg);
+    echo "</pre>";
+}
+
+
+
 function testInput($data)
 {
     if (isset($data) || !empty($data)) {

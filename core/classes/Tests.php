@@ -60,4 +60,17 @@ class Tests extends QueryBuilder
         return $qry->rowCount();
     }
 
+    function getSolutions($questions_id){
+        $in_array=implode(",",$questions_id);
+        $sql = "SELECT
+                id,
+                corect
+                FROM solution
+                WHERE question_id IN ({$in_array})";
+
+        $qry = $this->db->prepare($sql);
+        $qry->execute();
+        return $qry->fetchAll(PDO::FETCH_ASSOC | PDO::FETCH_GROUP);
+    }
+
 }

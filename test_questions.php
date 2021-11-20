@@ -79,28 +79,88 @@ if (isset($_POST["save_change"])) {
         ];
     }
 
-    $Tests->updateTable("question",$data,["id" => $_POST["id"]]);
+    $Tests->updateTable("question", $data, ["id" => $_POST["id"]]);
     redirect("test_questions.php", "id=" . $_POST["test_id"]);
 }
 
-if (isset($_POST["finish_test"])){
-$data=[];
-    foreach($_POST["answer"] as $sol_id){
-        array_push($data,[
+if (isset($_POST["finish_test"])) {
+    $data             = [];
+    $user_answer      = [];
+    $all_question     = $_POST["question_id"];
+    $correct_answers  = $_POST["correct_answer"];
+    $question_answers = [];
+vd($correct_answers);
+    foreach ($_POST["question_id"] as $item) {
+        $question_answers[$item] = [];
+    }
+vd($question_answers);
 
-            "solution_id"  =>$sol_id,
+    foreach ($_POST["answer"] as $key => $value) {
+        vd($key);
+        if (1 == $correct_answers[$key]) {
+            $question_answers[$key][$key] = $value;
+        } else {
+            $question_answers[$value][$key] = $key;
+        }
+    }
+// vd($question_answers);
+    $wrong = [];
+    foreach ($questions as $question) {
+        $q           = $question["question"];
+        $s           = $question["solution"];
+        $answers     = $q["answers"]; //koliko treba da ima tacnih solucija u pitanju
+        $user_answer = count($question_answers[$q["id"]]); //koliko je solucija korisnik odabrao
 
-        ]);
+        if ($answers == $user_answer) {
+            foreach ($s as $option) {
+                if ($option["corect"]) {
+                    vd($question_answers[$q["id"]]);
+                    vd(array_key_exists($option["id"], $question_answers[$q["id"]]));
+                }
+                ;
+            }
+        } else {
+            array_push($wrong, $q["id"]);
+        }
+
+        // vd($question_answers[$q["id"]]);
+        // vd(array_key_exists(9,$question_answers[$q["id"]]));
     }
 
-$json_data=json_encode($data,JSON_PRETTY_PRINT);
+// vd($question_answers);
 
-    dd(json_decode($json_data));
+// dd($Tests->getSolutions($_POST["question_id"]));
+
+// dd(implode(",",$_POST["question_id"]));
+
+    // check correct answer
+    foreach ($question_answers as $key => $value) {
+        // vd($key);
+        // vd($questions[$key]);
+    }
+    // dd($question_answers);
+
+    // ------------------------
+
+    $data = [
+        "test_id"        => $_GET["id"],
+        "user_id"        => $_SESSION["id"],
+        "points"         => "5 fiksno",
+        "number_correct" => "3 fiksno",
+        "answer_json"    => $question_answers,
+        // "answer_json"    => json_encode($question_answers, JSON_PRETTY_PRINT),
+    ];
+    dd("end");
+    // vd($all_question);
+    // vd($user_answer);
+    dd($data);
+
     $Tests->insertInto("user_answer", [
-        "user_id" => $_SESSION["id"],
-        "solution_id"  =>$sol_id,
-        "test_id"   => $_POST["test_id"],
+        "user_id"     => $_SESSION["id"],
+        "solution_id" => $sol_id,
+        "test_id"     => $_POST["test_id"],
     ]);
+
     $Tests->insertInto("question", $data);
 
 }
