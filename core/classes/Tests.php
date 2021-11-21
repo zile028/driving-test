@@ -38,31 +38,51 @@ class Tests extends QueryBuilder
                 ";
         $qry = $this->db->prepare($sql);
         $qry->execute();
-        $qs=[];
+        $qs       = [];
         $solution = $qry->fetchAll(PDO::FETCH_GROUP | PDO::FETCH_ASSOC);
 
-
         foreach ($question as $q) {
-            if(isset($solution[$q["id"]])){
-                array_push($qs, ["question"=>$q,"solution" => $solution[$q["id"]]]);
-            }else{
-                array_push($qs, ["question"=>$q,"solution" => null]);
+            if (isset($solution[$q["id"]])) {
+                array_push($qs, ["question" => $q, "solution" => $solution[$q["id"]]]);
+            } else {
+                array_push($qs, ["question" => $q, "solution" => null]);
             }
 
         }
         return $qs;
     }
 
-    function getNumberCorrect($data){
+    public function getNumberCorrect($data)
+    {
         $sql = "SELECT * FROM solution WHERE question_id = :id AND corect = 1";
         $qry = $this->db->prepare($sql);
         $qry->execute($data);
         return $qry->rowCount();
     }
 
-    function getSolutions($questions_id){
-        $in_array=implode(",",$questions_id);
+    public function isCorrect($id_solution)
+    {
         $sql = "SELECT
+                q.points
+                FROM solution s
+                JOIN question q
+                ON q.id = s.question_id
+                WHERE s.id = :id AND corect = 1";
+
+        $qry = $this->db->prepare($sql);
+        $qry->execute($id_solution);
+        $result=$qry->fetch(PDO::FETCH_ASSOC);
+        if ($qry->rowCount() == 1) {
+            return ["result"=>true, "points"=>$result["points"]];
+        } else {
+            return ["result"=>false];
+        };
+    }
+
+    public function getSolutions($questions_id)
+    {
+        $in_array = implode(",", $questions_id);
+        $sql      = "SELECT
                 question_id,
                 id
                 -- corect

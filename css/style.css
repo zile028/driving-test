@@ -132,3 +132,8 @@ textarea {
   object-fit: cover;
   display: block;
 }
+
+.user-info li {
+  border: transparent;
+  border-bottom: 1px solid #fff;
+}

@@ -9,7 +9,7 @@ class User extends QueryBuilder
     {
         $check_exist = $this->selectSingle("users", ["email" => $user_data["email"]]);
 
-        if ($check_exist==false) {
+        if (false == $check_exist) {
             $sql   = "INSERT INTO users (first_name, last_name, date_birth, email, password) VALUES (:first_name, :last_name, :date_birth, :email, :password)";
             $query = $this->db->prepare($sql);
             $query->execute($user_data);
@@ -34,9 +34,9 @@ class User extends QueryBuilder
             if (password_verify($password, $user_password)) {
                 $_SESSION["id"]  = $get_user['id'];
                 $this->login_msg = "Uspesno ste se logovali!";
-                $sql = "UPDATE users SET last_login = NOW() WHERE id = :id";
-                $query = $this->db->prepare($sql);
-                $query->execute(["id"=>$get_user['id']]);
+                $sql             = "UPDATE users SET last_login = NOW() WHERE id = :id";
+                $query           = $this->db->prepare($sql);
+                $query->execute(["id" => $get_user['id']]);
                 return true;
             } else {
                 $this->login_msg = "Email i password se ne podudaraju!";
@@ -54,15 +54,44 @@ class User extends QueryBuilder
         }
     }
 
-    function addProfilImage($store_name, $user_id){
+    public function addProfilImage($store_name, $user_id)
+    {
         $sql = "UPDATE users SET profil_img = :store_name WHERE id = :user_id ";
-        $qry= $this->db->prepare($sql);
-        $qry->execute(["store_name"=>$store_name, "user_id" => $user_id]);
-        if ($qry){
+        $qry = $this->db->prepare($sql);
+        $qry->execute(["store_name" => $store_name, "user_id" => $user_id]);
+        if ($qry) {
             return true;
-        }else{
+        } else {
             return false;
         }
+    }
+
+    public function getTestsStatistic($user_id)
+    {
+        $sql = "SELECT
+                tc.category_name,
+                ut.points,
+                ut.number_correct,
+                ut.answer_json,
+                t.test_name,
+                tc.category_name,
+                tc.icon,
+                ut.id user_test_id,
+                t.id test_id
+                FROM user_test ut
+                JOIN tests t
+                ON ut.test_id = t.id
+                JOIN test_category tc
+                ON tc.id = t.category_id
+                WHERE ut.user_id = :id
+                ORDER BY t.id ASC
+                ";
+
+        $qry = $this->db->prepare($sql);
+        $qry->execute(["id" => $user_id]);
+        $result=$qry->fetchAll(PDO::FETCH_ASSOC | PDO::FETCH_GROUP);
+        return $result;
+
     }
 
 }

@@ -13,11 +13,15 @@
                 <a class="nav-link" href="<?php echo ROOT_DIR; ?>/testovi.php">Testovi</a>
             </li>
 
+            <?php if(!$User->isLoged() && $user_info->role=="admin"): ?>
+            <li class="nav-item">
+                <a class="nav-link" href="login_register.php">Korisnici</a>
+            </li>
+            <?php endif; ?>
             <?php if($User->isLoged()): ?>
             <li class="nav-item">
                 <a class="nav-link" href="login_register.php">Login / Register</a>
             </li>
-
             <?php else: ?>
 
             <li class="nav-item">

@@ -8,6 +8,11 @@ $user_info = $User->selectSingleJoin(
     ["id" => $_SESSION["id"]]
 );
 
+$test_info = $User->getTestsStatistic($_SESSION["id"]);
+
+// dd($test_info);
+
+
 if (isset($_POST["save_img"])) {
     $Upload                  = new Upload();
     $files                   = $Upload->fileInfo($_FILES["profil_image"]);
@@ -18,11 +23,12 @@ if (isset($_POST["save_img"])) {
     foreach ($files as $file) {
         $check_status = $Upload->checkFile($file);
         if (count($check_status["errors"]) == 0) {
-            unlink(ROOT . "/upload/" .$user_info->profil_img);
+            unlink(ROOT . "/upload/" . $user_info->profil_img);
             if ($store_name = $Upload->uploads($file, ROOT . "/upload")) {
                 $User->addProfilImage($store_name, $user_info->users_id);
                 redirect("user.php");
-            };
+            }
+            ;
         }
     }
 

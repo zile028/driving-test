@@ -16,8 +16,6 @@ if (isset($_GET["id"]) && !isset($_GET["action"])) {
     $question = $Tests->selectSingle("question", ["id" => $_GET["id"]]);
 }
 
-// dd($tests);
-
 if (isset($_POST["add_question"])) {
     if (null != $_FILES["atach"]["name"]) {
         $Upload                  = new Upload();
@@ -84,111 +82,64 @@ if (isset($_POST["save_change"])) {
 }
 
 if (isset($_POST["finish_test"])) {
-    $data             = [];
-    $user_answer      = [];
-    $all_question     = $_POST["question_id"];
-    $correct_answers  = $_POST["correct_answer"];
-    $question_answers = [];
-// vd($correct_answers);
-vd($_POST["answer"]);
-foreach ($_POST["question_id"] as $item => $val) {
-    // vd();
-    if(array_key_exists($val,$question_answers)){
-    }else{
-        $question_answers[$val] = [];
-    }
-    array_push($question_answers[$val],$_POST["question_id"][4]);
-}
+    $data            = [];
+    $user_answer     = [];
+    $format_answer   = [];
+    $all_question    = $_POST["question_id"];
+    $correct_answers = $_POST["correct_answer"];
 
-vd($question_answers);
+    $result_test = [
+        "exact"  => [],
+        "wrong"  => [],
+        "points" => [],
+    ];
 
-$odgovor=$_POST["answer"][$question_answers[0]];
-$resenje=$Tests->getSolutions($question_answers)[$question_answers[0]];
+    $user_answer = $_POST["answer"];
 
-echo "<br> odgovor";
-vd($odgovor);
-echo "<br> resenje";
-vd($resenje);
-die();
-if(is_array($odgovor)){
-    foreach($odgovor as $item){
-        vd($item);
-    }
-}
-foreach($resenje as $item){
-    vd($item);
-    }
-die();
-vd($question_answers);
-
-    foreach ($_POST["answer"] as $key => $value) {
-        vd($key);
-
-        // if (1 == $correct_answers[$key]) {
-        //     $question_answers[$key][$key] = $value;
-        // } else {
-        //     $question_answers[$value][$key] = $key;
-        // }
-    }
-// vd($question_answers);
-    $wrong = [];
-    foreach ($questions as $question) {
-        $q           = $question["question"];
-        $s           = $question["solution"];
-        $answers     = $q["answers"]; //koliko treba da ima tacnih solucija u pitanju
-        $user_answer = count($question_answers[$q["id"]]); //koliko je solucija korisnik odabrao
-
-        if ($answers == $user_answer) {
-            foreach ($s as $option) {
-                if ($option["corect"]) {
-                    vd($question_answers[$q["id"]]);
-                    vd(array_key_exists($option["id"], $question_answers[$q["id"]]));
-                }
-                ;
-            }
+    foreach ($user_answer as $key => $value) {
+        if (is_array($value)) {
+            $format_answer[$key] = $value;
         } else {
-            array_push($wrong, $q["id"]);
+            $format_answer[$key] = [$value => $value];
+        }
+        ;
+    }
+
+    $question_answers = json_encode($format_answer, JSON_PRETTY_PRINT);
+
+    foreach ($format_answer as $q_key => $q_value) {
+        $answered = count($q_value);
+
+        foreach ($q_value as $s_key => $s_value) {
+            $result                        = $Tests->isCorrect(["id" => $s_value]);
+            $format_answer[$q_key][$s_key] = $result["result"];
         }
 
-        // vd($question_answers[$q["id"]]);
-        // vd(array_key_exists(9,$question_answers[$q["id"]]));
+        if ($correct_answers[$q_key] != $answered) {
+            array_push($result_test["wrong"], $q_key);
+        } elseif (array_sum($format_answer[$q_key]) == $correct_answers[$q_key]) {
+            array_push($result_test["exact"], $q_key);
+            array_push($result_test["points"], $result["points"]);
+        } else {
+            array_push($result_test["wrong"], $q_key);
+        }
+
     }
 
-// vd($question_answers);
-
-// dd($Tests->getSolutions($_POST["question_id"]));
-
-// dd(implode(",",$_POST["question_id"]));
-
-    // check correct answer
-    foreach ($question_answers as $key => $value) {
-        // vd($key);
-        // vd($questions[$key]);
-    }
-    // dd($question_answers);
-
-    // ------------------------
+    // $final_result=[
+    //     "tacni odgovori"   => count($result_test["exact"]),
+    //     "netacni odgovori" => count($result_test["wrong"]),
+    //     "osvojeni poeni"   => array_sum($result_test["points"]),
+    // ]);
 
     $data = [
         "test_id"        => $_GET["id"],
         "user_id"        => $_SESSION["id"],
-        "points"         => "5 fiksno",
-        "number_correct" => "3 fiksno",
+        "points"         => array_sum($result_test["points"]),
+        "number_correct" => count($result_test["exact"]),
         "answer_json"    => $question_answers,
-        // "answer_json"    => json_encode($question_answers, JSON_PRETTY_PRINT),
     ];
-    dd("end");
-    // vd($all_question);
-    // vd($user_answer);
-    dd($data);
-
-    $Tests->insertInto("user_answer", [
-        "user_id"     => $_SESSION["id"],
-        "solution_id" => $sol_id,
-        "test_id"     => $_POST["test_id"],
-    ]);
-
-    $Tests->insertInto("question", $data);
+    $Tests->insertInto("user_test", $data);
 
 }
 
