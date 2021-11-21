@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8888
--- Generation Time: Nov 20, 2021 at 10:32 AM
+-- Generation Time: Nov 21, 2021 at 09:10 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.4.1
 
@@ -32,7 +32,7 @@ CREATE TABLE `question` (
   `id` int(11) NOT NULL,
   `question` text NOT NULL,
   `atach` varchar(50) DEFAULT NULL,
-  `test_id` int(11) NOT NULL,
+  `test_id` int(11) DEFAULT NULL,
   `answers` int(10) DEFAULT '1',
   `points` int(10) DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -45,7 +45,9 @@ INSERT INTO `question` (`id`, `question`, `atach`, `test_id`, `answers`, `points
 (1, 'Od saobraćajnog znaka prikazanog na slici se završava:', '8661636996390.jpg', 1, 1, 3),
 (4, 'Svetlosni saobraćajni znak - treptuće žuto svetlo koji daje semafor ima značenje:', NULL, 5, 2, 3),
 (14, 'Saobracajni znak prikazan na slici označava:', '5191637153531.jpg', 5, 1, 3),
-(15, 'Ptianje 2', NULL, 1, 1, 3);
+(15, 'Ptianje 2', NULL, 1, 1, 3),
+(16, 'Непосредно регулисање саобраћаја на путевима врше:', NULL, 7, 1, 1),
+(17, 'Контролу над возачима и возилима у саобраћају на\r\nпутевима ради примене прописа о безбедности\r\nсаобраћаја врше:', NULL, 7, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -97,7 +99,14 @@ INSERT INTO `solution` (`id`, `question_id`, `solution`, `corect`) VALUES
 (95, 15, 'Opcija 1', 0),
 (96, 15, 'Opcija 2', 1),
 (97, 15, 'Opcija 3', 0),
-(98, 4, 'sedi kuci', 1);
+(98, 4, 'sedi kuci', 1),
+(99, 16, 'униформисани комунални полицајци', 0),
+(100, 16, 'униформисани полицијски службеници', 1),
+(101, 16, 'инспектори за друмски саобраћај', 0),
+(102, 17, 'униформисани комунални полицајци', 0),
+(103, 17, 'униформисани полицијски службеници', 1),
+(104, 17, 'службеници надлежног органа за саобраћај', 1),
+(105, 17, 'полицијски службеници у грађанском оделу', 0);
 
 -- --------------------------------------------------------
 
@@ -170,9 +179,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `date_birth`, `email`, `password`, `created_at`, `last_login`, `profil_img`, `role_id`) VALUES
-(1, 'Dejan', 'Živković', '2021-11-08', 'zile028@gmail.com', '$2y$10$SEc5S8nAkfT/vOLOm8zoWOdzhyhPPycY7LJRpXe5BTpfLwxKV90EK', '2021-11-08 00:38:49', '2021-11-18 12:32:05', '8871635536081.jpg', 1),
+(1, 'Dejan', 'Živković', '2021-11-08', 'zile028@gmail.com', '$2y$10$SEc5S8nAkfT/vOLOm8zoWOdzhyhPPycY7LJRpXe5BTpfLwxKV90EK', '2021-11-08 00:38:49', '2021-11-21 20:39:00', '8871635536081.jpg', 1),
 (7, 'Ненад', 'Станојевић', '2021-11-16', 'zile128@gmail.com', '$2y$10$xgdorIODs8Wtr/5j3NFqO.FgD1slqeGzGT9FEoUFXDPlU2Ywx5gli', '2021-11-08 21:33:55', '2021-11-08 21:33:55', NULL, 2),
-(9, 'Небојша', 'Васић', '1975-10-11', 'vasic@gmail.com', '$2y$10$5VfPZRhQIq5D9qrs0uOQaOGtevmA2sNx.seQYyX75ikXH9rldIV3.', '2021-11-12 21:04:07', '2021-11-18 12:41:15', '7781636814932.jpg', 2);
+(9, 'Небојша', 'Васић', '1975-10-11', 'vasic@gmail.com', '$2y$10$5VfPZRhQIq5D9qrs0uOQaOGtevmA2sNx.seQYyX75ikXH9rldIV3.', '2021-11-12 21:04:07', '2021-11-21 20:37:39', '7781636814932.jpg', 2);
 
 -- --------------------------------------------------------
 
@@ -211,6 +220,16 @@ CREATE TABLE `user_test` (
   `number_correct` int(11) NOT NULL,
   `answer_json` json NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `user_test`
+--
+
+INSERT INTO `user_test` (`id`, `test_id`, `user_id`, `points`, `number_correct`, `answer_json`) VALUES
+(1, 5, 1, 6, 2, '{\"4\": {\"20\": \"20\", \"98\": \"98\"}, \"14\": {\"83\": \"83\"}}'),
+(2, 1, 1, 3, 1, '{\"1\": {\"11\": \"11\"}, \"15\": {\"95\": \"95\"}}'),
+(3, 1, 9, 3, 1, '{\"1\": {\"11\": \"11\"}, \"15\": {\"95\": \"95\"}}'),
+(4, 7, 1, 2, 2, '{\"16\": {\"100\": \"100\"}, \"17\": {\"103\": \"103\", \"104\": \"104\"}}');
 
 --
 -- Indexes for dumped tables
@@ -279,7 +298,7 @@ ALTER TABLE `user_test`
 -- AUTO_INCREMENT for table `question`
 --
 ALTER TABLE `question`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -291,7 +310,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `solution`
 --
 ALTER TABLE `solution`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
 
 --
 -- AUTO_INCREMENT for table `tests`
@@ -321,7 +340,7 @@ ALTER TABLE `user_answer`
 -- AUTO_INCREMENT for table `user_test`
 --
 ALTER TABLE `user_test`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
