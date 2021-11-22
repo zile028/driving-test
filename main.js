@@ -19,7 +19,7 @@ class PreviewImg {
     let fileName = file.name;
     let extension = fileName.split(".").pop().toLowerCase();
 
-    let allowExt = ["jpg", "jpeg", "png", "bmp"];
+    let allowExt = ["png", "jpg", "jpeg", "bmp"];
     console.log(extension);
     console.log(allowExt.indexOf(extension));
     reader.onload = function () {
@@ -31,7 +31,10 @@ class PreviewImg {
           "src",
           "https://icon-library.com/images/no-icon-png/no-icon-png-14.jpg"
         );
-        alert("Wrong format, alowed format is: " + allowExt.join(", "));
+        alert(
+          "Format fajla nije dozvoljen, dozvoljni format fajla je: " +
+            allowExt.join(", ")
+        );
       }
     };
   }

@@ -5,6 +5,7 @@ require ROOT . "/include/main_nav.php";
 
 <header class="jumbotron text-center">
     <h1><?php echo "{$user_info->first_name} {$user_info->last_name}"; ?></h1>
+
 </header>
 
 <section class="container">
@@ -16,15 +17,8 @@ require ROOT . "/include/main_nav.php";
             <?php else: ?>
             <img id="profil" src="asset/logo.png" class="img-thumbnail rounded-circle" alt="">
             <?php endif; ?>
-
-            <form class="border text-center rounded-lg mt-2" action="user.php" method="POST"
-                enctype="multipart/form-data">
-                <input type="hidden" name="id" value="<?php echo $user_info->id;?>">
-                <label class="btn btn-info my-2" for="file-img">Одабери слику</label>
-                <input id="file-img" type="file" name="profil_image">
-                <button type="submit" class="btn btn-success my-2" name="save_img">Сачувај</button>
-            </form>
         </div>
+
         <div class="col-md-6">
             <ul class="user-info list-group  ">
                 <li class="list-group-item bg-transparent text-light"><span>Ime:</span>
@@ -51,9 +45,15 @@ require ROOT . "/include/main_nav.php";
                         pristup:</span>
                     <p><?php echo displayDateTime($user_info->last_login); ?></p>
                 </li>
+                <li class="list-group-item bg-transparent text-light border-0 text-center"><a class="btn btn-primary"
+                        href="edit_user.php?id=<?php echo $user_info->id; ?>">Promena
+                        podataka</a>
+                </li>
+
             </ul>
         </div>
     </article>
+
     <article class="container mt-3">
         <?php if(count($test_info)>0): ?>
         <table class="bg-light table">

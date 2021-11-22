@@ -1,15 +1,14 @@
 <?php
 class QueryBuilder extends Connection
 {
-    public function deleteSingle(string $table,array $criteria){
+    public function deleteSingle(string $table, array $criteria)
+    {
         $key = key($criteria);
         $sql = "DELETE FROM {$table} WHERE {$key} = :{$key}";
         $qry = $this->db->prepare($sql);
         $qry->execute($criteria);
         return $qry;
     }
-
-
 
     public function selectAll(string $table, array $criteria = [])
     {
@@ -87,7 +86,7 @@ class QueryBuilder extends Connection
 
         $qry = $this->db->prepare($sql);
         $qry->execute($data);
-       
+
         return $this->db->lastInsertId();
     }
 
@@ -104,10 +103,10 @@ class QueryBuilder extends Connection
             array_push($set_criteria, $key . " = :" . $key);
         };
 
-        $fields            = implode(", ", $set_field);
-        $condition = implode(", ",$set_criteria);
-        $sql               = "UPDATE {$table} SET {$fields} WHERE {$condition}";
-        $qry = $this->db->prepare($sql);
+        $fields    = implode(", ", $set_field);
+        $condition = implode(", ", $set_criteria);
+        $sql       = "UPDATE {$table} SET {$fields} WHERE {$condition}";
+        $qry       = $this->db->prepare($sql);
 
         $qry->execute(array_merge($field, $criteria));
     }

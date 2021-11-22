@@ -75,18 +75,17 @@ class Upload
 
     public function checkFile($file, $required_name = false)
     {
-        $file_err = [];
         $result   = [];
         $file_err = [];
 
         if ($this->valid_size * $this->unit < $file['size']) {
-            $file_err["err_size"] = "File to large, alowed size is: " . $this->valid_size . $this->_unitSign($this->unit);
+            $file_err["err_size"] = "Fajl je prevelik, dozvoljena veličina je: " . $this->valid_size . $this->_unitSign($this->unit);
         }
         if (!in_array($file['doc_ext'], $this->valid_extension)) {
-            $file_err["err_ext"] = "Your file format not alowed, alow format is: " . implode(",", $this->valid_extension);
+            $file_err["err_ext"] = "Format fajla nije dozvoljen, dozvoljni format fajla je: " . implode(", ", $this->valid_extension);
         }
         if (empty($file['input_name']) && $required_name) {
-            $file_err["err_name"] = "File name is required.";
+            $file_err["err_name"] = "Ime fajla je obavezno.";
         }
         if (count($this->_file_info) == 1) {
             // $result = ["info" => $file, "errors" => $file_err];
@@ -95,7 +94,13 @@ class Upload
             // $result = [];
             array_push($result, ["info" => $file, "errors" => $file_err]);
         }
-        return $result;
+
+        if (count($result) == 1) {
+            return $result[0];
+        } else {
+            return $result;
+        }
+
     }
 
     /**
@@ -107,7 +112,7 @@ class Upload
 
     public function uploads($file, $destination)
     {
-        if (move_uploaded_file($file["temp_name"], $destination . "/" . $file["store_name"])) {
+        if (move_uploaded_file($file["temp_name"], $destination . $file["store_name"])) {
             return $file["store_name"];
         } else {
             return false;

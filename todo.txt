@@ -6,3 +6,4 @@
 6. prgled uradjenog testa
 7. ponovno resavanje testa
 8. brisanje uradjenog testa
+9. validacija podataka

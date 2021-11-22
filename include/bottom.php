@@ -1,3 +1,10 @@
+<footer class="text-light mt-5">
+    <section class="container py-5 text-center">
+
+        <p class="m-0">&copy; Dejan Zivkovic, <a href="https://zile028.com">www.zile028.com</a></p>
+    </section>
+</footer>
+
 <!-- jQuery and Bootstrap Bundle (includes Popper) - move before closed body tags -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
