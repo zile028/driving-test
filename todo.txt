@@ -1,5 +1,5 @@
-1. uredjivanje korisnika
-2. pregled svih korisnika
+1. uredjivanje korisnika +
+2. pregled svih korisnika +
 3. brisanje testa
 4. prilikom brisanja testa ne brisati pitanja
 5. pregled pitanja sa mogucnoscu dodeljivanja testu
@@ -7,3 +7,4 @@
 7. ponovno resavanje testa
 8. brisanje uradjenog testa
 9. validacija podataka
+10. dodleljivanje uloge korisnicima

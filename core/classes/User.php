@@ -89,9 +89,31 @@ class User extends QueryBuilder
 
         $qry = $this->db->prepare($sql);
         $qry->execute(["id" => $user_id]);
-        $result=$qry->fetchAll(PDO::FETCH_ASSOC | PDO::FETCH_GROUP);
+        $result = $qry->fetchAll(PDO::FETCH_ASSOC | PDO::FETCH_GROUP);
         return $result;
 
+    }
+
+    public function usersInfo()
+    {
+        $sql = "SELECT
+                u.id,
+                u.first_name,
+                u.last_name,
+                u.email,
+                u.last_login,
+                u.profil_img,
+                r.role,
+                COUNT(ut.user_id) number_tests
+                FROM users u
+                LEFT JOIN user_test ut ON u.id = ut.user_id
+                JOIN roles r ON r.id = u.role_id
+                GROUP BY u.id
+                ORDER BY FIELD(r.role, 'admin','user')";
+        $qry = $this->db->prepare($sql);
+        $qry->execute();
+        $result = $qry->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
     }
 
 }

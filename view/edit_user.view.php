@@ -51,7 +51,7 @@ require ROOT . "/include/main_nav.php";
             </div>
         </div>
         <!-- error message -->
-        <?php if(count($error["info"])>0): ?>
+        <?php if(isset($error) && count($error["info"])>0): ?>
         <div class="col-12 text-danger">
             <ul class="list-group">
 
@@ -63,7 +63,7 @@ require ROOT . "/include/main_nav.php";
         </div>
         <?php endif; ?>
 
-        <?php if(count($error["atach"])>0): ?>
+        <?php if(isset($error) && count($error["atach"])>0): ?>
         <div class="col-12 text-danger">
             <ul class="list-group">
                 <?php foreach($error["atach"][0] as $err): ?>
@@ -78,7 +78,7 @@ require ROOT . "/include/main_nav.php";
         </div>
     </form>
 
-    <form class="row border p-3 text-light mt-3 rounded-lg" action="edit_user" method="POST">
+    <form class="row border p-3 text-light mt-3 rounded-lg" action="edit_user.php" method="POST">
         <div class="col-12 text-center">
             <h4>Promeni lozinku</h4>
         </div>
@@ -92,8 +92,18 @@ require ROOT . "/include/main_nav.php";
             <input class="form-control" type="password" name="repeat_password">
         </div>
         <div class="col-12 mt-3 text-center">
-            <button class="btn btn-primary" type="submit">Promeni lozinku</button>
+            <button class="btn btn-primary" type="submit" name="change_password">Promeni lozinku</button>
         </div>
+
+        <?php if(isset($error_password) && count($error_password)>0): ?>
+        <div class="col-12 text-danger">
+            <ul class="list-group">
+                <?php foreach($error_password as $err): ?>
+                <li><?php echo($err); ?></li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+        <?php endif; ?>
     </form>
 
 </section>

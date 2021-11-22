@@ -8,13 +8,13 @@ $user_info = $User->selectSingleJoin(
     ["id" => $_SESSION["id"]]
 );
 
-$error = [
-    "info"  => [],
-    "atach" => [],
-];
-$data = [];
 
 if (isset($_POST["change_info"])) {
+    $data = [];
+    $error = [
+        "info"  => [],
+        "atach" => [],
+    ];
     if ($value = testInput($_POST["first_name"])) {
         $data["first_name"] = $value;
     } else {
@@ -51,18 +51,39 @@ if (isset($_POST["change_info"])) {
             unlink(UPLOAD_PATH . $user_info->profil_img);
             if ($store_name = $Upload->uploads($file, UPLOAD_PATH)) {
                 $User->addProfilImage($store_name, $user_info->users_id);
-                redirect("user.php");
+                // redirect("user.php");
             }
         } else {
             array_push($error["atach"], $check_status["errors"]);
         }
     }
-    $User->updateTable("users",$data,["id"=>$_SESSION["id"]]);
+    if(count($error["info"])==0){
+        $User->updateTable("users",$data,["id"=>$_SESSION["id"]]);
+        redirect("edit_user.php");
+    }
 
 
-}elseif(isset($_POST["change_info"])){
+}elseif(isset($_POST["change_password"])){
+    $error_password=[];
+    $data=[];
+    if ($new_password=testInput($_POST["new_password"])) {
+        $data["password"] = password_hash($new_password, PASSWORD_DEFAULT);
+    } else {
+        array_push($error_password, "Lozinka je obavezna!");
+    }
 
-
+    switch (false) {
+        case testInput($_POST["repeat_password"]):
+            array_push($error_password, "Ponovljena lozinka je obavezna!");
+            break;
+        case testInput($_POST["repeat_password"]) == testInput($_POST["new_password"]):
+            array_push($error_password, "Lozinke se ne poklapaju!");
+            break;
+    }
+    if(count($error_password)==0){
+        $User->updateTable("users",$data,["id"=>$_SESSION["id"]]);
+        redirect("edit_user.php");
+    }
 }
 
 require_once ROOT . "/view/edit_user.view.php";

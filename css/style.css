@@ -48,14 +48,16 @@ h3 {
 .loged-profil img {
   height: 50px;
 }
-.profil .profil-img {
+/* .profil  */
+.profil-img {
   height: 100px;
   width: 100px;
 
   outline: none;
   overflow: hidden;
 }
-.profil .profil-img img {
+/* .profil  */
+.profil-img img {
   height: 100%;
   width: 100%;
   display: block;
