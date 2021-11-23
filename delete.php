@@ -6,7 +6,7 @@ $user_info = $User->selectSingleJoin(
     "role_id",
     ["id" => $_SESSION["id"]]
 );
-if ("admin" != $user_info->role) {redirect("testovi.php");}
+if ("admin" != $user_info->role) {redirect("index.php");}
 
 if (isset($_GET["action"]) && $_GET["action"]=="qimg") {
     $question_info = $Tests->selectSingle("question",["id"=>$_GET["id"]]);
@@ -25,4 +25,16 @@ if (isset($_GET["action"]) && $_GET["action"]=="qdel") {
     };
     $Tests->deleteSingle("question",["id" => $_GET["id"]]);
     redirect("test_questions.php","id={$_GET["testid"]}");
+}
+
+if($_SERVER["REQUEST_METHOD"]=="GET"){
+    if($_GET["action"]=="user"){
+        $User->deleteSingle("users",["id"=> $_GET["id"]]);
+        redirect("all_users.php");
+    }
+    if($_GET["action"]=="tests"){
+        $User->deleteSingle($_GET["action"],["id"=> $_GET["id"]]);
+        redirect("testovi.php");
+    }
+
 }

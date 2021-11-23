@@ -2,8 +2,8 @@
 -- version 4.9.5
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:8888
--- Generation Time: Nov 22, 2021 at 11:30 PM
+-- Host: localhost:3306
+-- Generation Time: Nov 23, 2021 at 01:40 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.4.1
 
@@ -126,8 +126,6 @@ CREATE TABLE `tests` (
 
 INSERT INTO `tests` (`id`, `test_name`, `category_id`) VALUES
 (1, 'Test 1', 1),
-(2, 'Test 2', 2),
-(3, 'Test 3', 2),
 (4, 'Test 4', 1),
 (5, 'Test 2', 1),
 (6, 'Test 3', 1),
@@ -179,8 +177,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `date_birth`, `email`, `password`, `created_at`, `last_login`, `profil_img`, `role_id`) VALUES
-(1, 'Dejan', 'Živković', '2021-11-08', 'zile028@gmail.com', '$2y$10$Q4LxKZ.O0pxUJVgxuz6G9.SMHi5EQrg5m1TrTFyKduT58MkFjX3K.', '2021-11-08 00:38:49', '2021-11-22 18:50:42', '3991637583489.jpg', 1),
-(7, 'Ненад', 'Станојевић', '2021-11-16', 'zile128@gmail.com', '$2y$10$xgdorIODs8Wtr/5j3NFqO.FgD1slqeGzGT9FEoUFXDPlU2Ywx5gli', '2021-11-08 21:33:55', '2021-11-08 21:33:55', NULL, 2),
+(1, 'Дејан', 'Живковић', '2021-11-08', 'zile028@gmail.com', '$2y$10$SEc5S8nAkfT/vOLOm8zoWOdzhyhPPycY7LJRpXe5BTpfLwxKV90EK', '2021-11-08 00:38:49', '2021-11-23 13:01:49', '3991637583489.jpg', 1),
 (9, 'Небојша', 'Васић', '1975-10-11', 'vasic@gmail.com', '$2y$10$5VfPZRhQIq5D9qrs0uOQaOGtevmA2sNx.seQYyX75ikXH9rldIV3.', '2021-11-12 21:04:07', '2021-11-21 20:37:39', '7781636814932.jpg', 2);
 
 -- --------------------------------------------------------
@@ -345,6 +342,12 @@ ALTER TABLE `user_test`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `question`
+--
+ALTER TABLE `question`
+  ADD CONSTRAINT `question_ibfk_1` FOREIGN KEY (`test_id`) REFERENCES `tests` (`id`) ON DELETE SET NULL;
 
 --
 -- Constraints for table `solution`

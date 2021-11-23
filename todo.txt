@@ -7,4 +7,5 @@
 7. ponovno resavanje testa
 8. brisanje uradjenog testa
 9. validacija podataka
-10. dodleljivanje uloge korisnicima
+10. dodleljivanje uloge korisnicima +
+11. brisanje korisnika +

@@ -10,10 +10,14 @@ $user_info = $User->selectSingleJoin(
 // only access admin users
 if ("admin" != $user_info->role) {redirect("index.php");}
 ;
-
+$roles = $User->selectAll("roles");
 $all_users=$User->usersInfo();
-// dd($test);
 
+if(isset($_POST["change_role"])){
+    $data=["role_id" => $_POST["role"]];
+    $User->updateTable("users",$data,["id"=>$_GET["id"]]);
+    redirect("all_users.php");
+}
 
 
 require_once ROOT . "/view/all_users.view.php";

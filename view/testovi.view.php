@@ -33,14 +33,21 @@ require ROOT . "/include/main_nav.php";
     <?php endif; ?>
 
     <article class="row mt-4 justify-content-center">
-        <?php foreach($tests as $test): ?>
-        <div class="card testovi">
-            <a class="btn btn-warning" href="test_questions.php?id=<?php echo $test->tests_id; ?>">
-                <div class="card-body d-flex flex-column align-item-center justify-content-center text-center">
-                    <?php echo $test->icon; ?>
-                    <h6><?php echo $test->test_name; ?></h6>
-                </div>
-            </a>
+        <?php foreach($tests as $test):?>
+
+        <div class="card col-md-2 testovi bg-transparent border-0 mb-3">
+            <div class="card body">
+                <a class="btn btn-warning" href="test_questions.php?id=<?php echo $test->tests_id; ?>">
+                    <div class="card-body d-flex flex-column align-item-center justify-content-center text-center">
+                        <?php echo $test->icon; ?>
+                        <h6><?php echo $test->test_name; ?></h6>
+                    </div>
+                </a>
+            </div>
+            <div class="card-footer p-1 bg-transparent text-center">
+                <a class="btn btn-danger" href="delete.php?action=tests&id=<?php echo $test->id; ?>"><i
+                        class="fas fa-trash"></i></a>
+            </div>
         </div>
         <?php endforeach; ?>
     </article>

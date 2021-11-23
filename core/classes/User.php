@@ -104,6 +104,7 @@ class User extends QueryBuilder
                 u.last_login,
                 u.profil_img,
                 r.role,
+                u.role_id,
                 COUNT(ut.user_id) number_tests
                 FROM users u
                 LEFT JOIN user_test ut ON u.id = ut.user_id
