@@ -11,17 +11,8 @@ $user_info = $User->selectSingleJoin(
 if ("admin" != $user_info->role) {redirect("index.php");}
 ;
 
-
 $questions = $Tests->getQuestions();
 
-
-// dd($questions);
-// if (isset($_GET["id"]) && !isset($_GET["action"])) {
-//     $tests     = $Tests->selectSingleJoin(["tests", "test_category"], "category_id", ["id" => $_GET["id"]]);
-// } elseif (isset($_GET["action"])) {
-//     $tests    = $Tests->selectSingleJoin(["tests", "test_category"], "category_id", ["id" => $_GET["action"]]);
-//     $question = $Tests->selectSingle("question", ["id" => $_GET["id"]]);
-// }
 
 if (isset($_POST["add_question"])) {
     if (null != $_FILES["atach"]["name"]) {
@@ -46,7 +37,6 @@ if (isset($_POST["add_question"])) {
     } else {
         $data = [
             "question" => $_POST["question"],
-            // "test_id"  => null,
             "points"   => $_POST["points"],
         ];
 
@@ -55,6 +45,7 @@ if (isset($_POST["add_question"])) {
     redirect("question.php", "id=" . $last_id);
 
 }
+
 
 if (isset($_POST["save_change"])) {
     if (null != $_FILES["new_atach"]["name"]) {
@@ -67,7 +58,7 @@ if (isset($_POST["save_change"])) {
         $check_status = $Upload->checkFile($files);
 
         if (count($check_status[0]["errors"]) == 0) {
-            unlink(ROOT . "/upload/" . $_POST["old_atach"]);
+            unlink(UPLOAD_PATH . $_POST["old_atach"]);
             if ($store_name = $Upload->uploads($files, ROOT . "/upload")) {
                 $data = [
                     "question" => $_POST["question"],

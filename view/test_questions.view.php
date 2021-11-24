@@ -9,7 +9,7 @@ require ROOT . "/include/main_nav.php";
 </header>
 <section class="container">
 
-    <?php if($user_info->role=="admin"): ?>
+    <?php if($user_info->role=="none"): ?>
     <!-- form to add test only allow for admin  -->
     <article class="row no-gutters">
         <form class="col-12 no-gutters row justify-content-between border rounded-lg p-2" action="test_questions.php"
@@ -32,7 +32,7 @@ require ROOT . "/include/main_nav.php";
     <article class="row no-gutters mt-4">
         <form class="col-12" method="POST" action="test_questions.php?id=<?php echo $_GET["id"]; ?>">
 
-            <?php foreach($questions as $val): ?>
+            <?php $i=1; foreach($questions as $val): ?>
             <?php $q=$val["question"]; ?>
             <?php $s=$val["solution"]; ?>
 
@@ -41,12 +41,12 @@ require ROOT . "/include/main_nav.php";
 
 
             <div class="card mb-3">
-                <div class="card-header d-flex justify-content-between align-items-start">
+                <div class="card-header">
                     <div>
-                        <h4 class="font-weight-bold"><?php echo $q["question"]; ?></h4>
-                        <p class="blockquote-footer">Broj tačnih odgovora: <?php echo $q["answers"]; ?></p>
+                        <h4 class="font-weight-bold"><?php echo "{$i}: {$q["question"]}"; ?></h4>
+
                     </div>
-                    <div><span class="badge badge-info"><?php echo $q["points"]; ?></span></div>
+
                 </div>
                 <div class="card-body row no-gutters">
 
@@ -79,20 +79,12 @@ require ROOT . "/include/main_nav.php";
                     <?php endif; ?>
 
                 </div>
-                <div class="card-footer">
-                    <?php if($user_info->role=="admin"): ?>
-                    <a class="btn btn-primary" href="question.php?id=<?php echo $q["id"]; ?>">Solucije</a>
-                    <a class="btn btn-warning"
-                        href="test_questions.php?action=<?php echo $_GET["id"]; ?>&id=<?php echo $q["id"]; ?>">Uredi
-                        pitanje</a>
-                    <a class="btn btn-danger"
-                        href="delete.php?action=qdel&id=<?php echo $q["id"]; ?>&testid=<?php echo $_GET["id"]; ?>">Obriši
-                        pitanje</a>
-                    <?php endif; ?>
-                    <a class="btn btn-info float-right" href="question.php?id=<?php echo $q["id"]; ?>">Odgovori</a>
+                <div class="card-footer d-flex justify-content-between align-items-start">
+                    <p class="blockquote-footer">Broj tačnih odgovora: <?php echo $q["answers"]; ?></p>
+                    <div><span class="badge badge-info">Poena: <?php echo $q["points"]; ?></span></div>
                 </div>
             </div>
-            <?php endforeach; ?>
+            <?php $i++; endforeach; ?>
             <button class="btn btn-success" type="submit" name="finish_test">Predaj test</button>
         </form>
     </article>

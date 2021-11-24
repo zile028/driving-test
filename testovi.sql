@@ -2,8 +2,8 @@
 -- version 4.9.5
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:8888
--- Generation Time: Nov 24, 2021 at 07:32 AM
+-- Host: localhost:3306
+-- Generation Time: Nov 24, 2021 at 01:13 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.4.1
 
@@ -48,8 +48,7 @@ INSERT INTO `question` (`id`, `question`, `atach`, `test_id`, `answers`, `points
 (15, 'Ptianje 2', NULL, 1, 1, 3),
 (16, 'Непосредно регулисање саобраћаја на путевима врше:', NULL, NULL, 1, 1),
 (17, 'Контролу над возачима и возилима у саобраћају на\r\nпутевима ради примене прописа о безбедности\r\nсаобраћаја врше:', NULL, NULL, 2, 1),
-(18, 'Piranje', NULL, NULL, 1, 3),
-(19, 'Novo pitanje?', NULL, NULL, 2, 4);
+(25, '', NULL, NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -108,11 +107,7 @@ INSERT INTO `solution` (`id`, `question_id`, `solution`, `corect`) VALUES
 (102, 17, 'униформисани комунални полицајци', 0),
 (103, 17, 'униформисани полицијски службеници', 1),
 (104, 17, 'службеници надлежног органа за саобраћај', 1),
-(105, 17, 'полицијски службеници у грађанском оделу', 0),
-(106, 19, 'Opcija 1', 0),
-(107, 19, 'Opcija 2', 1),
-(108, 19, 'Opcija 3', 0),
-(109, 19, 'Opcija 4', 1);
+(105, 17, 'полицијски службеници у грађанском оделу', 0);
 
 -- --------------------------------------------------------
 
@@ -156,6 +151,18 @@ INSERT INTO `test_category` (`id`, `category_name`, `icon`) VALUES
 (1, 'B ketegorija', '<i class=\"fas fa-car\"></i>'),
 (2, 'C kategorija', '<i class=\"fas fa-truck\"></i>'),
 (3, 'A kategorija', '<i class=\"fas fa-motorcycle\"></i>');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `test_question`
+--
+
+CREATE TABLE `test_question` (
+  `test_id` int(11) NOT NULL,
+  `question_id` int(11) NOT NULL,
+  `points` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -271,6 +278,13 @@ ALTER TABLE `test_category`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `test_question`
+--
+ALTER TABLE `test_question`
+  ADD PRIMARY KEY (`test_id`,`question_id`),
+  ADD KEY `question_id` (`question_id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -300,7 +314,7 @@ ALTER TABLE `user_test`
 -- AUTO_INCREMENT for table `question`
 --
 ALTER TABLE `question`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -312,19 +326,19 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `solution`
 --
 ALTER TABLE `solution`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=113;
 
 --
 -- AUTO_INCREMENT for table `tests`
 --
 ALTER TABLE `tests`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `test_category`
 --
 ALTER TABLE `test_category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -349,16 +363,17 @@ ALTER TABLE `user_test`
 --
 
 --
--- Constraints for table `question`
---
-ALTER TABLE `question`
-  ADD CONSTRAINT `question_ibfk_1` FOREIGN KEY (`test_id`) REFERENCES `tests` (`id`) ON DELETE SET NULL;
-
---
 -- Constraints for table `solution`
 --
 ALTER TABLE `solution`
   ADD CONSTRAINT `solution_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `question` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `test_question`
+--
+ALTER TABLE `test_question`
+  ADD CONSTRAINT `test_question_ibfk_1` FOREIGN KEY (`test_id`) REFERENCES `tests` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `test_question_ibfk_2` FOREIGN KEY (`question_id`) REFERENCES `question` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `users`

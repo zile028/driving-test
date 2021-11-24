@@ -81,9 +81,9 @@ require ROOT . "/include/main_nav.php";
                 <div class="card-footer">
                     <?php if($user_info->role=="admin"): ?>
                     <a class="btn btn-primary" href="question.php?id=<?php echo $q["id"]; ?>">Solucije</a>
-                    <a class="btn btn-warning" href="test_questions.php?id=<?php echo $q["id"]; ?>">Uredi
+                    <a class="btn btn-warning" href="edit_question.php?id=<?php echo $q["id"]; ?>">Uredi
                         pitanje</a>
-                    <a class="btn btn-danger" href="delete.php?action=qdel&id=<?php echo $q["id"]; ?>">Obriši
+                    <a class="btn btn-danger" href="delete.php?action=question_delete&id=<?php echo $q["id"]; ?>">Obriši
                         pitanje</a>
                     <?php endif; ?>
                 </div>

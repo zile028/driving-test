@@ -8,7 +8,7 @@ $user_info = $User->selectSingleJoin(
     ["id" => $_SESSION["id"]]
 );
 
-// $tests = $Tests->selectAllJoin(["tests", "test_category"],"category_id", "category_id ASC, test_name ASC");
+
 $tests = $Tests->getAllTests();
 // dd($tests);
 $category = $QueryBuilder->selectAll("test_category");
