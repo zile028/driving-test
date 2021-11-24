@@ -12,7 +12,7 @@ class Tests extends QueryBuilder
         dd($data);
     }
 
-    public function getQuestions($data=null)
+    public function getQuestions($data = null)
     {
 
         $sql = "SELECT
@@ -35,7 +35,6 @@ class Tests extends QueryBuilder
             $qry->execute();
             # code...
         }
-        
 
         $question = $qry->fetchAll(PDO::FETCH_ASSOC);
 
@@ -121,4 +120,26 @@ class Tests extends QueryBuilder
 
     }
 
+    public function getTestQuestions($data)
+    {
+        $sql = "SELECT
+                q.id,
+                q.question,
+                q.atach,
+                q.answers,
+                q.points,
+                tq.test_id
+
+                FROM test_question tq
+                JOIN question q
+                ON tq.question_id = q.id
+                WHERE tq.test_id = :test_id";
+
+
+        $qry = $this->db->prepare($sql);
+        $qry->execute($data);
+        $result = $qry->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
 }

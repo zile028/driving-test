@@ -7,13 +7,11 @@ $user_info = $User->selectSingleJoin(
     "role_id",
     ["id" => $_SESSION["id"]]
 );
-
-
 $questions = $Tests->getQuestions();
 $tests = $Tests->selectSingleJoin(["tests", "test_category"], "category_id", ["id" => $_GET["id"]]);
 // greska za join on parametar
-$test_questions = $Tests->getTestQuestions(["test_id"  => $_GET["id"]]);
-// dd("#" . null);
+// $test_questions = $Tests->getTestQuestion(["test_question", "question"], "question_id", ["test_id" => $_GET["id"]]);
+// dd($test_questions);
 
 // if (isset($_GET["id"]) && !isset($_GET["action"])) {
 //     // $questions = $Tests->getQuestions(["id" => $_GET["id"]]);
@@ -22,54 +20,6 @@ $test_questions = $Tests->getTestQuestions(["test_id"  => $_GET["id"]]);
     //     // $question = $Tests->selectSingle("question", ["id" => $_GET["id"]]);
 // }
 
-
-
-if (isset($_POST["add_question"])) {
-    $val = explode("|",$_POST["question_id"]);
-    $data = [
-        "question_id" => trim($val[0]),
-        "points" => trim($val[1]),
-        "test_id"  => $_GET["id"],
-    ];
-    $Tests->insertInto("test_question", $data);
-    redirect("test_questions.php","id={$_GET["id"]}","pitanje{$data["question_id"]}");
-
-    
-
-
-
-//     if (null != $_FILES["atach"]["name"]) {
-    //         $Upload                  = new Upload();
-    //         $files                   = $Upload->fileInfo($_FILES["atach"]);
-    //         $Upload->valid_extension = ["png", "gif", "jpg", "jpeg"];
-    //         $Upload->valid_size      = 2;
-    //         $Upload->unit            = $Upload::MB;
-
-//         $check_status = $Upload->checkFile($files);
-
-//         if (count($check_status[0]["errors"]) == 0) {
-    //             if ($store_name = $Upload->uploads($files, ROOT . "/upload")) {
-    //                 $data = [
-    //                     "question" => $_POST["question"],
-    //                     "atach"    => $store_name,
-    //                     "test_id"  => $_POST["id"],
-    //                     "points"   => $_POST["points"],
-    //                 ];
-    //             }
-    //         }
-    //     } else {
-    //         $data = [
-    //             "question" => $_POST["question"],
-    //             "test_id"  => $_POST["id"],
-    //             "points"   => $_POST["points"],
-    //         ];
-
-//     }
-    //     $last_id = $Tests->insertInto("question", $data);
-
-//     redirect("question.php", "id=" . $last_id);
-
-}
 
 if (isset($_POST["finish_test"])) {
     $data            = [];
@@ -134,7 +84,7 @@ if (isset($_POST["finish_test"])) {
 }
 
 if (isset($_GET["action"])) {
-    require_once ROOT . "/view/test_questions_edit_view.php";
+    // require_once ROOT . "/view/test_questions_edit_view.php";
 } else {
-    require_once ROOT . "/view/test_questions.view.php";
+    require_once ROOT . "/view/test.view.php";
 }

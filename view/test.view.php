@@ -15,6 +15,7 @@ require ROOT . "/include/main_nav.php";
                 <?php echo $question["question"]; ?>
             </option>
             <?php endforeach; ?>
+
         </select>
         <button name="add_question" class="btn btn-primary" type="submit">Dodaj</button>
     </form>
@@ -23,14 +24,15 @@ require ROOT . "/include/main_nav.php";
     <article class="row no-gutters mt-4">
         <form class="col-12" method="POST" action="test_questions.php?id=<?php echo $_GET["id"]; ?>">
 
-            <?php $i=1; foreach($test_questions as $q): ?>
-
+            <?php $i=1; foreach($questions as $val): ?>
+            <?php $q=$val["question"]; ?>
+            <?php $s=$val["solution"]; ?>
 
             <input type="hidden" name="<?php echo "question_id[{$q["id"]}]" ?>" value="<?php echo $q["id"]; ?>">
             <input type="hidden" name="<?php echo "correct_answer[{$q["id"]}]" ?>" value="<?php echo $q["answers"]; ?>">
 
 
-            <div <?php echo "id='pitanje{$q["id"]}'"; ?> class="card mb-3">
+            <div class="card mb-3">
                 <div class="card-header">
                     <div>
                         <h4 class="font-weight-bold"><?php echo "{$i}: {$q["question"]}"; ?></h4>

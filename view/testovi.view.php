@@ -37,9 +37,8 @@ require ROOT . "/include/main_nav.php";
         <?php foreach($category_test as $test):?>
         <div class="card col-md-2 testovi bg-transparent border-0 mb-3">
             <div class="card body">
-                <a class="btn btn-success w-100" href="test_questions.php?id=<?php echo $test["id"]; ?>"><i
+                <a class="btn btn-success w-100" href="test.php?id=<?php echo $test["id"]; ?>"><i
                         class="fas fa-angle-double-right"></i></a>
-
                 <a class="btn btn-warning" href="test_questions.php?id=<?php echo $test["id"]; ?>">
                     <div class="card-body d-flex flex-column align-item-center justify-content-center text-center">
                         <?php echo $test["icon"]; ?>
@@ -48,8 +47,11 @@ require ROOT . "/include/main_nav.php";
                 </a>
             </div>
             <?php if($user_info->role=="admin"): ?>
-            <div class="card-footer p-1 bg-transparent text-center">
-                <a class="btn btn-danger w-100" href="delete.php?action=tests&id=<?php echo $test["id"]; ?>"><i
+            <div class="card-footer d-flex p-1 bg-transparent text-center">
+                <a class="btn btn-info w-50" href="test_questions.php?id=<?php echo $test["id"]; ?>"><i
+                        class="fas fa-cog"></i></a>
+
+                <a class="btn btn-danger w-50" href="delete.php?action=tests&id=<?php echo $test["id"]; ?>"><i
                         class="fas fa-trash"></i></a>
             </div>
             <?php endif; ?>
