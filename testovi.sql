@@ -2,8 +2,8 @@
 -- version 4.9.5
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Nov 24, 2021 at 01:13 PM
+-- Host: localhost:8888
+-- Generation Time: Nov 24, 2021 at 07:37 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.4.1
 
@@ -47,8 +47,7 @@ INSERT INTO `question` (`id`, `question`, `atach`, `test_id`, `answers`, `points
 (14, 'Saobracajni znak prikazan na slici označava:', '5191637153531.jpg', NULL, 1, 3),
 (15, 'Ptianje 2', NULL, 1, 1, 3),
 (16, 'Непосредно регулисање саобраћаја на путевима врше:', NULL, NULL, 1, 1),
-(17, 'Контролу над возачима и возилима у саобраћају на\r\nпутевима ради примене прописа о безбедности\r\nсаобраћаја врше:', NULL, NULL, 2, 1),
-(25, '', NULL, NULL, 1, 1);
+(17, 'Контролу над возачима и возилима у саобраћају на\r\nпутевима ради примене прописа о безбедности\r\nсаобраћаја врше:', NULL, NULL, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -163,6 +162,16 @@ CREATE TABLE `test_question` (
   `question_id` int(11) NOT NULL,
   `points` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `test_question`
+--
+
+INSERT INTO `test_question` (`test_id`, `question_id`, `points`) VALUES
+(1, 1, 3),
+(6, 1, 3),
+(6, 4, 3),
+(6, 14, 3);
 
 -- --------------------------------------------------------
 

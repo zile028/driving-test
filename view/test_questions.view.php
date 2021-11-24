@@ -8,25 +8,17 @@ require ROOT . "/include/main_nav.php";
     <h5><?php echo $tests->category_name; ?></h5>
 </header>
 <section class="container">
+    <form class="d-flex" action="" method="post">
+        <select class="form-control" name="question_id">
+            <?php foreach($questions as $value): $question=$value["question"]; ?>
+            <option value="<?php echo "{$question["id"]} | {$question["points"]}"; ?>">
+                <?php echo $question["question"]; ?>
+            </option>
+            <?php endforeach; ?>
 
-    <?php if($user_info->role=="none"): ?>
-    <!-- form to add test only allow for admin  -->
-    <article class="row no-gutters">
-        <form class="col-12 no-gutters row justify-content-between border rounded-lg p-2" action="test_questions.php"
-            method="post" enctype="multipart/form-data">
-            <input type="hidden" name="id" value="<?php echo $_GET["id"]; ?>">
-            <textarea class="form-control col-12 mb-2 p-2" type="text" name="question"
-                placeholder="Pitanje?"></textarea>
-            <div class="col-12 d-flex mb-2">
-                <label class="input-group-text ml-md-2" for="">Broj poena:</label>
-                <input class="form-control col-1" type="number" name="points" value="1" min="1">
-            </div>
-            <label class="btn btn-info mb-0" for="atach">Dodja sliku</label>
-            <input type="file" name="atach" id="atach">
-            <button class="btn btn-primary" name="add_question" type="submit">Dodaj pitanje</button>
-        </form>
-    </article>
-    <?php endif; ?>
+        </select>
+        <button name="add_question" class="btn btn-primary" type="submit">Dodaj</button>
+    </form>
 
 
     <article class="row no-gutters mt-4">
