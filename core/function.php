@@ -16,8 +16,6 @@ function vd($arg)
     echo "-----------------------------------------<br>";
 }
 
-
-
 function testInput($data)
 {
     if (isset($data) || !empty($data)) {
@@ -50,4 +48,13 @@ function redirect ($location, $query_string=null){
     }else{
         header("location: " . $location . "?" . $query_string);
     }
+}
+
+function haveQryUrl(){
+    $url=$_SERVER["REQUEST_URI"];
+    if(isset(parse_url($url)["query"])){
+        return true;
+    };
+    return false;
+
 }

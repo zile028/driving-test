@@ -17,6 +17,10 @@
             <li class="nav-item">
                 <a class="nav-link" href="all_users.php">Korisnici</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="question_bank.php">Banka pitanja</a>
+            </li>
+
             <?php endif; ?>
             <?php if($User->isLoged()): ?>
             <li class="nav-item">

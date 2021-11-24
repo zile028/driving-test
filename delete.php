@@ -24,7 +24,7 @@ if (isset($_GET["action"]) && $_GET["action"]=="qdel") {
         unlink(ROOT . "/upload/" . $question_info["atach"]);
     };
     $Tests->deleteSingle("question",["id" => $_GET["id"]]);
-    redirect("test_questions.php","id={$_GET["testid"]}");
+    redirect($_SERVER["HTTP_REFERER"]);
 }
 
 if($_SERVER["REQUEST_METHOD"]=="GET"){

@@ -12,7 +12,7 @@ class Tests extends QueryBuilder
         dd($data);
     }
 
-    public function getQuestions($data)
+    public function getQuestions($data=null)
     {
 
         $sql = "SELECT
@@ -22,10 +22,20 @@ class Tests extends QueryBuilder
                 test_id,
                 answers,
                 points
-                FROM question
-                WHERE test_id = :id";
+                FROM question";
+
+        if (isset($data)) {
+            $sql .= " WHERE test_id = :id";
+        }
         $qry = $this->db->prepare($sql);
-        $qry->execute($data);
+        if (isset($data)) {
+            # code...
+            $qry->execute($data);
+        } else {
+            $qry->execute();
+            # code...
+        }
+        
 
         $question = $qry->fetchAll(PDO::FETCH_ASSOC);
 
@@ -71,11 +81,11 @@ class Tests extends QueryBuilder
 
         $qry = $this->db->prepare($sql);
         $qry->execute($id_solution);
-        $result=$qry->fetch(PDO::FETCH_ASSOC);
+        $result = $qry->fetch(PDO::FETCH_ASSOC);
         if ($qry->rowCount() == 1) {
-            return ["result"=>true, "points"=>$result["points"]];
+            return ["result" => true, "points" => $result["points"]];
         } else {
-            return ["result"=>false];
+            return ["result" => false];
         };
     }
 
@@ -92,6 +102,23 @@ class Tests extends QueryBuilder
         $qry = $this->db->prepare($sql);
         $qry->execute();
         return $qry->fetchAll(PDO::FETCH_ASSOC | PDO::FETCH_GROUP);
+    }
+
+    public function getAllTests()
+    {
+        $sql = "SELECT
+            tc.category_name,
+            tc.icon,
+            t.id,
+            t.test_name
+            FROM tests t
+            JOIN test_category tc ON t.category_id = tc.id
+            ";
+        $qry = $this->db->prepare($sql);
+        $qry->execute();
+        $result = $qry->fetchAll(PDO::FETCH_ASSOC | PDO::FETCH_GROUP);
+        return $result;
+
     }
 
 }

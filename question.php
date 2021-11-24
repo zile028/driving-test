@@ -9,7 +9,6 @@ $user_info = $User->selectSingleJoin(
 );
 
 if ("admin" != $user_info->role) {redirect("testovi.php");}
-
 if (isset($_GET["id"])) {
     $question = $Tests->selectSingle("question", ["id" => $_GET["id"]]);
     $solution = $Tests->selectAll("solution", ["question_id" => $_GET["id"]]);

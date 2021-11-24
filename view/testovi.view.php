@@ -4,8 +4,7 @@ require ROOT . "/include/main_nav.php";
 ?>
 
 <header class="jumbotron text-center">
-    <h1><?php echo "{$user_info->first_name} {$user_info->last_name}"; ?></h1>
-    <h2>Testovi</h2>
+    <h1>Testovi</h1>
 </header>
 <section class="container">
     <?php if($user_info->role=="admin"): ?>
@@ -33,22 +32,29 @@ require ROOT . "/include/main_nav.php";
     <?php endif; ?>
 
     <article class="row mt-4 justify-content-center">
-        <?php foreach($tests as $test):?>
-
+        <?php foreach($tests as $category_name => $category_test): ?>
+        <h4 class="col-12 text-center text-light"><?php echo $category_name; ?></h4>
+        <?php foreach($category_test as $test):?>
         <div class="card col-md-2 testovi bg-transparent border-0 mb-3">
             <div class="card body">
-                <a class="btn btn-warning" href="test_questions.php?id=<?php echo $test->tests_id; ?>">
+                <a class="btn btn-success w-100" href="test_questions.php?id=<?php echo $test["id"]; ?>"><i
+                        class="fas fa-angle-double-right"></i></a>
+
+                <a class="btn btn-warning" href="test_questions.php?id=<?php echo $test["id"]; ?>">
                     <div class="card-body d-flex flex-column align-item-center justify-content-center text-center">
-                        <?php echo $test->icon; ?>
-                        <h6><?php echo $test->test_name; ?></h6>
+                        <?php echo $test["icon"]; ?>
+                        <h6><?php echo $test["test_name"]; ?></h6>
                     </div>
                 </a>
             </div>
+            <?php if($user_info->role=="admin"): ?>
             <div class="card-footer p-1 bg-transparent text-center">
-                <a class="btn btn-danger" href="delete.php?action=tests&id=<?php echo $test->id; ?>"><i
+                <a class="btn btn-danger w-100" href="delete.php?action=tests&id=<?php echo $test["id"]; ?>"><i
                         class="fas fa-trash"></i></a>
             </div>
+            <?php endif; ?>
         </div>
+        <?php endforeach; ?>
         <?php endforeach; ?>
     </article>
 </section>

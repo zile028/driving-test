@@ -40,8 +40,7 @@ require ROOT . "/include/main_nav.php";
             <?php endforeach; ?>
         </ul>
         <div class="col-md-8 offset-md-2 mt-3 text-center">
-            <a class="btn btn-warning"
-                href="<?php echo ROOT_DIR . "/test_questions.php?id={$question["test_id"]}"; ?>">Nazad</a>
+            <a class="btn btn-warning" href="<?php echo $_SERVER["HTTP_REFERER"]?>">Nazad</a>
         </div>
     </article>
 </section>

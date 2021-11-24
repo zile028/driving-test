@@ -2,8 +2,8 @@
 -- version 4.9.5
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Nov 23, 2021 at 01:40 PM
+-- Host: localhost:8888
+-- Generation Time: Nov 24, 2021 at 07:32 AM
 -- Server version: 5.7.24
 -- PHP Version: 7.4.1
 
@@ -43,11 +43,13 @@ CREATE TABLE `question` (
 
 INSERT INTO `question` (`id`, `question`, `atach`, `test_id`, `answers`, `points`) VALUES
 (1, 'Od saobraćajnog znaka prikazanog na slici se završava:', '8661636996390.jpg', 1, 1, 3),
-(4, 'Svetlosni saobraćajni znak - treptuće žuto svetlo koji daje semafor ima značenje:', NULL, 5, 2, 3),
-(14, 'Saobracajni znak prikazan na slici označava:', '5191637153531.jpg', 5, 1, 3),
+(4, 'Svetlosni saobraćajni znak - treptuće žuto svetlo koji daje semafor ima značenje:', NULL, NULL, 2, 3),
+(14, 'Saobracajni znak prikazan na slici označava:', '5191637153531.jpg', NULL, 1, 3),
 (15, 'Ptianje 2', NULL, 1, 1, 3),
-(16, 'Непосредно регулисање саобраћаја на путевима врше:', NULL, 7, 1, 1),
-(17, 'Контролу над возачима и возилима у саобраћају на\r\nпутевима ради примене прописа о безбедности\r\nсаобраћаја врше:', NULL, 7, 2, 1);
+(16, 'Непосредно регулисање саобраћаја на путевима врше:', NULL, NULL, 1, 1),
+(17, 'Контролу над возачима и возилима у саобраћају на\r\nпутевима ради примене прописа о безбедности\r\nсаобраћаја врше:', NULL, NULL, 2, 1),
+(18, 'Piranje', NULL, NULL, 1, 3),
+(19, 'Novo pitanje?', NULL, NULL, 2, 4);
 
 -- --------------------------------------------------------
 
@@ -106,7 +108,11 @@ INSERT INTO `solution` (`id`, `question_id`, `solution`, `corect`) VALUES
 (102, 17, 'униформисани комунални полицајци', 0),
 (103, 17, 'униформисани полицијски службеници', 1),
 (104, 17, 'службеници надлежног органа за саобраћај', 1),
-(105, 17, 'полицијски службеници у грађанском оделу', 0);
+(105, 17, 'полицијски службеници у грађанском оделу', 0),
+(106, 19, 'Opcija 1', 0),
+(107, 19, 'Opcija 2', 1),
+(108, 19, 'Opcija 3', 0),
+(109, 19, 'Opcija 4', 1);
 
 -- --------------------------------------------------------
 
@@ -126,11 +132,9 @@ CREATE TABLE `tests` (
 
 INSERT INTO `tests` (`id`, `test_name`, `category_id`) VALUES
 (1, 'Test 1', 1),
-(4, 'Test 4', 1),
-(5, 'Test 2', 1),
-(6, 'Test 3', 1),
-(7, 'Test 1', 2),
-(8, 'Test 1', 3);
+(2, 'Test 2', 2),
+(3, 'Test 3', 2),
+(6, 'Test 3', 1);
 
 -- --------------------------------------------------------
 
@@ -177,7 +181,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `date_birth`, `email`, `password`, `created_at`, `last_login`, `profil_img`, `role_id`) VALUES
-(1, 'Дејан', 'Живковић', '2021-11-08', 'zile028@gmail.com', '$2y$10$SEc5S8nAkfT/vOLOm8zoWOdzhyhPPycY7LJRpXe5BTpfLwxKV90EK', '2021-11-08 00:38:49', '2021-11-23 13:01:49', '3991637583489.jpg', 1),
+(1, 'Dejan', 'Živković', '2021-11-08', 'zile028@gmail.com', '$2y$10$Q4LxKZ.O0pxUJVgxuz6G9.SMHi5EQrg5m1TrTFyKduT58MkFjX3K.', '2021-11-08 00:38:49', '2021-11-22 18:50:42', '3991637583489.jpg', 1),
+(7, 'Ненад', 'Станојевић', '2021-11-16', 'zile128@gmail.com', '$2y$10$xgdorIODs8Wtr/5j3NFqO.FgD1slqeGzGT9FEoUFXDPlU2Ywx5gli', '2021-11-08 21:33:55', '2021-11-08 21:33:55', NULL, 2),
 (9, 'Небојша', 'Васић', '1975-10-11', 'vasic@gmail.com', '$2y$10$5VfPZRhQIq5D9qrs0uOQaOGtevmA2sNx.seQYyX75ikXH9rldIV3.', '2021-11-12 21:04:07', '2021-11-21 20:37:39', '7781636814932.jpg', 2);
 
 -- --------------------------------------------------------
@@ -295,7 +300,7 @@ ALTER TABLE `user_test`
 -- AUTO_INCREMENT for table `question`
 --
 ALTER TABLE `question`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -307,7 +312,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `solution`
 --
 ALTER TABLE `solution`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
 
 --
 -- AUTO_INCREMENT for table `tests`
