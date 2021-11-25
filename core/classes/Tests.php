@@ -106,9 +106,12 @@ class Tests extends QueryBuilder
             tc.category_name,
             tc.icon,
             t.id,
-            t.test_name
+            t.test_name,
+            COUNT(tq.test_id) number_question
             FROM tests t
             JOIN test_category tc ON t.category_id = tc.id
+            JOIN test_question tq ON t.id = tq.test_id
+            GROUP BY tq.test_id
             ";
         $qry = $this->db->prepare($sql);
         $qry->execute();

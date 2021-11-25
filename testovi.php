@@ -12,6 +12,7 @@ $user_info = $User->selectSingleJoin(
 
 $tests = $Tests->getAllTests();
 
+
 $category = $QueryBuilder->selectAll("test_category");
 
 if(isset($_POST["add_test"])){

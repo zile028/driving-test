@@ -36,19 +36,20 @@ require ROOT . "/include/main_nav.php";
         <h4 class="col-12 text-center text-light"><?php echo $category_name; ?></h4>
         <?php foreach($category_test as $test):?>
         <div class="card col-md-2 testovi bg-transparent border-0 mb-3">
-            <div class="card body">
-                <a class="btn btn-success w-100" href="test.php?id=<?php echo $test["id"]; ?>"><i
+            <div class="card body bg-transparent">
+                <a class="btn btn-success w-100 mb-1" href="test.php?id=<?php echo $test["id"]; ?>"><i
                         class="fas fa-angle-double-right"></i></a>
-                <a class="btn btn-warning" href="test.php?id=<?php echo $test["id"]; ?>">
+                <a class="btn btn-warning mb-1" href="test.php?id=<?php echo $test["id"]; ?>">
                     <div class="card-body d-flex flex-column align-item-center justify-content-center text-center">
                         <?php echo $test["icon"]; ?>
                         <h6><?php echo $test["test_name"]; ?></h6>
+                        <p class="m-0"><?php echo $test["number_question"]; ?> pitanja</p>
                     </div>
                 </a>
             </div>
             <?php if($_SESSION["role"]=="admin"): ?>
-            <div class="card-footer d-flex p-1 bg-transparent text-center">
-                <a class="btn btn-info w-50" href="test_questions.php?id=<?php echo $test["id"]; ?>"><i
+            <div class="card-footer d-flex p-0 bg-transparent text-center">
+                <a class="btn btn-info w-50 mr-1" href="test_questions.php?id=<?php echo $test["id"]; ?>"><i
                         class="fas fa-cog"></i></a>
 
                 <a class="btn btn-danger w-50" href="delete.php?action=tests&id=<?php echo $test["id"]; ?>"><i

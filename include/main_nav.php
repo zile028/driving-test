@@ -39,7 +39,8 @@
 
         <?php if(!$User->isLoged()): ?>
         <div class="loged-profil">
-            <img src="<?php echo SRC_URI . ($user_info->profil_img ?:"../asset/logo-sm.png"); ?>" alt="">
+            <a href="user.php"><img src="<?php echo SRC_URI . ($user_info->profil_img ?:"../asset/logo-sm.png"); ?>"
+                    alt=""></a>
         </div>
         <?php endif; ?>
     </div>
