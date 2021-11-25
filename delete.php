@@ -55,5 +55,14 @@ if(haveQryUrl()){
         redirect($_SERVER["HTTP_REFERER"]);
     }
 
+    if($_GET["action"]=="remove_question"){
+        
+        $User->deleteRecord(
+            "test_question",
+            ["question_id"=> $_GET["qid"],"test_id"=> $_GET["tid"]],
+            ["AND"]);
+        redirect("test_questions.php","id=" . $_GET["tid"] );
+    }
+
 
 }

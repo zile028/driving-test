@@ -9,8 +9,9 @@ $user_info = $User->selectSingleJoin(
 );
 
 
+
 $tests = $Tests->getAllTests();
-// dd($tests);
+
 $category = $QueryBuilder->selectAll("test_category");
 
 if(isset($_POST["add_test"])){

@@ -2,7 +2,7 @@
 2. pregled svih korisnika +
 3. brisanje testa +
 4. prilikom brisanja testa ne brisati pitanja +
-5. pregled pitanja sa mogucnoscu dodeljivanja testu
+5. pregled pitanja sa mogucnoscu dodeljivanja testu +
 6. prgled uradjenog testa
 7. ponovno resavanje testa
 8. brisanje uradjenog testa

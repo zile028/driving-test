@@ -62,13 +62,14 @@ require ROOT . "/include/main_nav.php";
                     <th class="text-left">Test</th>
                     <th class="text-center">Broj tačnih odgovora</th>
                     <th class="text-center">Osvojeno poena</th>
+                    <th class="text-center">Procenat</th>
                     <th class="text-right">Pregledaj/Ponovi/Poništi</th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach($test_info as $category => $value): ?>
                 <tr>
-                    <td class="text-center" colspan="4">
+                    <td class="text-center" colspan="5">
                         <h4><?php echo $category; ?></h4>
                     </td>
                 </tr>
@@ -78,6 +79,7 @@ require ROOT . "/include/main_nav.php";
                     <td class="text-left"><?php echo $t["test_name"]; ?></td>
                     <td class="text-center"><?php echo $t["number_correct"]; ?></td>
                     <td class="text-center"><?php echo $t["points"]; ?></td>
+                    <td class="text-center"><?php echo $t["percent"]; ?></td>
                     <td class="text-right">
                         <a class="btn btn-warning" href="preview_test.php?id=<?php echo $t["user_test_id"]; ?>"><i
                                 class="fas fa-search"></i></a>

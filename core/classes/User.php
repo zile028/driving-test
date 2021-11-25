@@ -73,10 +73,11 @@ class User extends QueryBuilder
                 ut.points,
                 ut.number_correct,
                 ut.answer_json,
+                ut.id user_test_id,
+                ut.percent,
                 t.test_name,
                 tc.category_name,
                 tc.icon,
-                ut.id user_test_id,
                 t.id test_id
                 FROM user_test ut
                 JOIN tests t
@@ -93,6 +94,7 @@ class User extends QueryBuilder
         return $result;
 
     }
+
 
     public function usersInfo()
     {

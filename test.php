@@ -7,8 +7,10 @@ $user_info = $User->selectSingleJoin(
     "role_id",
     ["id" => $_SESSION["id"]]
 );
-$questions = $Tests->getQuestions();
-$tests = $Tests->selectSingleJoin(["tests", "test_category"], "category_id", ["id" => $_GET["id"]]);
+$test_info = $Tests->testInfo(["id" => $_GET["id"]]);
+$questions =$Tests->getTestQuestions(["test_id"  => $_GET["id"]]);
+
+
 // greska za join on parametar
 // $test_questions = $Tests->getTestQuestion(["test_question", "question"], "question_id", ["test_id" => $_GET["id"]]);
 // dd($test_questions);
@@ -71,14 +73,21 @@ if (isset($_POST["finish_test"])) {
     //     "netacni odgovori" => count($result_test["wrong"]),
     //     "osvojeni poeni"   => array_sum($result_test["points"]),
     // ]);
+    $take_point=array_sum($result_test["points"]);
+    $max_point=$test_info["max_points"];
+    $percent=($take_point/$max_point)*100;
 
     $data = [
         "test_id"        => $_GET["id"],
         "user_id"        => $_SESSION["id"],
-        "points"         => array_sum($result_test["points"]),
+        "points"         => $take_point,
         "number_correct" => count($result_test["exact"]),
+        "percent" => $percent,
         "answer_json"    => $question_answers,
     ];
+
+
+
     $Tests->insertInto("user_test", $data);
 
 }

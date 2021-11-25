@@ -10,6 +10,20 @@ class QueryBuilder extends Connection
         return $qry;
     }
 
+    function deleteRecord(string $table,array $filed, array $operator){
+        $condition=null;
+        $i=0;
+        foreach($filed as $key => $value){
+            $condition .= $key . " = :" . $key . " " . (isset($operator[$i]) ? $operator[$i] :"") . " ";
+            $i++;
+        }
+
+        $sql = "DELETE FROM {$table} WHERE {$condition}";
+        $qry = $this->db->prepare($sql);
+        $qry->execute($filed);
+
+    }
+
     public function selectAll(string $table, array $criteria = [])
     {
         $sql = "SELECT * FROM {$table}";

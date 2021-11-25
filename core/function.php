@@ -45,7 +45,7 @@ function displayDateTime($arg)
     return date("d.m.Y H:i", strtotime($arg));
 }
 
-function redirect($location, $query_string = null, $go_to = null)
+function redirect(string $location, string $query_string = null, string $go_to = null)
 {
     $bookmark = is_null($go_to) ? "" : "#" . $go_to;
     $destination=$query_string . $bookmark;

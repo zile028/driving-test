@@ -19,7 +19,6 @@ class Tests extends QueryBuilder
                 id,
                 question,
                 atach,
-                test_id,
                 answers,
                 points
                 FROM question";
@@ -29,14 +28,13 @@ class Tests extends QueryBuilder
         }
         $qry = $this->db->prepare($sql);
         if (isset($data)) {
-            # code...
             $qry->execute($data);
         } else {
             $qry->execute();
-            # code...
         }
 
         $question = $qry->fetchAll(PDO::FETCH_ASSOC);
+
 
         $sql = "SELECT
                 question_id,
@@ -92,11 +90,10 @@ class Tests extends QueryBuilder
     {
         $in_array = implode(",", $questions_id);
         $sql      = "SELECT
-                question_id,
-                id
-                -- corect
-                FROM solution
-                WHERE (corect = 1 AND question_id IN ({$in_array}))";
+                    question_id,
+                    id
+                    FROM solution
+                    WHERE (corect = 1 AND question_id IN ({$in_array}))";
 
         $qry = $this->db->prepare($sql);
         $qry->execute();
@@ -120,6 +117,24 @@ class Tests extends QueryBuilder
 
     }
 
+    public function avalibleQuestion($data)
+    {
+
+        $sql = "SELECT
+        q.id,
+        q.question,
+        q.points
+        FROM question q
+        WHERE q.id NOT IN (SELECT question_id FROM test_question WHERE test_id = :test_id)
+        ";
+        $qry = $this->db->prepare($sql);
+        $qry->execute($data);
+        $unused_question = $qry->fetchAll(PDO::FETCH_ASSOC);
+        $result          = $unused_question;
+
+        return $result;
+    }
+
     public function getTestQuestions($data)
     {
         $sql = "SELECT
@@ -129,17 +144,57 @@ class Tests extends QueryBuilder
                 q.answers,
                 q.points,
                 tq.test_id
-
                 FROM test_question tq
                 JOIN question q
                 ON tq.question_id = q.id
                 WHERE tq.test_id = :test_id";
 
-
         $qry = $this->db->prepare($sql);
         $qry->execute($data);
-        $result = $qry->fetchAll(PDO::FETCH_ASSOC);
+        $question = $qry->fetchAll(PDO::FETCH_ASSOC);
+
+        $sql = "SELECT
+                question_id,
+                id,
+                solution,
+                corect
+                FROM solution s
+                ";
+        $qry = $this->db->prepare($sql);
+        $qry->execute();
+        $qs       = [];
+        $solution = $qry->fetchAll(PDO::FETCH_GROUP | PDO::FETCH_ASSOC);
+        foreach ($question as $q) {
+            if (isset($solution[$q["id"]])) {
+                array_push($qs, ["question" => $q, "solution" => $solution[$q["id"]]]);
+            } else {
+                array_push($qs, ["question" => $q, "solution" => null]);
+            }
+
+        }
+        return $qs;
+    }
+
+    public function testInfo($data)
+    {
+        $sql = "SELECT
+                t.id,
+                t.test_name,
+                tc.category_name,
+                COUNT(tq.test_id) number_questions,
+                SUM(tq.points) max_points
+                FROM tests t
+                LEFT JOIN test_question tq ON t.id = tq.test_id
+                JOIN test_category tc ON tc.id = t.category_id
+                WHERE t.id = :id
+                GROUP BY t.id
+                ";
+        $qry = $this->db->prepare($sql);
+        $qry->execute($data);
+
+        $result = $qry->fetch(PDO::FETCH_ASSOC);
 
         return $result;
+
     }
 }

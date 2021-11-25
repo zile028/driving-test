@@ -4,25 +4,14 @@ require ROOT . "/include/main_nav.php";
 ?>
 
 <header class="jumbotron text-center">
-    <h1><?php echo $tests->test_name?></h1>
-    <h5><?php echo $tests->category_name; ?></h5>
+    <h1><?php echo $test_info["test_name"]; ?></h1>
+    <h5><?php echo $test_info["category_name"]; ?></h5>
+    <p><?php echo "Pitanja: {$test_info["number_questions"]} - Maksimum poena: {$test_info["max_points"]}"; ?></p>
 </header>
 <section class="container">
-    <form class="d-flex" action="" method="post">
-        <select class="form-control" name="question_id">
-            <?php foreach($questions as $value): $question=$value["question"]; ?>
-            <option value="<?php echo "{$question["id"]} | {$question["points"]}"; ?>">
-                <?php echo $question["question"]; ?>
-            </option>
-            <?php endforeach; ?>
-
-        </select>
-        <button name="add_question" class="btn btn-primary" type="submit">Dodaj</button>
-    </form>
-
 
     <article class="row no-gutters mt-4">
-        <form class="col-12" method="POST" action="test_questions.php?id=<?php echo $_GET["id"]; ?>">
+        <form class="col-12" method="POST" action="test.php?id=<?php echo $_GET["id"]; ?>">
 
             <?php $i=1; foreach($questions as $val): ?>
             <?php $q=$val["question"]; ?>

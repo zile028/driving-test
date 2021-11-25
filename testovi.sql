@@ -2,8 +2,8 @@
 -- version 4.9.5
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:8888
--- Generation Time: Nov 24, 2021 at 07:37 PM
+-- Host: localhost:3306
+-- Generation Time: Nov 25, 2021 at 01:11 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.4.1
 
@@ -32,7 +32,6 @@ CREATE TABLE `question` (
   `id` int(11) NOT NULL,
   `question` text NOT NULL,
   `atach` varchar(50) DEFAULT NULL,
-  `test_id` int(11) DEFAULT NULL,
   `answers` int(10) DEFAULT '1',
   `points` int(10) DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -41,13 +40,13 @@ CREATE TABLE `question` (
 -- Dumping data for table `question`
 --
 
-INSERT INTO `question` (`id`, `question`, `atach`, `test_id`, `answers`, `points`) VALUES
-(1, 'Od saobraćajnog znaka prikazanog na slici se završava:', '8661636996390.jpg', 1, 1, 3),
-(4, 'Svetlosni saobraćajni znak - treptuće žuto svetlo koji daje semafor ima značenje:', NULL, NULL, 2, 3),
-(14, 'Saobracajni znak prikazan na slici označava:', '5191637153531.jpg', NULL, 1, 3),
-(15, 'Ptianje 2', NULL, 1, 1, 3),
-(16, 'Непосредно регулисање саобраћаја на путевима врше:', NULL, NULL, 1, 1),
-(17, 'Контролу над возачима и возилима у саобраћају на\r\nпутевима ради примене прописа о безбедности\r\nсаобраћаја врше:', NULL, NULL, 2, 1);
+INSERT INTO `question` (`id`, `question`, `atach`, `answers`, `points`) VALUES
+(1, 'Od saobraćajnog znaka prikazanog na slici se završava:', '8661636996390.jpg', 1, 3),
+(4, 'Svetlosni saobraćajni znak - treptuće žuto svetlo koji daje semafor ima značenje:', NULL, 2, 3),
+(14, 'Saobracajni znak prikazan na slici označava:', '5191637153531.jpg', 1, 3),
+(15, 'Ptianje 2', NULL, 1, 3),
+(16, 'Непосредно регулисање саобраћаја на путевима врше:', NULL, 1, 1),
+(17, 'Контролу над возачима и возилима у саобраћају на\r\nпутевима ради примене прописа о безбедности\r\nсаобраћаја врше:', NULL, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -169,7 +168,8 @@ CREATE TABLE `test_question` (
 
 INSERT INTO `test_question` (`test_id`, `question_id`, `points`) VALUES
 (1, 1, 3),
-(6, 1, 3),
+(1, 14, 3),
+(3, 14, 3),
 (6, 4, 3),
 (6, 14, 3);
 
@@ -236,6 +236,7 @@ CREATE TABLE `user_test` (
   `user_id` int(11) NOT NULL,
   `points` int(11) NOT NULL,
   `number_correct` int(11) NOT NULL,
+  `percent` int(11) DEFAULT NULL,
   `answer_json` json NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -243,11 +244,13 @@ CREATE TABLE `user_test` (
 -- Dumping data for table `user_test`
 --
 
-INSERT INTO `user_test` (`id`, `test_id`, `user_id`, `points`, `number_correct`, `answer_json`) VALUES
-(1, 5, 1, 6, 2, '{\"4\": {\"20\": \"20\", \"98\": \"98\"}, \"14\": {\"83\": \"83\"}}'),
-(2, 1, 1, 3, 1, '{\"1\": {\"11\": \"11\"}, \"15\": {\"95\": \"95\"}}'),
-(3, 1, 9, 3, 1, '{\"1\": {\"11\": \"11\"}, \"15\": {\"95\": \"95\"}}'),
-(4, 7, 1, 2, 2, '{\"16\": {\"100\": \"100\"}, \"17\": {\"103\": \"103\", \"104\": \"104\"}}');
+INSERT INTO `user_test` (`id`, `test_id`, `user_id`, `points`, `number_correct`, `percent`, `answer_json`) VALUES
+(1, 5, 1, 6, 2, NULL, '{\"4\": {\"20\": \"20\", \"98\": \"98\"}, \"14\": {\"83\": \"83\"}}'),
+(2, 1, 1, 3, 1, NULL, '{\"1\": {\"11\": \"11\"}, \"15\": {\"95\": \"95\"}}'),
+(3, 1, 9, 3, 1, NULL, '{\"1\": {\"11\": \"11\"}, \"15\": {\"95\": \"95\"}}'),
+(4, 7, 1, 2, 2, NULL, '{\"16\": {\"100\": \"100\"}, \"17\": {\"103\": \"103\", \"104\": \"104\"}}'),
+(5, 1, 1, 3, 1, NULL, '{\"1\": {\"10\": \"10\"}, \"14\": {\"83\": \"83\"}}'),
+(6, 1, 1, 3, 1, 50, '{\"1\": {\"11\": \"11\"}, \"14\": {\"84\": \"84\"}}');
 
 --
 -- Indexes for dumped tables
@@ -257,8 +260,7 @@ INSERT INTO `user_test` (`id`, `test_id`, `user_id`, `points`, `number_correct`,
 -- Indexes for table `question`
 --
 ALTER TABLE `question`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `test_id` (`test_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `roles`
@@ -365,7 +367,7 @@ ALTER TABLE `user_answer`
 -- AUTO_INCREMENT for table `user_test`
 --
 ALTER TABLE `user_test`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables
