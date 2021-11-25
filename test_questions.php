@@ -7,13 +7,12 @@ $user_info = $User->selectSingleJoin(
     "role_id",
     ["id" => $_SESSION["id"]]
 );
-
+// only access admin users
+if ("admin" != $_SESSION["role"]) {redirect("index.php");}
 
 $questions = $Tests->avalibleQuestion(["test_id" => $_GET["id"]]);
 
 $test_questions = $Tests->getTestQuestions(["test_id"  => $_GET["id"]]);
-
-
 
 $test_info = $Tests->testInfo(["id" => $_GET["id"]]);
 

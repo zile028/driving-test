@@ -8,7 +8,7 @@ $user_info = $User->selectSingleJoin(
     ["id" => $_SESSION["id"]]
 );
 // only access admin users
-if ("admin" != $user_info->role) {redirect("index.php");}
+if ("admin" != $_SESSION["role"]) {redirect("index.php");}
 ;
 $roles = $User->selectAll("roles");
 $all_users=$User->usersInfo();

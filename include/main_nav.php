@@ -13,7 +13,7 @@
                 <a class="nav-link" href="<?php echo ROOT_DIR; ?>/testovi.php">Testovi</a>
             </li>
 
-            <?php if(!$User->isLoged() && $user_info->role=="admin"): ?>
+            <?php if(!$User->isLoged() && $_SESSION["role"]=="admin"): ?>
             <li class="nav-item">
                 <a class="nav-link" href="all_users.php">Korisnici</a>
             </li>
@@ -39,7 +39,7 @@
 
         <?php if(!$User->isLoged()): ?>
         <div class="loged-profil">
-            <img src="<?php echo ROOT_DIR . TARGET_DIR . ($user_info->profil_img ?:"../asset/logo-sm.png"); ?>" alt="">
+            <img src="<?php echo SRC_URI . ($user_info->profil_img ?:"../asset/logo-sm.png"); ?>" alt="">
         </div>
         <?php endif; ?>
     </div>

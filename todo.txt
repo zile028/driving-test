@@ -4,14 +4,14 @@
 4. prilikom brisanja testa ne brisati pitanja +
 5. pregled pitanja sa mogucnoscu dodeljivanja testu +
 6. prgled uradjenog testa
-7. ponovno resavanje testa
-8. brisanje uradjenog testa
+7. ponovno resavanje testa +
+8. brisanje uradjenog testa +
 9. validacija podataka
 10. dodleljivanje uloge korisnicima +
 11. brisanje korisnika +
 
 __________________________________________________________________
-    <?php if($user_info->role=="none"): ?>
+    <?php if($_SESSION["role"]=="none"): ?>
     <!-- form to add test only allow for admin  -->
     <article class="row no-gutters">
         <form class="col-12 no-gutters row justify-content-between border rounded-lg p-2" action="test_questions.php"

@@ -10,19 +10,6 @@ $user_info = $User->selectSingleJoin(
 $test_info = $Tests->testInfo(["id" => $_GET["id"]]);
 $questions =$Tests->getTestQuestions(["test_id"  => $_GET["id"]]);
 
-
-// greska za join on parametar
-// $test_questions = $Tests->getTestQuestion(["test_question", "question"], "question_id", ["test_id" => $_GET["id"]]);
-// dd($test_questions);
-
-// if (isset($_GET["id"]) && !isset($_GET["action"])) {
-//     // $questions = $Tests->getQuestions(["id" => $_GET["id"]]);
-// } elseif (isset($_GET["action"])) {
-    //     $tests = $Tests->selectSingleJoin(["tests", "test_category"], "category_id", ["id" => $_GET["action"]]);
-    //     // $question = $Tests->selectSingle("question", ["id" => $_GET["id"]]);
-// }
-
-
 if (isset($_POST["finish_test"])) {
     $data            = [];
     $user_answer     = [];
@@ -68,11 +55,6 @@ if (isset($_POST["finish_test"])) {
 
     }
 
-    // $final_result=[
-    //     "tacni odgovori"   => count($result_test["exact"]),
-    //     "netacni odgovori" => count($result_test["wrong"]),
-    //     "osvojeni poeni"   => array_sum($result_test["points"]),
-    // ]);
     $take_point=array_sum($result_test["points"]);
     $max_point=$test_info["max_points"];
     $percent=($take_point/$max_point)*100;
@@ -89,11 +71,8 @@ if (isset($_POST["finish_test"])) {
 
 
     $Tests->insertInto("user_test", $data);
+    redirect("user.php");
 
 }
 
-if (isset($_GET["action"])) {
-    // require_once ROOT . "/view/test_questions_edit_view.php";
-} else {
-    require_once ROOT . "/view/test.view.php";
-}
+require_once ROOT . "/view/test.view.php";

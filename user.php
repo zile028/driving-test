@@ -8,9 +8,13 @@ $user_info = $User->selectSingleJoin(
     ["id" => $_SESSION["id"]]
 );
 
-$test_info = $User->getTestsStatistic($_SESSION["id"]);
-
-// dd($test_info);
+if (haveQryUrl()) {
+    // only admin user access
+    if ("admin" != $_SESSION["role"]) {redirect("index.php");}
+    $test_info = $User->getTestsStatistic($_GET["id"]);
+} else {
+    $test_info = $User->getTestsStatistic($_SESSION["id"]);
+}
 
 
 if (isset($_POST["save_img"])) {

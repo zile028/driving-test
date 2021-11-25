@@ -9,7 +9,7 @@ require ROOT . "/include/main_nav.php";
 </header>
 <section class="container">
 
-    <?php if($user_info->role=="admin"): ?>
+    <?php if($_SESSION["role"]=="admin"): ?>
     <!-- form for add test  -->
     <article class="d-flex align-items-start ">
 

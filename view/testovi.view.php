@@ -7,7 +7,7 @@ require ROOT . "/include/main_nav.php";
     <h1>Testovi</h1>
 </header>
 <section class="container">
-    <?php if($user_info->role=="admin"): ?>
+    <?php if($_SESSION["role"]=="admin"): ?>
     <!-- form for add test  -->
     <article class="row">
 
@@ -39,14 +39,14 @@ require ROOT . "/include/main_nav.php";
             <div class="card body">
                 <a class="btn btn-success w-100" href="test.php?id=<?php echo $test["id"]; ?>"><i
                         class="fas fa-angle-double-right"></i></a>
-                <a class="btn btn-warning" href="test_questions.php?id=<?php echo $test["id"]; ?>">
+                <a class="btn btn-warning" href="test.php?id=<?php echo $test["id"]; ?>">
                     <div class="card-body d-flex flex-column align-item-center justify-content-center text-center">
                         <?php echo $test["icon"]; ?>
                         <h6><?php echo $test["test_name"]; ?></h6>
                     </div>
                 </a>
             </div>
-            <?php if($user_info->role=="admin"): ?>
+            <?php if($_SESSION["role"]=="admin"): ?>
             <div class="card-footer d-flex p-1 bg-transparent text-center">
                 <a class="btn btn-info w-50" href="test_questions.php?id=<?php echo $test["id"]; ?>"><i
                         class="fas fa-cog"></i></a>

@@ -8,7 +8,7 @@ require ROOT . "/include/main_nav.php";
 </header>
 <section class="container">
 
-    <?php if($user_info->role=="admin"): ?>
+    <?php if($_SESSION["role"]=="admin"): ?>
     <!-- form to add test only allow for admin  -->
     <article class="row no-gutters">
         <form class="col-12 no-gutters row justify-content-between border rounded-lg p-2" action="question_bank.php"
@@ -52,18 +52,11 @@ require ROOT . "/include/main_nav.php";
                     <div class="option col-md-8">
                         <?php if(isset($s) && count($s)>0): ?>
                         <ul class="list-group mr-md-4">
+
                             <?php foreach($s as $sol): ?>
-
-                            <li class="list-group-item d-flex align-items-center">
-
-                                <input class="form-control col-1"
-                                    type="<?php echo ($q["answers"]==1) ? "radio" : "checkbox"; ?>"
-                                    id="<?php echo "radio{$sol["id"]}"; ?>"
-                                    name="<?php echo ($q["answers"]==1) ? "answer[{$q["id"]}]" : "answer[{$q["id"]}][{$sol["id"]}]" ; ?>"
-                                    value="<?php echo ($q["answers"]==1) ? $sol["id"] : $sol["id"]; ; ?>">
-
-                                <label class="flex-grow-1 mb-0"
-                                    for="<?php echo "radio{$sol["id"]}"; ?>"><?php echo $sol["solution"]; ?></label>
+                            <li
+                                class="list-group-item d-flex align-items-center <?php echo ($sol["corect"]) ? "bg-success" : "" ?>">
+                                <?php echo $sol["solution"]; ?>
                             </li>
                             <?php endforeach; ?>
                         </ul>
@@ -79,7 +72,7 @@ require ROOT . "/include/main_nav.php";
 
                 </div>
                 <div class="card-footer">
-                    <?php if($user_info->role=="admin"): ?>
+                    <?php if($_SESSION["role"]=="admin"): ?>
                     <a class="btn btn-primary" href="question.php?id=<?php echo $q["id"]; ?>">Solucije</a>
                     <a class="btn btn-warning" href="edit_question.php?id=<?php echo $q["id"]; ?>">Uredi
                         pitanje</a>

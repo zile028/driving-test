@@ -7,8 +7,8 @@ $user_info = $User->selectSingleJoin(
     "role_id",
     ["id" => $_SESSION["id"]]
 );
-
-if ("admin" != $user_info->role) {redirect("testovi.php");}
+// only admin user access
+if ("admin" != $_SESSION["role"]) {redirect("testovi.php");}
 
 if (isset($_GET["id"])) {
     $question = $Tests->selectSingle("question", ["id" => $_GET["id"]]);

@@ -8,7 +8,7 @@ $user_info = $User->selectSingleJoin(
     ["id" => $_SESSION["id"]]
 );
 // only access admin users
-if ("admin" != $user_info->role) {redirect("index.php");}
+if ("admin" != $_SESSION["role"]) {redirect("index.php");}
 ;
 
 $questions = $Tests->getQuestions();
@@ -25,11 +25,10 @@ if (isset($_POST["add_question"])) {
         $check_status = $Upload->checkFile($files);
 
         if (count($check_status[0]["errors"]) == 0) {
-            if ($store_name = $Upload->uploads($files, ROOT . "/upload")) {
+            if ($store_name = $Upload->uploads($files, UPLOAD_PATH)) {
                 $data = [
                     "question" => $_POST["question"],
                     "atach"    => $store_name,
-                    "test_id"  => null,
                     "points"   => $_POST["points"],
                 ];
             }

@@ -8,7 +8,7 @@ require_once "classes/User.php";
 require_once "classes/Upload.php";
 require_once "classes/Tests.php";
 
-$database = $conn_config["work_desktop"];
+$database = $conn_config["home_desktop"];
 
 $Conn         = new Connection($database);
 $QueryBuilder = new QueryBuilder($database);

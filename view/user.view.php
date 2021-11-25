@@ -31,7 +31,7 @@ require ROOT . "/include/main_nav.php";
                     <p><?php echo $user_info->email; ?></p>
                 </li>
                 <li class="list-group-item bg-transparent text-light"><span>Uloga:</span>
-                    <p><?php echo $user_info->role; ?></p>
+                    <p><?php echo $_SESSION["role"]; ?></p>
                 </li>
                 <li class="list-group-item bg-transparent text-light"><span>Datum
                         rođenja:</span>
@@ -56,6 +56,7 @@ require ROOT . "/include/main_nav.php";
 
     <article class="container mt-3">
         <?php if(count($test_info)>0): ?>
+        <h3 class="text-center my-3">Pregled urađenih testova</h3>
         <table class="bg-light table">
             <thead>
                 <tr>
@@ -74,8 +75,8 @@ require ROOT . "/include/main_nav.php";
                     </td>
                 </tr>
 
-                <?php foreach($value as $t): ?>
-                <tr>
+                <?php foreach($value as $t):?>
+                <tr class="<?php echo ($t["percent"]>=85?"bg-success":""); ?>">
                     <td class="text-left"><?php echo $t["test_name"]; ?></td>
                     <td class="text-center"><?php echo $t["number_correct"]; ?></td>
                     <td class="text-center"><?php echo $t["points"]; ?></td>
@@ -83,9 +84,10 @@ require ROOT . "/include/main_nav.php";
                     <td class="text-right">
                         <a class="btn btn-warning" href="preview_test.php?id=<?php echo $t["user_test_id"]; ?>"><i
                                 class="fas fa-search"></i></a>
-                        <a class="btn btn-secondary" href="preview_test.php?id=<?php echo $t["test_id"]; ?>"><i
+                        <a class="btn btn-secondary" href="test.php?id=<?php echo $t["test_id"]; ?>"><i
                                 class="fas fa-redo"></i></a>
-                        <a class="btn btn-danger" href="preview_test.php?id=<?php echo $t["test_id"]; ?>"><i
+                        <a class="btn btn-danger"
+                            href="delete.php?action=user_test&id=<?php echo $t["user_test_id"]; ?>"><i
                                 class="fas fa-trash"></i></a>
                     </td>
                 </tr>
@@ -94,7 +96,7 @@ require ROOT . "/include/main_nav.php";
             </tbody>
         </table>
         <?php else: ?>
-        <h4 class="text-center text-light">Niste radili nijedan test!</h4>
+        <h4 class="text-center text-light">Nijedan test nije urađen!</h4>
         <?php endif; ?>
     </article>
 </section>

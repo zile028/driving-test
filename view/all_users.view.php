@@ -41,6 +41,7 @@ require ROOT . "/include/main_nav.php";
                 </div>
             </div>
             <div class="card-footer bg-light text-center">
+                <a class="btn btn-info" href="user.php?id=<?php echo $user["id"]; ?>">Pregled</a>
                 <a class="btn btn-danger" href="delete.php?action=user&id=<?php echo $user["id"]; ?>">Ukloni
                     korisnika</a>
             </div>

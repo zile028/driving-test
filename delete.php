@@ -6,26 +6,8 @@ $user_info = $User->selectSingleJoin(
     "role_id",
     ["id" => $_SESSION["id"]]
 );
-if ("admin" != $user_info->role) {redirect("index.php");}
-
-// if (isset($_GET["action"]) && $_GET["action"]=="question_img") {
-//     $question_info = $Tests->selectSingle("question",["id"=>$_GET["id"]]);
-//     if($question_info["atach"]){
-//         unlink(ROOT . "/upload/" . $question_info["atach"]);
-//     };
-
-//     $Tests->updateTable("question",["atach"=>null],["id" => $question_info["id"]]);
-//     redirect("test_questions.php", "action={$question_info["test_id"]}&id={$question_info["id"]}");
-// }
-
-// if (isset($_GET["action"]) && $_GET["action"]=="qdel") {
-//     $question_info = $Tests->selectSingle("question",["id"=>$_GET["id"]]);
-//     if($question_info["atach"]){
-//         unlink(ROOT . "/upload/" . $question_info["atach"]);
-//     };
-//     $Tests->deleteSingle("question",["id" => $_GET["id"]]);
-//     redirect($_SERVER["HTTP_REFERER"]);
-// }
+// only admin user access
+if ("admin" != $_SESSION["role"]) {redirect("index.php");}
 
 
 if(haveQryUrl()){
@@ -56,12 +38,17 @@ if(haveQryUrl()){
     }
 
     if($_GET["action"]=="remove_question"){
-        
+
         $User->deleteRecord(
             "test_question",
             ["question_id"=> $_GET["qid"],"test_id"=> $_GET["tid"]],
             ["AND"]);
         redirect("test_questions.php","id=" . $_GET["tid"] );
+    }
+
+    if($_GET["action"]=="user_test"){
+        $User->deleteSingle($_GET["action"],["id"=> $_GET["id"]]);
+        redirect("user.php");
     }
 
 

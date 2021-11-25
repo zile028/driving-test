@@ -27,15 +27,18 @@ class User extends QueryBuilder
     public function login($email, $password)
     {
         $get_user = $this->selectSingle("users", ["email" => $email]);
+
         if (!$get_user) {
             $this->login_msg = "Korisnik sa ovom E-mail adresom ne postoji";
         } else {
             $user_password = $get_user["password"];
             if (password_verify($password, $user_password)) {
-                $_SESSION["id"]  = $get_user['id'];
-                $this->login_msg = "Uspesno ste se logovali!";
-                $sql             = "UPDATE users SET last_login = NOW() WHERE id = :id";
-                $query           = $this->db->prepare($sql);
+                $_SESSION["id"]   = $get_user['id'];
+                $role=$this->selectSingle("roles", ["id" => $get_user['role_id']]);
+                $_SESSION["role"] = $role["role"];
+                $this->login_msg  = "Uspesno ste se logovali!";
+                $sql              = "UPDATE users SET last_login = NOW() WHERE id = :id";
+                $query            = $this->db->prepare($sql);
                 $query->execute(["id" => $get_user['id']]);
                 return true;
             } else {
@@ -94,7 +97,6 @@ class User extends QueryBuilder
         return $result;
 
     }
-
 
     public function usersInfo()
     {

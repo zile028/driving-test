@@ -1,7 +1,7 @@
 <?php
 require_once "core/init.php";
 if ($User->isLoged()) {header("location: index.php");}
-if ("admin" != $user_info->role) {redirect("testovi.php");}
+if ("admin" != $_SESSION["role"]) {redirect("testovi.php");}
 
 if (isset($_GET["id"])) {
     $Tests->deleteSingle("solution", ["id" => $_GET["id"]]);
