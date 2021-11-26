@@ -37,7 +37,7 @@ require ROOT . "/include/main_nav.php";
                     </form>
                     <p>E-mail: <?php echo $user["email"]; ?></p>
                     <p>Urđenih testova: <?php echo $user["number_tests"]; ?></p>
-                    <p>Poslednji pristup: <?php echo displayDate($user["last_login"]); ?></p>
+                    <p>Poslednji pristup: <?php echo displayDateTime($user["last_login"]); ?></p>
                 </div>
             </div>
             <div class="card-footer bg-light text-center">

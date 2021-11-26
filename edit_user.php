@@ -8,6 +8,23 @@ $user_info = $User->selectSingleJoin(
     ["id" => $_SESSION["id"]]
 );
 
+if (haveQryUrl() && $_SESSION["role"] != "admin"){redirect("edit_user.php");}
+
+if (haveQryUrl()) {
+    $user_preview = $User->selectSingleJoin(
+        ["users", "roles"],
+        "role_id",
+        ["id" => $_GET["id"]]
+    );
+} else {
+    $user_preview = $User->selectSingleJoin(
+        ["users", "roles"],
+        "role_id",
+        ["id" => $_SESSION["id"]]
+    );
+
+}
+
 
 if (isset($_POST["change_info"])) {
     $data = [];
@@ -58,8 +75,9 @@ if (isset($_POST["change_info"])) {
         }
     }
     if(count($error["info"])==0){
-        $User->updateTable("users",$data,["id"=>$_SESSION["id"]]);
-        redirect("edit_user.php");
+
+        $User->updateTable("users",$data,["id"=>$_POST["id"]]);
+        redirect("edit_user.php","id=" . $_POST["id"]);
     }
 
 
@@ -81,7 +99,7 @@ if (isset($_POST["change_info"])) {
             break;
     }
     if(count($error_password)==0){
-        $User->updateTable("users",$data,["id"=>$_SESSION["id"]]);
+        $User->updateTable("users",$data,["id"=>$_SESION["id"]]);
         redirect("edit_user.php");
     }
 }

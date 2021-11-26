@@ -200,4 +200,43 @@ class Tests extends QueryBuilder
         return $result;
 
     }
+
+    function previewTest($data){
+
+        $sql = "SELECT
+                ut.*,
+                tc.category_name,
+                COUNT(tq.test_id) number_questions,
+                SUM(tq.points) max_points,
+                t.test_name
+                FROM user_test ut
+                JOIN tests t ON ut.test_id = t.id
+                LEFT JOIN test_question tq ON t.id = tq.test_id
+                JOIN test_category tc ON tc.id = t.category_id
+                WHERE ut.id = :id
+                GROUP BY ut.id";
+        $qry = $this->db->prepare($sql);
+        $qry->execute($data);
+        $info =$qry->fetch(PDO::FETCH_ASSOC);
+
+        // $sql = "SELECT
+        //         ut.*,
+        //         tc.category_name,
+        //         COUNT(tq.test_id) number_questions,
+        //         SUM(tq.points) max_points,
+        //         t.test_name
+        //         FROM user_test ut
+        //         JOIN tests t ON ut.test_id = t.id
+        //         LEFT JOIN test_question tq ON t.id = tq.test_id
+        //         JOIN test_category tc ON tc.id = t.category_id
+        //         WHERE ut.id = :id
+        //         GROUP BY ut.id";
+        // $qry = $this->db->prepare($sql);
+        // $qry->execute($data);
+        // $info =$qry->fetch(PDO::FETCH_ASSOC);
+
+
+        return ["info" => $info];
+
+    }
 }

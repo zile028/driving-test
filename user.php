@@ -8,14 +8,25 @@ $user_info = $User->selectSingleJoin(
     ["id" => $_SESSION["id"]]
 );
 
+
 if (haveQryUrl()) {
     // only admin user access
     if ("admin" != $_SESSION["role"]) {redirect("index.php");}
+    $user_preview = $User->selectSingleJoin(
+        ["users", "roles"],
+        "role_id",
+        ["id" => $_GET["id"]]
+    );
     $test_info = $User->getTestsStatistic($_GET["id"]);
 } else {
+    $user_preview = $User->selectSingleJoin(
+        ["users", "roles"],
+        "role_id",
+        ["id" => $_SESSION["id"]]
+    );
     $test_info = $User->getTestsStatistic($_SESSION["id"]);
 }
-
+// dd($user_preview);
 
 if (isset($_POST["save_img"])) {
     $Upload                  = new Upload();
