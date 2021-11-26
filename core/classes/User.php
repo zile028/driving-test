@@ -10,7 +10,7 @@ class User extends QueryBuilder
         $check_exist = $this->selectSingle("users", ["email" => $user_data["email"]]);
 
         if (false == $check_exist) {
-            $sql   = "INSERT INTO users (first_name, last_name, date_birth, email, password) VALUES (:first_name, :last_name, :date_birth, :email, :password)";
+            $sql   = "INSERT INTO users (first_name, last_name, date_birth, email, password, role_id) VALUES (:first_name, :last_name, :date_birth, :email, :password, :role_id)";
             $query = $this->db->prepare($sql);
             $query->execute($user_data);
             if ($query) {

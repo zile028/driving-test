@@ -12,10 +12,9 @@ if(haveQryUrl()){
     $user_test=$Tests->previewTest(["id" => $_GET["id"]]);
     $test_info = $user_test["info"];
     $questions= $Tests->getTestQuestions(["test_id"=>$test_info["test_id"]]);
-
-
-
-   
+    $answers=json_decode($test_info["answer_json"],true);
+    // vd($questions);
+    // dd(json_decode($test_info["answer_json"],true));
 }
 
 

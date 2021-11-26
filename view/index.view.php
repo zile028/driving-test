@@ -14,7 +14,7 @@ require ROOT . "/include/main_nav.php";
         Preuzeta su zvanična ispitna pitanja MUP Srbije. Možete vežbati testove preko mobilnog telefona,
         tableta, računara ili bilo kog drugog uređaja koji ima pritup internetu i neki od pretrazivaca (Chrome, FireFox,
         Opera...).<br>
-        Da bi vam se sačuvao ukupni uspeh morate imati nalog i biti ulogovani.<br>
+        Da bi ste imali pristup testovima morate imati nalog i biti ulogovani.<br>
         Najnovoji testovi za polaganje vozačkog ispita B kategorije. Za uspešan ishod potrebno je 85% tačnih odgovora na
         testu.
     </h3>

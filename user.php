@@ -19,6 +19,7 @@ if (haveQryUrl()) {
     );
     $test_info = $User->getTestsStatistic($_GET["id"]);
 } else {
+    
     $user_preview = $User->selectSingleJoin(
         ["users", "roles"],
         "role_id",

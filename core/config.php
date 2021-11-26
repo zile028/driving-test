@@ -14,10 +14,10 @@ $conn_config = [
         "dbname"   => "testovi",
     ],
     "host" => [
-        "host"     => "localhost:8888",
-        "user"     => "root",
-        "password" => "root",
-        "dbname"   => "testovi",
+        "host"     => "localhost",
+        "user"     => "hdza0418_dtadmin",
+        "password" => "123Davidavid123",
+        "dbname"   => "hdza0418_driving_test",
     ],
 ];
 
