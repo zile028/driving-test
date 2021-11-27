@@ -29,20 +29,11 @@ $conn_config = [
         "password" => "root",
         "dbname"   => "testovi",
     ],
-<<<<<<< HEAD
     "host"         => [
-=======
-    "host" => [
->>>>>>> fc16804bd8f081fd0613a1f7793f97979cee9f25
         "host"     => "localhost",
-        "user"     => "hdza0418_dtadmin",
-        "password" => "123Davidavid123",
-        "dbname"   => "hdza0418_driving_test",
-<<<<<<< HEAD
-=======
-    ],
-];
->>>>>>> fc16804bd8f081fd0613a1f7793f97979cee9f25
+        "user"     => "-",
+        "password" => "-",
+        "dbname"   => "-",
 
     ],
 ];
