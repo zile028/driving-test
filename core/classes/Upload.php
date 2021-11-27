@@ -112,9 +112,12 @@ class Upload
 
     public function uploads($file, $destination)
     {
+        
         if (move_uploaded_file($file["temp_name"], $destination . $file["store_name"])) {
+            
             return $file["store_name"];
         } else {
+             
             return false;
         };
     }

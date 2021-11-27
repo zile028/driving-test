@@ -1,6 +1,8 @@
 <?php
 require "core/init.php";
 
+
+
 if (!$User->isLoged()) {header("location: index.php");}
 
 $error = [];
@@ -58,6 +60,7 @@ if (isset($_POST["reg_btn"])) {
     }
 
     if (count($error) == 0) {
+        $arg["role_id"]=2;
         $status = $User->register($arg);
         if ($User->register_status) {
             unset($arg);

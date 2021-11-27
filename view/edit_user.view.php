@@ -4,7 +4,7 @@ require ROOT . "/include/main_nav.php";
 ?>
 
 <header class="jumbotron text-center">
-    <h1><?php echo "{$user_info->first_name} {$user_info->last_name}"; ?></h1>
+    <h1><?php echo "{$user_preview->first_name} {$user_preview->last_name}"; ?></h1>
 
 </header>
 
@@ -13,14 +13,15 @@ require ROOT . "/include/main_nav.php";
         enctype="multipart/form-data">
 
         <div class="col-md-3 offset-md-1 text-center">
-            <?php if($user_info->profil_img): ?>
-            <img id="profil" src="<?php echo SRC_URI . $user_info->profil_img; ?>" class="img-thumbnail rounded-circle"
-                alt="">
+            <?php if($user_preview->profil_img): ?>
+            <img id="profil" src="<?php echo SRC_URI . $user_preview->profil_img; ?>"
+                class="img-thumbnail rounded-circle" alt="">
             <?php else: ?>
             <img id="profil" src="asset/logo.png" class="img-thumbnail rounded-circle" alt="">
             <?php endif; ?>
 
-            <input type="hidden" name="id" value="<?php echo $user_info->id;?>">
+            <input type="hidden" name="id" value="<?php echo $user_preview->users_id;?>">
+            <input type="hidden" name="old_img" value="<?php echo $user_preview->profil_img;?>">
             <label class="btn btn-info my-2" for="file-img">Одабери слику</label>
             <input id="file-img" type="file" name="profil_image">
         </div>
@@ -29,25 +30,25 @@ require ROOT . "/include/main_nav.php";
             <div class="d-flex align-items-center">
                 <label class="m-0 col-md-6">Ime</label>
                 <input name="first_name" class="form-control" type="text" placeholder="Ime"
-                    value="<?php echo testInput($user_info->first_name); ?>">
+                    value="<?php echo testInput($user_preview->first_name); ?>">
             </div>
 
             <div class="d-flex align-items-center">
                 <label class="m-0 col-md-6">Prezime</label>
                 <input name="last_name" class="form-control" type="text" placeholder="Prezime"
-                    value="<?php echo testInput($user_info->last_name); ?>">
+                    value="<?php echo testInput($user_preview->last_name); ?>">
             </div>
 
             <div class="d-flex align-items-center">
                 <label class="m-0 col-md-6">E-mail</label>
                 <input name="email" class="form-control" type="email" placeholder="E-mail"
-                    value="<?php echo testInput($user_info->email); ?>">
+                    value="<?php echo testInput($user_preview->email); ?>">
             </div>
 
             <div class="d-flex align-items-center">
                 <label class="m-0 col-md-6">Datum rođenja</label>
                 <input name="date_birth" class="form-control" type="date" placeholder="Datum rođenja"
-                    value="<?php echo testInput($user_info->date_birth); ?>">
+                    value="<?php echo testInput($user_preview->date_birth); ?>">
             </div>
         </div>
         <!-- error message -->
@@ -77,7 +78,7 @@ require ROOT . "/include/main_nav.php";
             <button class="btn btn-primary" type="submit" name="change_info">Sačuvaj izmene</button>
         </div>
     </form>
-
+    <?php if($_SESSION["id"] == $user_preview->users_id): ?>
     <form class="row border p-3 text-light mt-3 rounded-lg" action="edit_user.php" method="POST">
         <div class="col-12 text-center">
             <h4>Promeni lozinku</h4>
@@ -105,6 +106,7 @@ require ROOT . "/include/main_nav.php";
         </div>
         <?php endif; ?>
     </form>
+    <?php endif; ?>
 
 </section>
 

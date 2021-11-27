@@ -12,7 +12,11 @@ if ("admin" != $_SESSION["role"]) {redirect("index.php");}
 
 if(haveQryUrl()){
     if($_GET["action"]=="user"){
+        $img_path = $User->selectSingle("users",["id"=>$_GET["id"]]);
         $User->deleteSingle("users",["id"=> $_GET["id"]]);
+        if($img_path["profil_img"]){
+            unlink(UPLOAD_PATH . $img_path["profil_img"]);
+        };
         redirect("all_users.php");
     }
     if($_GET["action"]=="tests"){

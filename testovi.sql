@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8888
--- Generation Time: Nov 25, 2021 at 11:08 PM
+-- Generation Time: Nov 27, 2021 at 03:12 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.4.1
 
@@ -309,32 +309,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `date_birth`, `email`, `password`, `created_at`, `last_login`, `profil_img`, `role_id`) VALUES
-(1, 'Dejan', 'Živković', '2021-11-08', 'zile028@gmail.com', '$2y$10$Q4LxKZ.O0pxUJVgxuz6G9.SMHi5EQrg5m1TrTFyKduT58MkFjX3K.', '2021-11-08 00:38:49', '2021-11-25 21:35:01', '3991637583489.jpg', 1),
-(7, 'Ненад', 'Станојевић', '2021-11-16', 'zile128@gmail.com', '$2y$10$xgdorIODs8Wtr/5j3NFqO.FgD1slqeGzGT9FEoUFXDPlU2Ywx5gli', '2021-11-08 21:33:55', '2021-11-08 21:33:55', NULL, 2),
+(1, 'Dejan', 'Živković', '2021-11-08', 'zile028@gmail.com', '$2y$10$Q4LxKZ.O0pxUJVgxuz6G9.SMHi5EQrg5m1TrTFyKduT58MkFjX3K.', '2021-11-08 00:38:49', '2021-11-27 11:15:11', '9771638024812.jpg', 1),
+(7, 'Ненад', 'Станојевић', '2021-11-16', 'zile128@gmail.com', '$2y$10$xgdorIODs8Wtr/5j3NFqO.FgD1slqeGzGT9FEoUFXDPlU2Ywx5gli', '2021-11-08 21:33:55', '2021-11-08 21:33:55', '5821638024781.jpg', 2),
 (9, 'Небојша', 'Васић', '1975-10-11', 'vasic@gmail.com', '$2y$10$5VfPZRhQIq5D9qrs0uOQaOGtevmA2sNx.seQYyX75ikXH9rldIV3.', '2021-11-12 21:04:07', '2021-11-25 21:34:51', '7781636814932.jpg', 2);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `user_answer`
---
-
-CREATE TABLE `user_answer` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `solution_id` int(11) NOT NULL,
-  `test_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `user_answer`
---
-
-INSERT INTO `user_answer` (`id`, `user_id`, `solution_id`, `test_id`) VALUES
-(1, 1, 9, 1),
-(2, 1, 10, 1),
-(3, 1, 15, 1),
-(4, 1, 18, 1);
 
 -- --------------------------------------------------------
 
@@ -349,7 +326,7 @@ CREATE TABLE `user_test` (
   `points` int(11) NOT NULL,
   `number_correct` int(11) NOT NULL,
   `percent` int(11) DEFAULT NULL,
-  `answer_json` json NOT NULL
+  `answer_json` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -415,12 +392,6 @@ ALTER TABLE `users`
   ADD KEY `role_id_2` (`role_id`);
 
 --
--- Indexes for table `user_answer`
---
-ALTER TABLE `user_answer`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `user_test`
 --
 ALTER TABLE `user_test`
@@ -436,7 +407,7 @@ ALTER TABLE `user_test`
 -- AUTO_INCREMENT for table `question`
 --
 ALTER TABLE `question`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -448,31 +419,25 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `solution`
 --
 ALTER TABLE `solution`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=177;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=179;
 
 --
 -- AUTO_INCREMENT for table `tests`
 --
 ALTER TABLE `tests`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `test_category`
 --
 ALTER TABLE `test_category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- AUTO_INCREMENT for table `user_answer`
---
-ALTER TABLE `user_answer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `user_test`

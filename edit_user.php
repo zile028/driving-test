@@ -8,6 +8,23 @@ $user_info = $User->selectSingleJoin(
     ["id" => $_SESSION["id"]]
 );
 
+if (haveQryUrl() && $_SESSION["role"] != "admin"){redirect("edit_user.php");}
+
+if (haveQryUrl()) {
+    $user_preview = $User->selectSingleJoin(
+        ["users", "roles"],
+        "role_id",
+        ["id" => $_GET["id"]]
+    );
+} else {
+    $user_preview = $User->selectSingleJoin(
+        ["users", "roles"],
+        "role_id",
+        ["id" => $_SESSION["id"]]
+    );
+
+}
+
 
 if (isset($_POST["change_info"])) {
     $data = [];
@@ -47,10 +64,11 @@ if (isset($_POST["change_info"])) {
         $Upload->unit            = $Upload::MB;
 
         $check_status = $Upload->checkFile($file);
+        
         if (count($check_status["errors"]) == 0) {
-            unlink(UPLOAD_PATH . $user_info->profil_img);
+            unlink(UPLOAD_PATH . $_POST["old_img"]);
             if ($store_name = $Upload->uploads($file, UPLOAD_PATH)) {
-                $User->addProfilImage($store_name, $user_info->users_id);
+                $User->addProfilImage($store_name, $_POST["id"]);
                 // redirect("user.php");
             }
         } else {
@@ -58,8 +76,9 @@ if (isset($_POST["change_info"])) {
         }
     }
     if(count($error["info"])==0){
-        $User->updateTable("users",$data,["id"=>$_SESSION["id"]]);
-        redirect("edit_user.php");
+
+        $User->updateTable("users",$data,["id"=>$_POST["id"]]);
+        redirect("edit_user.php","id=" . $_POST["id"]);
     }
 
 
@@ -81,7 +100,7 @@ if (isset($_POST["change_info"])) {
             break;
     }
     if(count($error_password)==0){
-        $User->updateTable("users",$data,["id"=>$_SESSION["id"]]);
+        $User->updateTable("users",$data,["id"=>$_SESION["id"]]);
         redirect("edit_user.php");
     }
 }

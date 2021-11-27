@@ -65,7 +65,7 @@ require ROOT . "/include/main_nav.php";
 
                     <?php if($q["atach"]): ?>
                     <div class="atach-img col-md-4">
-                        <img class="p-1 border rounded" src="<?php echo ROOT_DIR . "/upload/" . $q["atach"] ; ?>"
+                        <img class="p-1 border rounded" src="<?php echo SRC_URI . $q["atach"] ; ?>"
                             alt="">
                     </div>
                     <?php endif; ?>

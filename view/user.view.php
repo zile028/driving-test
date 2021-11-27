@@ -4,15 +4,15 @@ require ROOT . "/include/main_nav.php";
 ?>
 
 <header class="jumbotron text-center">
-    <h1><?php echo "{$user_info->first_name} {$user_info->last_name}"; ?></h1>
+    <h1><?php echo "{$user_preview->first_name} {$user_preview->last_name}"; ?></h1>
 
 </header>
 
 <section class="container">
     <article class="row">
         <div class="col-md-3 offset-md-1">
-            <?php if($user_info->profil_img): ?>
-            <img id="profil" src="upload/<?php echo $user_info->profil_img; ?>" class="img-thumbnail rounded-circle"
+            <?php if($user_preview->profil_img): ?>
+            <img id="profil" src="upload/<?php echo $user_preview->profil_img; ?>" class="img-thumbnail rounded-circle"
                 alt="">
             <?php else: ?>
             <img id="profil" src="asset/logo.png" class="img-thumbnail rounded-circle" alt="">
@@ -22,31 +22,31 @@ require ROOT . "/include/main_nav.php";
         <div class="col-md-6">
             <ul class="user-info list-group  ">
                 <li class="list-group-item bg-transparent text-light"><span>Ime:</span>
-                    <p><?php echo $user_info->first_name; ?></p>
+                    <p><?php echo $user_preview->first_name; ?></p>
                 </li>
                 <li class="list-group-item bg-transparent text-light"><span>Prezime:</span>
-                    <p><?php echo $user_info->last_name; ?></p>
+                    <p><?php echo $user_preview->last_name; ?></p>
                 </li>
                 <li class="list-group-item bg-transparent text-light"><span>E-mail:</span>
-                    <p><?php echo $user_info->email; ?></p>
+                    <p><?php echo $user_preview->email; ?></p>
                 </li>
                 <li class="list-group-item bg-transparent text-light"><span>Uloga:</span>
                     <p><?php echo $_SESSION["role"]; ?></p>
                 </li>
                 <li class="list-group-item bg-transparent text-light"><span>Datum
                         rođenja:</span>
-                    <p><?php echo displayDate($user_info->date_birth); ?></p>
+                    <p><?php echo displayDate($user_preview->date_birth); ?></p>
                 </li>
                 <li class="list-group-item bg-transparent text-light"><span>Registrovan
                         od:</span>
-                    <p><?php echo displayDateTime($user_info->created_at); ?></p>
+                    <p><?php echo displayDateTime($user_preview->created_at); ?></p>
                 </li>
                 <li class="list-group-item bg-transparent text-light"><span>Poslednji
                         pristup:</span>
-                    <p><?php echo displayDateTime($user_info->last_login); ?></p>
+                    <p><?php echo displayDateTime($user_preview->last_login); ?></p>
                 </li>
                 <li class="list-group-item bg-transparent text-light border-0 text-center"><a class="btn btn-primary"
-                        href="edit_user.php?id=<?php echo $user_info->id; ?>">Promena
+                        href="edit_user.php?id=<?php echo $user_preview->users_id; ?>">Promena
                         podataka</a>
                 </li>
 
