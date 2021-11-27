@@ -13,6 +13,7 @@ require ROOT . "/include/main_nav.php";
         </li>
         <li class="list-group-item bg-transparent border-0">Uspeh: <?php echo $test_info["percent"]; ?>%</li>
     </ul>
+<<<<<<< HEAD
     <a class="btn btn-primary" href="user.php">NAZAD</a>
 </header>
 <section class="container">
@@ -23,6 +24,12 @@ require ROOT . "/include/main_nav.php";
         <span class="btn btn-warning mr-1">TAČAN ODGOVOR</span>
     </article>
     <article class="mt-4">
+=======
+</header>
+<section class="container">
+
+    <article class=" mt-4">
+>>>>>>> fc16804bd8f081fd0613a1f7793f97979cee9f25
 
         <?php $i=1; foreach($questions as $val): ?>
         <?php $q=$val["question"]; ?>
@@ -65,7 +72,11 @@ require ROOT . "/include/main_nav.php";
 
                 <?php if($q["atach"]): ?>
                 <div class="atach-img col-md-4">
+<<<<<<< HEAD
                     <img class="p-1 border rounded" src="<?php echo SRC_URI . $q["atach"] ; ?>" alt="">
+=======
+                    <img class="p-1 border rounded" src="<?php echo ROOT_DIR . "/upload/" . $q["atach"] ; ?>" alt="">
+>>>>>>> fc16804bd8f081fd0613a1f7793f97979cee9f25
                 </div>
                 <?php endif; ?>
 
@@ -76,10 +87,13 @@ require ROOT . "/include/main_nav.php";
             </div>
         </div>
         <?php $i++; endforeach; ?>
+<<<<<<< HEAD
         
     </article>
     <article class="text-center">
         <a class="btn btn-primary" href="user.php">NAZAD</a>
+=======
+>>>>>>> fc16804bd8f081fd0613a1f7793f97979cee9f25
     </article>
 </section>
 <?php
