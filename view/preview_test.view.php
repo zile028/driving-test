@@ -72,11 +72,7 @@ require ROOT . "/include/main_nav.php";
 
                 <?php if($q["atach"]): ?>
                 <div class="atach-img col-md-4">
-<<<<<<< HEAD
                     <img class="p-1 border rounded" src="<?php echo SRC_URI . $q["atach"] ; ?>" alt="">
-=======
-                    <img class="p-1 border rounded" src="<?php echo ROOT_DIR . "/upload/" . $q["atach"] ; ?>" alt="">
->>>>>>> fc16804bd8f081fd0613a1f7793f97979cee9f25
                 </div>
                 <?php endif; ?>
 
@@ -87,13 +83,10 @@ require ROOT . "/include/main_nav.php";
             </div>
         </div>
         <?php $i++; endforeach; ?>
-<<<<<<< HEAD
         
     </article>
     <article class="text-center">
         <a class="btn btn-primary" href="user.php">NAZAD</a>
-=======
->>>>>>> fc16804bd8f081fd0613a1f7793f97979cee9f25
     </article>
 </section>
 <?php

@@ -21,10 +21,7 @@ require ROOT . "/include/main_nav.php";
             <?php endif; ?>
 
             <input type="hidden" name="id" value="<?php echo $user_preview->users_id;?>">
-<<<<<<< HEAD
             <input type="hidden" name="old_img" value="<?php echo $user_preview->profil_img;?>">
-=======
->>>>>>> fc16804bd8f081fd0613a1f7793f97979cee9f25
             <label class="btn btn-info my-2" for="file-img">Одабери слику</label>
             <input id="file-img" type="file" name="profil_image">
         </div>

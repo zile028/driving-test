@@ -3,11 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8888
-<<<<<<< HEAD
--- Generation Time: Nov 27, 2021 at 03:12 PM
-=======
--- Generation Time: Nov 26, 2021 at 09:25 PM
->>>>>>> fc16804bd8f081fd0613a1f7793f97979cee9f25
+-- Generation Time: Nov 29, 2021 at 05:33 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.4.1
 
@@ -313,14 +309,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `date_birth`, `email`, `password`, `created_at`, `last_login`, `profil_img`, `role_id`) VALUES
-<<<<<<< HEAD
 (1, 'Dejan', 'Živković', '2021-11-08', 'zile028@gmail.com', '$2y$10$Q4LxKZ.O0pxUJVgxuz6G9.SMHi5EQrg5m1TrTFyKduT58MkFjX3K.', '2021-11-08 00:38:49', '2021-11-27 11:15:11', '9771638024812.jpg', 1),
 (7, 'Ненад', 'Станојевић', '2021-11-16', 'zile128@gmail.com', '$2y$10$xgdorIODs8Wtr/5j3NFqO.FgD1slqeGzGT9FEoUFXDPlU2Ywx5gli', '2021-11-08 21:33:55', '2021-11-08 21:33:55', '5821638024781.jpg', 2),
 (9, 'Небојша', 'Васић', '1975-10-11', 'vasic@gmail.com', '$2y$10$5VfPZRhQIq5D9qrs0uOQaOGtevmA2sNx.seQYyX75ikXH9rldIV3.', '2021-11-12 21:04:07', '2021-11-25 21:34:51', '7781636814932.jpg', 2);
-=======
-(1, 'Dejan', 'Živković', '2021-11-08', 'zile028@gmail.com', '$2y$10$Q4LxKZ.O0pxUJVgxuz6G9.SMHi5EQrg5m1TrTFyKduT58MkFjX3K.', '2021-11-08 00:38:49', '2021-11-26 19:55:19', '3991637583489.jpg', 1),
-(9, 'Небојша', 'Васић', '1975-10-11', 'vasic@gmail.com', '$2y$10$5VfPZRhQIq5D9qrs0uOQaOGtevmA2sNx.seQYyX75ikXH9rldIV3.', '2021-11-12 21:04:07', '2021-11-26 19:42:29', '7781636814932.jpg', 2);
->>>>>>> fc16804bd8f081fd0613a1f7793f97979cee9f25
 
 -- --------------------------------------------------------
 
@@ -335,11 +326,7 @@ CREATE TABLE `user_test` (
   `points` int(11) NOT NULL,
   `number_correct` int(11) NOT NULL,
   `percent` int(11) DEFAULT NULL,
-<<<<<<< HEAD
   `answer_json` text NOT NULL
-=======
-  `answer_json` text
->>>>>>> fc16804bd8f081fd0613a1f7793f97979cee9f25
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -420,7 +407,7 @@ ALTER TABLE `user_test`
 -- AUTO_INCREMENT for table `question`
 --
 ALTER TABLE `question`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -432,7 +419,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `solution`
 --
 ALTER TABLE `solution`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=179;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=177;
 
 --
 -- AUTO_INCREMENT for table `tests`
@@ -450,17 +437,7 @@ ALTER TABLE `test_category`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-<<<<<<< HEAD
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-=======
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
---
--- AUTO_INCREMENT for table `user_answer`
---
-ALTER TABLE `user_answer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
->>>>>>> fc16804bd8f081fd0613a1f7793f97979cee9f25
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `user_test`
