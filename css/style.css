@@ -7,12 +7,12 @@
 body {
   background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(../asset/bg.jpg);
   background-position: center top;
-  background-size: cover;
+  background-size: 100% 100vh;
   background-attachment: fixed;
 }
 
 .jumbotron {
-  background: linear-gradient(to bottom, #343a40, rgba(0, 0, 0, 0));
+  background-color: transparent;
   color: #ddd;
 }
 
@@ -158,5 +158,73 @@ textarea {
 .user-info li {
   border: transparent;
   border-bottom: 1px solid #fff;
+}
+
+.login-register {
+  background-color: rgba(0, 0, 0, 0.2);
+  border: 1px solid #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.2);
+  position: relative;
+  width: 100%;
+  min-height: 80vh;
+  margin: 0 auto;
+  max-width: 700px;
+}
+
+.login-register > div {
+  position: absolute;
+  width: 100%;
+  perspective: 600px;
+  backface-visibility: hidden;
+  transition: transform 0.4s ease-in-out;
+}
+
+.login-register > div input,
+.login-register > div button {
+  font-size: 20px;
+}
+
+.login-register > div input {
+  margin-bottom: 40px;
+  background-color: transparent;
+  border: 1px solid #fff;
+  color: #fff;
+}
+
+.login-register > div input::placeholder {
+  color: #fff;
+}
+
+.login-register > div input:focus {
+  background-color: transparent;
+  color: tomato;
+}
+
+.login-register > div input.err-input::placeholder {
+  color: tomato;
+}
+
+.login-register.flipOn .login {
+  transform: rotateY(180deg);
+}
+
+.login-register.flipOn .register {
+  transform: rotateY(0deg);
+}
+
+.login {
+  display: block;
+  width: 100%;
+  padding: 0 40px 40px;
+  margin: 0 auto;
+}
+
+.register {
+  width: 400px;
+  display: block;
+  padding: 0 40px 40px;
+  margin: 0 auto;
+  transform: rotateY(180deg);
 }
 /*# sourceMappingURL=style.css.map */

@@ -7,15 +7,18 @@ $user_info = $User->selectSingleJoin(
     "role_id",
     ["id" => $_SESSION["id"]]
 );
-$test_info = $Tests->testInfo(["id" => $_GET["id"]]);
-$questions =$Tests->getTestQuestions(["test_id"  => $_GET["id"]]);
+$test_info   = $Tests->testInfo(["id" => $_GET["id"]]);
+$questions   = $Tests->getTestQuestions(["test_id" => $_GET["id"]]);
+$recive_data = json_decode($_POST["poslato"], true);
+if ("POST" == $_SERVER["REQUEST_METHOD"]) {
+}
+if (isset($recive_data["finish_test"])) {
 
-if (isset($_POST["finish_test"])) {
     $data            = [];
     $user_answer     = [];
     $format_answer   = [];
-    $all_question    = $_POST["question_id"];
-    $correct_answers = $_POST["correct_answer"];
+    $all_question    = $recive_data["question_id"];
+    $correct_answers = $recive_data["correct_answer"];
 
     $result_test = [
         "exact"  => [],
@@ -23,16 +26,7 @@ if (isset($_POST["finish_test"])) {
         "points" => [],
     ];
 
-    $user_answer = $_POST["answer"];
-
-    foreach ($user_answer as $key => $value) {
-        if (is_array($value)) {
-            $format_answer[$key] = $value;
-        } else {
-            $format_answer[$key] = [$value => $value];
-        }
-        ;
-    }
+    $format_answer = $recive_data["answers"];
 
     $question_answers = json_encode($format_answer, JSON_PRETTY_PRINT);
 
@@ -55,20 +49,18 @@ if (isset($_POST["finish_test"])) {
 
     }
 
-    $take_point=array_sum($result_test["points"]);
-    $max_point=$test_info["max_points"];
-    $percent=($take_point/$max_point)*100;
+    $take_point = array_sum($result_test["points"]);
+    $max_point  = $test_info["max_points"];
+    $percent    = ($take_point / $max_point) * 100;
 
     $data = [
         "test_id"        => $_GET["id"],
         "user_id"        => $_SESSION["id"],
         "points"         => $take_point,
         "number_correct" => count($result_test["exact"]),
-        "percent" => $percent,
+        "percent"        => $percent,
         "answer_json"    => $question_answers,
     ];
-
-
 
     $Tests->insertInto("user_test", $data);
     redirect("user.php");

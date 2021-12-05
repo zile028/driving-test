@@ -39,7 +39,7 @@ if (isset($_POST["reg_btn"])) {
     }
 
     if ($data = testInput($_POST["password"])) {
-        $arg["password"] = password_hash($data, PASSWORD_DEFAULT);
+        $arg["password"] = $data;
     } else {
         $password_err = "Lozinka je obavezna!";
         array_push($error, $password_err);
@@ -63,8 +63,11 @@ if (isset($_POST["reg_btn"])) {
         $arg["role_id"]=2;
         $status = $User->register($arg);
         if ($User->register_status) {
+            $User->login($arg["email"],$arg["password"]);
             unset($arg);
             unset($error);
+            header("location: user.php");
+
         }
     }
 

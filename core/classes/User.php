@@ -10,6 +10,7 @@ class User extends QueryBuilder
         $check_exist = $this->selectSingle("users", ["email" => $user_data["email"]]);
 
         if (false == $check_exist) {
+            $user_data["password"]=password_hash($user_data["password"], PASSWORD_DEFAULT);
             $sql   = "INSERT INTO users (first_name, last_name, date_birth, email, password, role_id) VALUES (:first_name, :last_name, :date_birth, :email, :password, :role_id)";
             $query = $this->db->prepare($sql);
             $query->execute($user_data);
@@ -27,8 +28,9 @@ class User extends QueryBuilder
     public function login($email, $password)
     {
         $get_user = $this->selectSingle("users", ["email" => $email]);
-
-        if (!$get_user) {
+        if(empty($email) || empty($password)){
+            $this->login_msg = "E-mail i password su obavezni!";
+        }elseif (!$get_user) {
             $this->login_msg = "Korisnik sa ovom E-mail adresom ne postoji";
         } else {
             $user_password = $get_user["password"];

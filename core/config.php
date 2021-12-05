@@ -18,7 +18,7 @@ $config = [
 // database connect config
 $conn_config = [
     "home_desktop" => [
-        "host"     => "localhost:8888",
+        "host"     => "localhost:8889",
         "user"     => "root",
         "password" => "root",
         "dbname"   => "testovi",
@@ -31,9 +31,9 @@ $conn_config = [
     ],
     "host"         => [
         "host"     => "localhost",
-        "user"     => "-",
-        "password" => "-",
-        "dbname"   => "-",
+        "user"     => "hdza0418_dtadmin",
+        "password" => "123Davidavid123",
+        "dbname"   => "hdza0418_driving_test",
 
     ],
 ];

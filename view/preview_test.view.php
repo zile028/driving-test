@@ -13,23 +13,17 @@ require ROOT . "/include/main_nav.php";
         </li>
         <li class="list-group-item bg-transparent border-0">Uspeh: <?php echo $test_info["percent"]; ?>%</li>
     </ul>
-<<<<<<< HEAD
     <a class="btn btn-primary" href="user.php">NAZAD</a>
 </header>
 <section class="container">
     <article>
-        <p class="text-light">Kod pitanja gde je potrebno odabrati dva ili više ponuđenih odgovora, kao tačan odgovor na pitanje se uzima jedino ako se odaberu svi tačni odgovori.</p>
+        <p class="text-light">Kod pitanja gde je potrebno odabrati dva ili više ponuđenih odgovora, kao tačan odgovor na
+            pitanje se uzima jedino ako se odaberu svi tačni odgovori.</p>
         <span class="btn btn-success mr-1 mb-1">TAČNO ODGOVORENO</span>
         <span class="btn btn-danger mr-1 mb-1">NETAČANO ODGOVORENO</span>
         <span class="btn btn-warning mr-1">TAČAN ODGOVOR</span>
     </article>
     <article class="mt-4">
-=======
-</header>
-<section class="container">
-
-    <article class=" mt-4">
->>>>>>> fc16804bd8f081fd0613a1f7793f97979cee9f25
 
         <?php $i=1; foreach($questions as $val): ?>
         <?php $q=$val["question"]; ?>
@@ -83,7 +77,7 @@ require ROOT . "/include/main_nav.php";
             </div>
         </div>
         <?php $i++; endforeach; ?>
-        
+
     </article>
     <article class="text-center">
         <a class="btn btn-primary" href="user.php">NAZAD</a>

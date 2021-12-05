@@ -35,7 +35,6 @@ class Tests extends QueryBuilder
 
         $question = $qry->fetchAll(PDO::FETCH_ASSOC);
 
-
         $sql = "SELECT
                 question_id,
                 id,
@@ -110,8 +109,9 @@ class Tests extends QueryBuilder
             COUNT(tq.test_id) number_question
             FROM tests t
             JOIN test_category tc ON t.category_id = tc.id
-            JOIN test_question tq ON t.id = tq.test_id
-            GROUP BY tq.test_id
+            LEFT JOIN test_question tq ON t.id = tq.test_id
+            GROUP BY t.id
+            ORDER BY tc.category_name
             ";
         $qry = $this->db->prepare($sql);
         $qry->execute();
@@ -201,7 +201,8 @@ class Tests extends QueryBuilder
 
     }
 
-    function previewTest($data){
+    public function previewTest($data)
+    {
 
         $sql = "SELECT
                 ut.*,
@@ -217,26 +218,33 @@ class Tests extends QueryBuilder
                 GROUP BY ut.id";
         $qry = $this->db->prepare($sql);
         $qry->execute($data);
-        $info =$qry->fetch(PDO::FETCH_ASSOC);
-
-        // $sql = "SELECT
-        //         ut.*,
-        //         tc.category_name,
-        //         COUNT(tq.test_id) number_questions,
-        //         SUM(tq.points) max_points,
-        //         t.test_name
-        //         FROM user_test ut
-        //         JOIN tests t ON ut.test_id = t.id
-        //         LEFT JOIN test_question tq ON t.id = tq.test_id
-        //         JOIN test_category tc ON tc.id = t.category_id
-        //         WHERE ut.id = :id
-        //         GROUP BY ut.id";
-        // $qry = $this->db->prepare($sql);
-        // $qry->execute($data);
-        // $info =$qry->fetch(PDO::FETCH_ASSOC);
-
+        $info = $qry->fetch(PDO::FETCH_ASSOC);
 
         return ["info" => $info];
 
+    }
+    public function checkQuestion(int $question_id, array $solution)
+    {
+        $question = $this->selectSingle("question", ["id" => $question_id]);
+
+        $sql = "SELECT id FROM solution WHERE corect = :correct AND question_id = :question_id";
+        $qry = $this->db->prepare($sql);
+        $qry->execute(["correct" => 1, "question_id" => $question_id]);
+        // $correct_answers = $qry->fetchAll(PDO::FETCH_ASSOC);
+        $correct_answers = $qry->fetchAll(PDO::FETCH_COLUMN);
+        $result=false;
+        if (count($solution) == $question["answers"]) {
+            $criteria = "'" . implode("', '", $solution) . "'";
+            $sql      = "SELECT * FROM solution WHERE corect = :correct AND id IN ($criteria)";
+            $qry      = $this->db->prepare($sql);
+            $qry->execute(["correct" => 1]);
+            $result = $qry->rowCount();
+            if ($result != $question["answers"]) {
+                $result = false;
+            } else {
+                $result = true;
+            }
+        }
+        return ["is_correct" => $result, "points" => $question["points"], "answers" => $correct_answers];
     }
 }

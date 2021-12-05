@@ -1,8 +1,8 @@
 <?php
 require_once "config.php";
 
-$database = $conn_config["home_desktop"];
-$route=$config["local"]["route"];
+$database = $conn_config["host"];
+$route=$config["host"]["route"];
 define("TARGET_DIR", "/upload/"); //directory name where upload files
 define("ROOT", __DIR__ . "./.."); //root for include
 
