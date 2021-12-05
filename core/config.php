@@ -31,9 +31,9 @@ $conn_config = [
     ],
     "host"         => [
         "host"     => "localhost",
-        "user"     => "hdza0418_dtadmin",
-        "password" => "123Davidavid123",
-        "dbname"   => "hdza0418_driving_test",
+        "user"     => "=",
+        "password" => "=",
+        "dbname"   => "=",
 
     ],
 ];
